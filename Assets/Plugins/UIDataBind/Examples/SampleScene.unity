@@ -312,6 +312,8 @@ GameObject:
   - component: {fileID: 164315451}
   - component: {fileID: 164315453}
   - component: {fileID: 164315452}
+  - component: {fileID: 164315454}
+  - component: {fileID: 164315456}
   m_Layer: 5
   m_Name: '[I]SampleImage'
   m_TagString: Untagged
@@ -375,6 +377,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 164315450}
   m_CullTransparentMesh: 0
+--- !u!114 &164315454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164315450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &164315456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164315450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da4b3e129ef640119b61a9780507110b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _path:
+    Type: 0
+    PropertyName: 
 --- !u!1 &263052978
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,9 +464,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _path:
+    Type: 1
     PropertyName: Visible
-  _isVisibleOnStart: 0
-  _testValue: 0
 --- !u!114 &263052981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,7 +560,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 408027526}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 263052981}
+        m_MethodName: set_Visible
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &408027526
@@ -777,6 +824,7 @@ GameObject:
   - component: {fileID: 1056320259}
   - component: {fileID: 1056320261}
   - component: {fileID: 1056320260}
+  - component: {fileID: 1056320262}
   m_Layer: 5
   m_Name: '[I]SampleImage'
   m_TagString: Untagged
@@ -840,6 +888,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056320258}
   m_CullTransparentMesh: 0
+--- !u!114 &1056320262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056320258}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da4b3e129ef640119b61a9780507110b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _path:
+    Type: 1
+    PropertyName: SmapleImageVisible
 --- !u!1 &1160007901
 GameObject:
   m_ObjectHideFlags: 0

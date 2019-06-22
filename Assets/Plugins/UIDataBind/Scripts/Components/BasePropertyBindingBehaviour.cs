@@ -33,6 +33,7 @@ namespace Plugins.UIDataBind.Components
             }
 
             _bindingProperty.OnUpdateValue += UpdateValueHandler;
+            UpdateValueHandler(_bindingProperty.Value);
         }
 
         protected sealed override void Deactivate()

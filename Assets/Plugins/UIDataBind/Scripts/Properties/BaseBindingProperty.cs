@@ -2,13 +2,13 @@ using System;
 
 namespace Plugins.UIDataBind.Properties
 {
-    public abstract class BaseBindingProperty<TValue> : IBindingProperty<TValue>
+    public class BaseBindingProperty<TValue> : IBindingProperty<TValue>
     {
         private TValue _value;
 
         public event Action<TValue> OnUpdateValue;
 
-        protected BaseBindingProperty(TValue value) => Value = value;
+        public BaseBindingProperty(TValue value = default) => Value = value;
 
         public TValue Value
         {

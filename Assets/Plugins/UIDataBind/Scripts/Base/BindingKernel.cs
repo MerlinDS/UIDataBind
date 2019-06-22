@@ -38,9 +38,8 @@ namespace Plugins.UIDataBind.Base
             if (bindingPoint.IsEmpty)
                 return null;
 
-            var validPropertyPath = path.GetValidPropertyPath();
-
-            return bindingPoint.Properties.Where(p => p.Name == validPropertyPath)
+            var validPropertyPath = path.GetValidPropertyPath().ToLower();
+            return bindingPoint.Properties.Where(p => p.Name.ToLower() == validPropertyPath)
                 .Select(p => p.Instance)
                 .FirstOrDefault();
         }

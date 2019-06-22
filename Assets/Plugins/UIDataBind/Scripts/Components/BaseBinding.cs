@@ -1,5 +1,4 @@
 using Plugins.UIDataBind.Base;
-using Plugins.UIDataBind.Extensions;
 using UnityEngine;
 
 namespace Plugins.UIDataBind.Components
@@ -11,16 +10,7 @@ namespace Plugins.UIDataBind.Components
 
         #region Unity Events
 
-        private void OnEnable()
-        {
-            if (_path.IsEmpty())
-            {
-                Debug.LogWarning($"{this} contains empty path! This binding will be disabled!");
-                enabled = false;
-                return;
-            }
-            Activate(_path);
-        }
+        private void OnEnable() => Activate(_path);
 
         private void OnDisable() => Deactivate();
 
