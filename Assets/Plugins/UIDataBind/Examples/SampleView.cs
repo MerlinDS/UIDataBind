@@ -12,10 +12,5 @@ namespace Plugins.UIDataBind.Examples
             get => _visibleProperty.Value;
             set => _visibleProperty.Value = value;
         }
-
-        private void Start()
-        {
-            _visibleProperty.OnUpdateValue += value => Debug.Log(value);
-        }
     }
 }

@@ -12,7 +12,6 @@ namespace Plugins.UIDataBind.Components
 
         protected override void UpdateValueHandler(bool value)
         {
-            Debug.Log(value);
         }
     }
 }
