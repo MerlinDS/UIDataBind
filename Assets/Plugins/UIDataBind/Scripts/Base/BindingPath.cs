@@ -6,7 +6,5 @@ namespace Plugins.UIDataBind.Base
     public struct BindingPath
     {
         public string PropertyName;
-        public BaseView View;
-        public Type ViewType;
     }
 }
