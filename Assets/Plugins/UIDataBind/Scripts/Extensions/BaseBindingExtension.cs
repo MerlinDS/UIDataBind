@@ -10,13 +10,13 @@ namespace Plugins.UIDataBind.Extensions
     {
         [CanBeNull]
         public static IBindingProperty<TValue> FindBindingProperty<TValue>([NotNull] this BaseBinding binding,
-            BindingPath path)
+            BindingPath path, TValue defaultValue = default)
         {
             if (binding == null)
                 throw new ArgumentNullException(nameof(binding));
 
-            if(path.IsEmpty())
-                return new BaseBindingProperty<TValue>();
+            if(path.Type == BindingType.None || path.IsEmpty())
+                return new BaseBindingProperty<TValue>(defaultValue);
 
             return BindingKernel.Instance.FindProperty(binding, path) as IBindingProperty<TValue>;
         }

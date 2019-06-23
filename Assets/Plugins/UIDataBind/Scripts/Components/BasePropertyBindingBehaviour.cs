@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Plugins.UIDataBind.Base;
 using Plugins.UIDataBind.Extensions;
 using Plugins.UIDataBind.Properties;
@@ -9,6 +10,12 @@ namespace Plugins.UIDataBind.Components
     {
         private IBindingProperty<TValue> _bindingProperty;
 
+        [SerializeField]
+        private TValue _value;
+
+        [UsedImplicitly]
+        private TValue DefaultValue => _value;
+
         public TValue Value
         {
             get => _bindingProperty != null ? _bindingProperty.Value : default;
@@ -19,15 +26,16 @@ namespace Plugins.UIDataBind.Components
             }
         }
 
+
         protected sealed override void Activate(BindingPath path)
         {
-            _bindingProperty = this.FindBindingProperty<TValue>(path);
+            _bindingProperty = this.FindBindingProperty(path, _value);
             if (_bindingProperty == null)
             {
                 var contextName = this.FindContextName();
                 Debug.LogWarning(
                     $"Property {path.PropertyName} was not founds in {contextName}! Insure that context was added " +
-                    $"and has {path.GetValidPropertyPath()} readonly field.");
+                    $"and has {path.PropertyName} readonly field.");
                 enabled = false;
                 return;
             }

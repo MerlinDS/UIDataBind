@@ -5,8 +5,11 @@ namespace Plugins.UIDataBind.Components
 {
     public abstract class BaseBinding : MonoBehaviour
     {
+#pragma warning disable 0649
+        [HideInInspector]
         [SerializeField]
         private BindingPath _path;
+#pragma warning restore 0649
 
         #region Unity Events
 

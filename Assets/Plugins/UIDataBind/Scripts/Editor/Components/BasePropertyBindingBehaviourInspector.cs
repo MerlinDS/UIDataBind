@@ -18,8 +18,10 @@ namespace Plugins.UIDataBind.Editor.Components
 
         private SerializedProperty _type;
         private SerializedProperty _propertyName;
-        private string[] _availableFields;
         private SerializedProperty _path;
+        private SerializedProperty _defaultValue;
+
+        private string[] _availableFields;
 
         private void OnEnable()
         {
@@ -28,6 +30,7 @@ namespace Plugins.UIDataBind.Editor.Components
                 return;
 
             _path = serializedObject.FindProperty("_path");
+            _defaultValue = serializedObject.FindProperty("_value");
             _type = _path.FindPropertyRelative(nameof(PathTemplate.Type));
             _propertyName = _path.FindPropertyRelative(nameof(PathTemplate.PropertyName));
 
@@ -68,8 +71,15 @@ namespace Plugins.UIDataBind.Editor.Components
 
             if (_type.intValue != (int) BindingType.None)
                 DrawPropertyFieldGUI();
+            else
+            {
+                EditorGUI.BeginChangeCheck();
+                EditorGUILayout.PropertyField(_defaultValue);
+                if (EditorGUI.EndChangeCheck())
+                    serializedObject.ApplyModifiedProperties();
+            }
 
-            serializedObject.DrawPropertiesExcluding(_path);
+            serializedObject.DrawPropertiesExcluding(_path, _defaultValue);
         }
 
         private void DrawPropertyFieldGUI()

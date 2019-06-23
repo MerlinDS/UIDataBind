@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Plugins.UIDataBind.Components;
-using Plugins.UIDataBind.Extensions;
 using Plugins.UIDataBind.Properties;
 using UnityEngine;
 
@@ -38,8 +37,8 @@ namespace Plugins.UIDataBind.Base
             if (bindingPoint.IsEmpty)
                 return null;
 
-            var validPropertyPath = path.GetValidPropertyPath().ToLower();
-            return bindingPoint.Properties.Where(p => p.Name.ToLower() == validPropertyPath)
+            var propertyName = path.PropertyName;
+            return bindingPoint.Properties.Where(p => p.Name == propertyName)
                 .Select(p => p.Instance)
                 .FirstOrDefault();
         }
