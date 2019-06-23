@@ -9,10 +9,14 @@ namespace Plugins.UIDataBind.Components
     [AddComponentMenu("UIDataBind/Visible", 0)]
     public sealed class VisibleBinding : BasePropertyBindingBehaviour<bool>
     {
+        #region ComponentScope
+
         private readonly HashSet<Graphic> _graphics = new HashSet<Graphic>();
         private readonly HashSet<LayoutElement> _layouts = new HashSet<LayoutElement>();
-        private readonly HashSet<VisibleBinding> _binders = new HashSet<VisibleBinding>();
 
+        #endregion
+
+        private readonly HashSet<VisibleBinding> _bindings = new HashSet<VisibleBinding>();
         private readonly Queue<Transform> _transformsBuffer = new Queue<Transform>();
         private bool _isDirty = true;
 
@@ -28,6 +32,9 @@ namespace Plugins.UIDataBind.Components
             foreach (var layout in _layouts)
                 layout.ignoreLayout = !value;
 
+            foreach (var binding in _bindings)
+                binding.UpdateValueHandler(value && binding.Value);
+
         }
 
         private void UpdateCache()
@@ -38,8 +45,11 @@ namespace Plugins.UIDataBind.Components
             {
                 var component = _transformsBuffer.Dequeue();
                 AddChildren(component, _transformsBuffer);
-                if(component != transform)
-                    CollectComponents(component, _binders);
+                if (component != transform)
+                {
+                    if(CollectComponents(component, _bindings, true))
+                        continue;
+                }
 
                 CollectComponents(component, _graphics);
                 CollectComponents(component, _layouts);
@@ -52,25 +62,28 @@ namespace Plugins.UIDataBind.Components
                 buffer.Enqueue((Transform) child);
         }
 
-        private static void CollectComponents<TComponent>(Component container, ICollection<TComponent> cacheBuffer,
+        private static bool CollectComponents<TComponent>(Component container, ICollection<TComponent> cacheBuffer,
             bool onlyEnabled = false) where TComponent : Behaviour
         {
             if(container == null)
-                return;
+                return false;
 
             var components = container.GetComponents<TComponent>();
+            var length = cacheBuffer.Count;
             foreach (var component in components)
             {
                 if(!onlyEnabled || component.enabled)
                     cacheBuffer.Add(component);
             }
+
+            return cacheBuffer.Count != length;
         }
 
         [UsedImplicitly]
         private void CleanCache()
         {
             _graphics.Clear();
-            _binders.Clear();
+            _bindings.Clear();
             _layouts.Clear();
             _isDirty = true;
         }

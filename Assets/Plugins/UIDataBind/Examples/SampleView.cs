@@ -13,7 +13,7 @@ namespace Plugins.UIDataBind.Examples
             set => _visibleProperty.Value = value;
         }
 
-        private readonly BooleanProperty _smapleImageVisibleProperty = new BooleanProperty(false);
+        private readonly BooleanProperty _smapleImageVisibleProperty = new BooleanProperty(true);
 
         public bool SampleImageVisible
         {
