@@ -1,4 +1,4 @@
-namespace Plugins.UIDataBind.Components
+namespace Plugins.UIDataBind.Base
 {
     public interface IPropertyBindingBehaviour<TValue>
     {
