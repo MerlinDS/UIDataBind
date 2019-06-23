@@ -5,13 +5,12 @@ namespace Plugins.UIDataBind.Properties
     public interface IBindingProperty<TValue> : IBindingProperty
     {
         event Action<TValue> OnUpdateValue;
-        TValue Value { get; set; }
+        new TValue Value { get; set; }
 
-        void SilentSet(TValue value);
     }
 
     public interface IBindingProperty
     {
-
+        object Value { get; set; }
     }
 }

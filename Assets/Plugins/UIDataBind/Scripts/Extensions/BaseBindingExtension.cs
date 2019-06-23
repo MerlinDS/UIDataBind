@@ -15,19 +15,14 @@ namespace Plugins.UIDataBind.Extensions
             if (binding == null)
                 throw new ArgumentNullException(nameof(binding));
 
-            if(path.Type == BindingType.None || path.IsEmpty())
+            if (path.Type == BindingType.None || path.IsEmpty())
                 return new BaseBindingProperty<TValue>(defaultValue);
 
-            return BindingKernel.Instance.FindProperty(binding, path) as IBindingProperty<TValue>;
-        }
+            var bindingProperty = BindingKernel.Instance.FindProperty(binding, path);
+            if (bindingProperty == null || bindingProperty is IBindingProperty<TValue>)
+                return bindingProperty as IBindingProperty<TValue>;
 
-        [CanBeNull]
-        public static IViewContext FindContext([NotNull] this BaseBinding binding)
-        {
-            if (binding == null)
-                throw new ArgumentNullException(nameof(binding));
-
-            return BindingKernel.Instance.FindContext(binding);
+            return bindingProperty.IsConvertible<TValue>() ? new PropertyAdapter<TValue>(bindingProperty) : null;
         }
 
         [NotNull]

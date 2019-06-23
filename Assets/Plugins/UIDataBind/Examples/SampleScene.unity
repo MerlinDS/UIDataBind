@@ -317,8 +317,8 @@ MonoBehaviour:
   _path:
     Type: 0
     PropertyName: 
-  _value: Some test text
-  _format: 'TEMP: {0}'
+  _value: Sample text
+  _format: 'FROM COMPONENT: {0}'
 --- !u!1 &40585803
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +374,7 @@ MonoBehaviour:
     Type: 1
     PropertyName: _sampleIntProperty
   _value: Some test text
-  _format: 'INT: {0}'
+  _format: 'INT FROM CODE: {0}'
 --- !u!114 &40585806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,8 +781,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 263052981}
-        m_MethodName: set_Visible
-        m_Mode: 6
+        m_MethodName: set_SampleInt
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1320,7 +1320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: _sampleImageVisibleProperty
+    PropertyName: _sampleIntProperty
   _value: 0
 --- !u!1 &1160007901
 GameObject:

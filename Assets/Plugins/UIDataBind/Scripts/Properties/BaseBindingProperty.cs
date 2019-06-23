@@ -5,10 +5,13 @@ namespace Plugins.UIDataBind.Properties
     public class BaseBindingProperty<TValue> : IBindingProperty<TValue>
     {
         private TValue _value;
-
         public event Action<TValue> OnUpdateValue;
 
-        public BaseBindingProperty(TValue value = default) => Value = value;
+        object IBindingProperty.Value
+        {
+            get => Value;
+            set => Value = (TValue) value;
+        }
 
         public TValue Value
         {
@@ -20,6 +23,6 @@ namespace Plugins.UIDataBind.Properties
             }
         }
 
-        public void SilentSet(TValue value) => _value = value;
+        public BaseBindingProperty(TValue value = default) => Value = value;
     }
 }
