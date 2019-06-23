@@ -27,5 +27,13 @@ namespace Plugins.UIDataBind.Examples
             get => _sampleStringProperty.Value;
             set => _sampleStringProperty.Value = value;
         }
+
+        private readonly IntProperty _sampleIntProperty = new IntProperty(10);
+
+        public int SampleInt
+        {
+            get => _sampleIntProperty.Value;
+            set => _sampleIntProperty.Value = value;
+        }
     }
 }
