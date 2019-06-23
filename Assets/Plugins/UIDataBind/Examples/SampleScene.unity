@@ -372,7 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: _sampleStringProperty
+    PropertyName: _sampleIntProperty
   _value: Some test text
   _format: 'INT: {0}'
 --- !u!114 &40585806

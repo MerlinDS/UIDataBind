@@ -3,21 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
-using Plugins.UIDataBind.Properties;
+using Plugins.UIDataBind.Attributes;
 
 namespace Plugins.UIDataBind.Editor.Utils
 {
     public static class ReflectionExtension
     {
-        public static IEnumerable<FieldInfo> GetBindingPropertiesInfo([NotNull] this Type contextType, [NotNull] Type bindingType)
+        public static IEnumerable<BindingPropertyAttribute> GetBindingPropertyAttributes(
+            [NotNull] this Type contextType)
         {
-            return contextType.GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-                .Where(f => f.FieldType.IsAssignableFrom<IBindingProperty>())
-                .Where(f => f.IsFieldGenericTypeEqualsTo(bindingType));
-        }
+            var attributeType = typeof(BindingPropertyAttribute);
+            var fieldInfos = contextType.GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
 
-        public static bool IsFieldGenericTypeEqualsTo(this FieldInfo field, Type type) =>
-            field.FieldType.GetFirstGenericTypeFrom(typeof(IBindingProperty<>)) == type;
+            foreach (var fieldInfo in fieldInfos)
+            {
+                if (!Attribute.IsDefined(fieldInfo, attributeType))
+                    continue;
+
+                var attribute = (BindingPropertyAttribute) Attribute.GetCustomAttribute(fieldInfo, attributeType, true);
+                if (attribute == null)
+                    continue;
+
+                var bindingName = attribute.BindingName;
+                if (string.IsNullOrEmpty(bindingName))
+                    bindingName = fieldInfo.Name.ConvertToHumanReadtable();
+
+                attribute = new BindingPropertyAttribute(bindingName, attribute.AllowConversation)
+                    {Name = fieldInfo.Name};
+
+                yield return attribute;
+            }
+        }
 
         #region Global
 

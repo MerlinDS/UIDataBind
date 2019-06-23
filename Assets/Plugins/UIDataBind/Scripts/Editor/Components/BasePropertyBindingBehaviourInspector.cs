@@ -1,5 +1,6 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
+using Plugins.UIDataBind.Attributes;
 using Plugins.UIDataBind.Base;
 using Plugins.UIDataBind.Components;
 using Plugins.UIDataBind.Editor.Utils;
@@ -12,6 +13,7 @@ namespace Plugins.UIDataBind.Editor.Components
     public class BasePropertyBindingBehaviourInspector : UnityEditor.Editor
     {
         private static readonly BindingPath PathTemplate = new BindingPath();
+        private readonly List<BindingPropertyAttribute> _availableFields = new List<BindingPropertyAttribute>();
 
         private IViewContext _context;
         private BaseBinding _binding;
@@ -21,7 +23,6 @@ namespace Plugins.UIDataBind.Editor.Components
         private SerializedProperty _path;
         private SerializedProperty _defaultValue;
 
-        private string[] _availableFields;
 
         private void OnEnable()
         {
@@ -35,17 +36,12 @@ namespace Plugins.UIDataBind.Editor.Components
             _propertyName = _path.FindPropertyRelative(nameof(PathTemplate.PropertyName));
 
             _context = _binding.GetComponentInParent<IViewContext>();
-            _availableFields = CollectPropertyFields(_binding, _context);
+            _availableFields.Clear();
+
+            if(_context != null)
+                _availableFields.AddRange(_context.GetType().GetBindingPropertyAttributes());
         }
 
-        private static string[] CollectPropertyFields(BaseBinding binding, IViewContext context)
-        {
-            if (context == null)
-                return new string[0];
-
-            var bindingType = binding.GetType().GetFirstGenericTypeFrom(typeof(IPropertyBindingBehaviour<>));
-            return context.GetType().GetBindingPropertiesInfo(bindingType).Select(i => i.Name).ToArray();
-        }
 
         public override void OnInspectorGUI()
         {
@@ -85,13 +81,13 @@ namespace Plugins.UIDataBind.Editor.Components
         private void DrawPropertyFieldGUI()
         {
             EditorGUI.BeginChangeCheck();
-            var index = Array.IndexOf(_availableFields, _propertyName.stringValue);
+            var index = _availableFields.FindIndex(a => a.Name == _propertyName.stringValue);
             index = EditorGUILayout.Popup(_propertyName.name, index,
-                                          _availableFields.ConvertToHumanReadtable().ToArray());
+                                          _availableFields.Select(a=>a.BindingName).ToArray());
             if (!EditorGUI.EndChangeCheck())
                 return;
 
-            _propertyName.stringValue = index >= 0 ? _availableFields[index] : string.Empty;
+            _propertyName.stringValue = index >= 0 ? _availableFields[index].Name : string.Empty;
             serializedObject.ApplyModifiedProperties();
         }
     }
