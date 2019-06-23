@@ -10,8 +10,11 @@ namespace Plugins.UIDataBind.Components
     {
         private IBindingProperty<TValue> _bindingProperty;
 
+#pragma warning disable 0649
+        [HideInInspector]
         [SerializeField]
         private TValue _value;
+#pragma warning restore 0649
 
         [UsedImplicitly]
         private TValue DefaultValue => _value;
