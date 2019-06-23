@@ -412,6 +412,7 @@ MonoBehaviour:
   _path:
     Type: 0
     PropertyName: 
+  DefaultValue: 0
 --- !u!1 &263052978
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +466,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: Visible
+    PropertyName: _visibleProperty
+  DefaultValue: 0
 --- !u!114 &263052981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -902,7 +904,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: SmapleImageVisible
+    PropertyName: _smapleImageVisibleProperty
+  DefaultValue: 0
 --- !u!1 &1160007901
 GameObject:
   m_ObjectHideFlags: 0

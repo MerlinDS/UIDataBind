@@ -18,6 +18,10 @@ namespace Plugins.UIDataBind.Components
 
         private readonly HashSet<VisibleBinding> _bindings = new HashSet<VisibleBinding>();
         private readonly Queue<Transform> _transformsBuffer = new Queue<Transform>();
+
+        [SerializeField]
+        private bool DefaultValue;
+
         private bool _isDirty = true;
 
 
