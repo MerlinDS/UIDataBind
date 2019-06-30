@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 using Plugins.UIDataBind.Base;
 using Plugins.UIDataBind.Extensions;
@@ -30,6 +31,8 @@ namespace Plugins.UIDataBind.Components
             }
         }
 
+        public Type GetValueType => typeof(TValue);
+
 
         protected sealed override void Activate(BindingPath path)
         {
@@ -59,5 +62,6 @@ namespace Plugins.UIDataBind.Components
         }
 
         protected abstract void UpdateValueHandler(TValue value);
+
     }
 }

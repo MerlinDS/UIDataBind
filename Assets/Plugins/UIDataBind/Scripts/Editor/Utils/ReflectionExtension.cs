@@ -4,13 +4,15 @@ using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Plugins.UIDataBind.Attributes;
+using Plugins.UIDataBind.Properties;
+using Plugins.UIDataBind.Utils;
 
 namespace Plugins.UIDataBind.Editor.Utils
 {
     public static class ReflectionExtension
     {
         public static IEnumerable<BindingPropertyAttribute> GetBindingPropertyAttributes(
-            [NotNull] this Type contextType)
+            [NotNull] this Type contextType, Type expectedType = null)
         {
             var attributeType = typeof(BindingPropertyAttribute);
             var fieldInfos = contextType.GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
@@ -23,6 +25,13 @@ namespace Plugins.UIDataBind.Editor.Utils
                 var attribute = (BindingPropertyAttribute) Attribute.GetCustomAttribute(fieldInfo, attributeType, true);
                 if (attribute == null)
                     continue;
+
+                if (expectedType != null)
+                {
+                    var propertyType = fieldInfo.FieldType.GetFirstGenericTypeFrom(typeof(IBindingProperty<>));
+                    if (propertyType != expectedType && !ConvertUtils.IsConvertible(propertyType, expectedType))
+                        continue;
+                }
 
                 var bindingName = attribute.BindingName;
                 if (string.IsNullOrEmpty(bindingName))

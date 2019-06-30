@@ -530,7 +530,6 @@ GameObject:
   - component: {fileID: 164315453}
   - component: {fileID: 164315452}
   - component: {fileID: 164315454}
-  - component: {fileID: 164315456}
   - component: {fileID: 164315455}
   m_Layer: 5
   m_Name: '[I]SampleImage'
@@ -632,22 +631,6 @@ MonoBehaviour:
     PropertyName: _sampleSpritePathProperty
   _value: {fileID: 0}
   _sprite: 
---- !u!114 &164315456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 164315450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da4b3e129ef640119b61a9780507110b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _path:
-    Type: 0
-    PropertyName: 
-  _value: 1
 --- !u!1 &263052978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,8 +1013,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _path:
-    Type: 0
-    PropertyName: 
+    Type: 1
+    PropertyName: _buttonColorProperty
   _value: {r: 0.6917435, g: 1, b: 0.41509432, a: 1}
 --- !u!1 &660493474
 GameObject:
@@ -1520,7 +1503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: _sampleSpriteProperty
+    PropertyName: _sampleSpritePathProperty
   _value: {fileID: 0}
   _sprite: 
 --- !u!1 &1160007901

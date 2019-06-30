@@ -7,21 +7,30 @@ namespace Plugins.UIDataBind.Utils
     public static class ConvertUtils
     {
 
-        // ReSharper disable once UnusedTypeParameter
-        public static bool IsConvertible<TValue>([NotNull] this IBindingProperty property)
+        public static bool IsConvertible<TValue>([NotNull] this IBindingProperty property) =>
+            property.IsConvertible(typeof(TValue));
+
+        public static bool IsConvertible([NotNull] this IBindingProperty property, Type expectedType)
         {
             if (property == null)
                 throw new ArgumentNullException(nameof(property));
 
+            return IsConvertible(property.GetValueType, expectedType);
+        }
+
+        public static bool IsConvertible([NotNull] Type convertible, [NotNull] Type expectedType)
+        {
             // ReSharper disable once ConvertIfStatementToReturnStatement
-            if (typeof(IConvertible).IsAssignableFrom(property.GetValueType))
+            if (typeof(IConvertible).IsAssignableFrom(convertible))
             {
-                var expectedType = typeof(TValue);
                 if(typeof(IConvertible).IsAssignableFrom(expectedType))
                     return true;
 
                 if (typeof(UnityEngine.Sprite).IsAssignableFrom(expectedType))
-                    return true;
+                    return convertible == typeof(string);
+
+                /*if (typeof(UnityEngine.Color).IsAssignableFrom(expectedType))
+                    return convertible == typeof(int) || convertible == typeof(bool);*/
 
             }
 

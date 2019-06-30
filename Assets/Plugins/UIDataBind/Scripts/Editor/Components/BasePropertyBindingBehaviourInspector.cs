@@ -42,13 +42,16 @@ namespace Plugins.UIDataBind.Editor.Components
             _type = _path.FindPropertyRelative(nameof(PathTemplate.Type));
             _propertyName = _path.FindPropertyRelative(nameof(PathTemplate.PropertyName));
 
-            _excludingProperties = new[]{_path, _defaultValue};
+            _excludingProperties = new[] {_path, _defaultValue};
 
             _context = _binding.GetComponentInParent<IViewContext>();
             _availableFields.Clear();
 
-            if(_context != null)
-                _availableFields.AddRange(_context.GetType().GetBindingPropertyAttributes());
+            if (_context == null)
+                return;
+
+            var expectedType = ((IPropertyBindingBehaviour)_binding).GetValueType;
+            _availableFields.AddRange(_context.GetType().GetBindingPropertyAttributes(expectedType));
         }
 
 
