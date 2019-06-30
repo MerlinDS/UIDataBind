@@ -1,8 +1,7 @@
 using System;
 using Plugins.UIDataBind.Properties;
-using UnityEngine;
 
-namespace Plugins.UIDataBind.Extensions
+namespace Plugins.UIDataBind.Utils
 {
     public static class ConvertUtils
     {
