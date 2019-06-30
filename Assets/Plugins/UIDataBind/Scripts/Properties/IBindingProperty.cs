@@ -6,10 +6,9 @@ namespace Plugins.UIDataBind.Properties
     {
         event Action<TValue> OnUpdateValue;
         new TValue Value { get; set; }
-
     }
 
-    public interface IBindingProperty
+    public interface IBindingProperty : IDisposable
     {
         object Value { get; set; }
     }

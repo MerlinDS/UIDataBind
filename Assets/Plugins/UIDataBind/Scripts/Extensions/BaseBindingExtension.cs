@@ -22,7 +22,10 @@ namespace Plugins.UIDataBind.Extensions
             if (bindingProperty == null || bindingProperty is IBindingProperty<TValue>)
                 return bindingProperty as IBindingProperty<TValue>;
 
-            return bindingProperty.IsConvertible<TValue>() ? new PropertyAdapter<TValue>(bindingProperty) : null;
+
+            return bindingProperty.IsConvertible<TValue>()
+                ? new BindingPropertyAdapter<TValue>(bindingProperty)
+                : null;
         }
 
         [NotNull]

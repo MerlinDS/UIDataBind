@@ -1,14 +1,17 @@
 using System;
 using Plugins.UIDataBind.Properties;
+using UnityEngine;
 
 namespace Plugins.UIDataBind.Extensions
 {
-    public static class ConvertingExtension
+    public static class ConvertUtils
     {
+
         // ReSharper disable once UnusedTypeParameter
         public static bool IsConvertible<TValue>(this IBindingProperty property)
         {
             var valueType = property.Value.GetType();
+            // ReSharper disable once ConvertIfStatementToReturnStatement
             if (typeof(IConvertible).IsAssignableFrom(valueType))
                 return true;
 
@@ -16,17 +19,18 @@ namespace Plugins.UIDataBind.Extensions
             return false;
         }
 
-        public static object ConvertTo<TType>(this IBindingProperty property)
-        {
-            var expectedType = typeof(TType);
-            if (property.Value is IConvertible value)
-                return ConvertValue(expectedType, value);
+        public static TType ConvertTo<TType>(object value) =>
+            (TType) ConvertTo(typeof(TType), value);
 
+        public static object ConvertTo(Type expectedType, object value)
+        {
+            if (value is IConvertible convertible)
+                return ConvertValue(expectedType, convertible);
             //TODO: Implement other conversions
             return default;
         }
 
-        private static object ConvertValue(Type expectedType,  IConvertible value)
+        private static object ConvertValue(Type expectedType, IConvertible value)
         {
             if (expectedType == typeof(bool))
                 return value.ToBoolean(null);

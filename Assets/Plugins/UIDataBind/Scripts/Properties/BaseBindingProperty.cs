@@ -2,16 +2,10 @@ using System;
 
 namespace Plugins.UIDataBind.Properties
 {
-    public class BaseBindingProperty<TValue> : IBindingProperty<TValue>
+    public class BaseBindingProperty<TValue> : BaseBindingProperty, IBindingProperty<TValue>
     {
         private TValue _value;
         public event Action<TValue> OnUpdateValue;
-
-        object IBindingProperty.Value
-        {
-            get => Value;
-            set => Value = (TValue) value;
-        }
 
         public TValue Value
         {
@@ -20,9 +14,27 @@ namespace Plugins.UIDataBind.Properties
             {
                 _value = value;
                 OnUpdateValue?.Invoke(value);
+                InvokeInternalUpdate();
             }
         }
 
+        object IBindingProperty.Value
+        {
+            get => Value;
+            set => Value = (TValue) value;
+        }
+
         public BaseBindingProperty(TValue value = default) => Value = value;
+
+        public void Dispose()
+        {
+        }
+    }
+
+    public abstract class BaseBindingProperty
+    {
+        internal event Action OnInternalUpdateValue;
+
+        protected void InvokeInternalUpdate() => OnInternalUpdateValue?.Invoke();
     }
 }

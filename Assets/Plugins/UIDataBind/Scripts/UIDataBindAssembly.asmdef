@@ -1,11 +1,9 @@
 {
-    "name": "Tests",
+    "name": "UIDataBindAssembly",
     "references": [
-        "UIDataBindAssembly"
+        "Unity.TextMeshPro"
     ],
-    "optionalUnityReferences": [
-        "TestAssemblies"
-    ],
+    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
