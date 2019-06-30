@@ -6,6 +6,10 @@ namespace Plugins.UIDataBind.Examples
 {
     public class SampleView : MonoBehaviour, IViewContext
     {
+        public void SwitchInt() => SampleInt = SampleInt > 0 ? 0 : 1;
+
+        #region Properties
+
         [BindingProperty]
         private readonly BooleanProperty _visibleProperty = new BooleanProperty(true);
 
@@ -40,5 +44,7 @@ namespace Plugins.UIDataBind.Examples
             get => _sampleIntProperty.Value;
             set => _sampleIntProperty.Value = value;
         }
+
+        #endregion
     }
 }

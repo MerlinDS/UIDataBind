@@ -11,7 +11,6 @@ namespace Plugins.UIDataBind.Components
         private string _format = "{0}";
         protected override void UpdateValueHandler(string value)
         {
-            Debug.Log("Update");
             if (!string.IsNullOrEmpty(_format))
                 value = string.Format(_format, value);
             Component.text = value;
