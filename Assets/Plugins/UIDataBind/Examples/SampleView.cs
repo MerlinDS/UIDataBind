@@ -22,6 +22,7 @@ namespace Plugins.UIDataBind.Examples
         {
             SampleInt = SampleInt > 0 ? 0 : 1;
             SampleSpritePath = string.IsNullOrEmpty(SampleSpritePath) ? _testSprite.name : string.Empty;
+            ButtonColor = ButtonColor == Color.green ? Color.yellow : Color.green;
         }
 
         #region Properties
@@ -85,6 +86,14 @@ namespace Plugins.UIDataBind.Examples
         {
             get => _buttonProperty.Value;
             set => _buttonProperty.Value = value;
+        }
+
+        [BindingProperty("Button Color")]
+        private readonly ColorProperty _buttonColorProperty = new ColorProperty(Color.green);
+        public Color ButtonColor
+        {
+            get => _buttonColorProperty.Value;
+            set => _buttonColorProperty.Value = value;
         }
         #endregion
     }
