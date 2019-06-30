@@ -18,7 +18,11 @@ namespace Plugins.UIDataBind.Examples
             SampleSpritePath = _testSprite.name;
         }
 
-        public void SwitchInt() => SampleInt = SampleInt > 0 ? 0 : 1;
+        public void SwitchInt()
+        {
+            SampleInt = SampleInt > 0 ? 0 : 1;
+            SampleSpritePath = string.IsNullOrEmpty(SampleSpritePath) ? _testSprite.name : string.Empty;
+        }
 
         #region Properties
 
@@ -75,6 +79,13 @@ namespace Plugins.UIDataBind.Examples
             set => _sampleSpritePathProperty.Value = value;
         }
 
+        [BindingProperty("Button Label")]
+        private readonly StringProperty _buttonProperty = new StringProperty("Action");
+        public string ButtonLabel
+        {
+            get => _buttonProperty.Value;
+            set => _buttonProperty.Value = value;
+        }
         #endregion
     }
 }
