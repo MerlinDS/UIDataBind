@@ -50,6 +50,7 @@ namespace Plugins.UIDataBind.Base
             if (_componentToContextMap.TryGetValue(componentId, out point))
                 return point;
 
+            //TODO: Implement multi context selection
             point = CreateBindingPoint(component.GetComponentInParent<IViewContext>());
             _componentToContextMap.Add(componentId, point);
 
