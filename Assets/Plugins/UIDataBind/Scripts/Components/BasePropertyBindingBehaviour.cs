@@ -32,6 +32,7 @@ namespace Plugins.UIDataBind.Components
 
         protected sealed override void Activate(BindingPath path)
         {
+            _bindingProperty?.Dispose();
             _bindingProperty = this.FindBindingProperty(path, _value);
             if (_bindingProperty == null)
             {
@@ -49,8 +50,11 @@ namespace Plugins.UIDataBind.Components
 
         protected sealed override void Deactivate()
         {
-            if (_bindingProperty != null)
-                _bindingProperty.OnUpdateValue -= UpdateValueHandler;
+            if (_bindingProperty == null)
+                return;
+
+            _bindingProperty.OnUpdateValue -= UpdateValueHandler;
+            _bindingProperty.Dispose();
         }
 
         protected abstract void UpdateValueHandler(TValue value);
