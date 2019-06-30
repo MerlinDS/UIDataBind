@@ -17,7 +17,8 @@ namespace Plugins.UIDataBind.Components
 #pragma warning restore 0649
 
         [UsedImplicitly]
-        private TValue DefaultValue => _value;
+        // ReSharper disable once ConvertToAutoProperty
+        protected virtual TValue DefaultValue => _value;
 
         public TValue Value
         {
@@ -33,7 +34,7 @@ namespace Plugins.UIDataBind.Components
         protected sealed override void Activate(BindingPath path)
         {
             _bindingProperty?.Dispose();
-            _bindingProperty = this.FindBindingProperty(path, _value);
+            _bindingProperty = this.FindBindingProperty(path, DefaultValue);
             if (_bindingProperty == null)
             {
                 var contextName = this.FindContextName();

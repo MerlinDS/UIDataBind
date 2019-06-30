@@ -13,11 +13,9 @@ namespace Plugins.UIDataBind.Components
         private string _sprite;
 #pragma warning restore 0649
 
-        protected override void UpdateValueHandler(Sprite value)
-        {
-            if (Path.Type == BindingType.None)
-                value = Resources.Load<Sprite>(_sprite);
-            Component.sprite = value;
-        }
+        protected override Sprite DefaultValue =>
+            Path.Type == BindingType.None ? Resources.Load<Sprite>(_sprite) : null;
+
+        protected override void UpdateValueHandler(Sprite value) => Component.sprite = value;
     }
 }
