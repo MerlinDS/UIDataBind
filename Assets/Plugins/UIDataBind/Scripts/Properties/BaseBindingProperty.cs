@@ -18,6 +18,8 @@ namespace Plugins.UIDataBind.Properties
             }
         }
 
+        public Type GetValueType => typeof(TValue);
+
         object IBindingProperty.Value
         {
             get => Value;

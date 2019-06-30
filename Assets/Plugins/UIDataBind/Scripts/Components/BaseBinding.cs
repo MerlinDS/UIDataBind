@@ -9,11 +9,13 @@ namespace Plugins.UIDataBind.Components
         [HideInInspector]
         [SerializeField]
         private BindingPath _path;
+
+        protected BindingPath Path => _path;
 #pragma warning restore 0649
 
         #region Unity Events
 
-        private void OnEnable() => Activate(_path);
+        private void OnEnable() => Activate(Path);
 
         private void OnDisable() => Deactivate();
 

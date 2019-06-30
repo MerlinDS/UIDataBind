@@ -1,5 +1,4 @@
 using System;
-using Plugins.UIDataBind.Extensions;
 using Plugins.UIDataBind.Utils;
 
 namespace Plugins.UIDataBind.Properties
@@ -53,6 +52,8 @@ namespace Plugins.UIDataBind.Properties
             add => _target.OnUpdateValue += value;
             remove => _target.OnUpdateValue -= value;
         }
+
+        public Type GetValueType => _target.GetValueType;
 
         public TValue Value
         {

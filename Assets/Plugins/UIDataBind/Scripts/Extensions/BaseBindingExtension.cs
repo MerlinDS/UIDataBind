@@ -4,6 +4,7 @@ using Plugins.UIDataBind.Base;
 using Plugins.UIDataBind.Components;
 using Plugins.UIDataBind.Properties;
 using Plugins.UIDataBind.Utils;
+using UnityEngine;
 
 namespace Plugins.UIDataBind.Extensions
 {
@@ -24,7 +25,11 @@ namespace Plugins.UIDataBind.Extensions
                 return bindingProperty as IBindingProperty<TValue>;
 
 
-            return bindingProperty.IsConvertible<TValue>()
+            var isConvertible = bindingProperty.IsConvertible<TValue>();
+            if(!isConvertible)
+                Debug.LogWarning($"{bindingProperty} can't be converted to {typeof(IBindingProperty<TValue>)}");
+
+            return isConvertible
                 ? new BindingPropertyAdapter<TValue>(bindingProperty)
                 : null;
         }

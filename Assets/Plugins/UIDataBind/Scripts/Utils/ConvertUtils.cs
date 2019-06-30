@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using Plugins.UIDataBind.Properties;
 
 namespace Plugins.UIDataBind.Utils
@@ -7,12 +8,22 @@ namespace Plugins.UIDataBind.Utils
     {
 
         // ReSharper disable once UnusedTypeParameter
-        public static bool IsConvertible<TValue>(this IBindingProperty property)
+        public static bool IsConvertible<TValue>([NotNull] this IBindingProperty property)
         {
-            var valueType = property.Value.GetType();
+            if (property == null)
+                throw new ArgumentNullException(nameof(property));
+
             // ReSharper disable once ConvertIfStatementToReturnStatement
-            if (typeof(IConvertible).IsAssignableFrom(valueType))
-                return true;
+            if (typeof(IConvertible).IsAssignableFrom(property.GetValueType))
+            {
+                var expectedType = typeof(TValue);
+                if(typeof(IConvertible).IsAssignableFrom(expectedType))
+                    return true;
+
+                if (typeof(UnityEngine.Sprite).IsAssignableFrom(expectedType))
+                    return true;
+
+            }
 
             //TODO: Implement other conversion checks
             return false;
@@ -24,9 +35,21 @@ namespace Plugins.UIDataBind.Utils
         public static object ConvertTo(Type expectedType, object value)
         {
             if (value is IConvertible convertible)
-                return ConvertValue(expectedType, convertible);
+            {
+                if(typeof(IConvertible).IsAssignableFrom(expectedType))
+                    return ConvertValue(expectedType, convertible);
+
+                if (typeof(UnityEngine.Sprite).IsAssignableFrom(expectedType))
+                    return ConvertValue(convertible);
+            }
             //TODO: Implement other conversions
             return default;
+        }
+
+        private static UnityEngine.Sprite ConvertValue(IConvertible value)
+        {
+            var path = (string)ConvertValue(typeof(string), value);
+            return UnityEngine.Resources.Load<UnityEngine.Sprite>(path);
         }
 
         private static object ConvertValue(Type expectedType, IConvertible value)
@@ -43,5 +66,7 @@ namespace Plugins.UIDataBind.Utils
                 return value.ToString(null);
             return default;
         }
+
+
     }
 }

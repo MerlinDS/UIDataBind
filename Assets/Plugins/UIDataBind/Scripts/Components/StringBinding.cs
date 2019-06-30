@@ -5,7 +5,7 @@ namespace Plugins.UIDataBind.Components
 {
     [AddComponentMenu("UIDataBind/TMP - String", 1)]
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public class StringBinding : BasePropertyBindingWithComponentBehaviour<TextMeshProUGUI, string>
+    public sealed class StringBinding : BasePropertyBindingWithComponentBehaviour<TextMeshProUGUI, string>
     {
         [SerializeField]
         private string _format = "{0}";

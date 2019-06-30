@@ -22,9 +22,14 @@ namespace Plugins.UIDataBind.Editor.Components
         private SerializedProperty _propertyName;
         private SerializedProperty _path;
         private SerializedProperty _defaultValue;
+        private SerializedProperty[] _excludingProperties;
+
+        protected virtual bool IsValueDrawable { get; } = true;
+
+        protected BindingType BindingType => (BindingType)_type.intValue;
 
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             _binding = serializedObject.targetObject as BaseBinding;
             if (_binding == null)
@@ -34,6 +39,7 @@ namespace Plugins.UIDataBind.Editor.Components
             _defaultValue = serializedObject.FindProperty("_value");
             _type = _path.FindPropertyRelative(nameof(PathTemplate.Type));
             _propertyName = _path.FindPropertyRelative(nameof(PathTemplate.PropertyName));
+            _excludingProperties = new[]{_path, _defaultValue};
 
             _context = _binding.GetComponentInParent<IViewContext>();
             _availableFields.Clear();
@@ -56,7 +62,7 @@ namespace Plugins.UIDataBind.Editor.Components
             EditorGUILayout.Space();
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(_type, new GUIContent("Binding Type"));
-            if (_context == null && _type.intValue != (int) BindingType.None)
+            if (_context == null && BindingType != BindingType.None)
             {
                 EditorGUILayout.HelpBox("Can't finds context for this binding.", MessageType.Warning);
                 _type.intValue = (int) BindingType.None;
@@ -65,18 +71,22 @@ namespace Plugins.UIDataBind.Editor.Components
             if (EditorGUI.EndChangeCheck())
                 serializedObject.ApplyModifiedProperties();
 
-            if (_type.intValue != (int) BindingType.None)
+            if (BindingType != BindingType.None)
                 DrawPropertyFieldGUI();
             else
             {
                 EditorGUI.BeginChangeCheck();
-                EditorGUILayout.PropertyField(_defaultValue);
+                if(IsValueDrawable)
+                    EditorGUILayout.PropertyField(_defaultValue);
                 if (EditorGUI.EndChangeCheck())
                     serializedObject.ApplyModifiedProperties();
             }
 
-            serializedObject.DrawPropertiesExcluding(_path, _defaultValue);
+
+            serializedObject.DrawPropertiesExcluding(GetExcludingProperties());
         }
+
+        protected virtual SerializedProperty[] GetExcludingProperties() => _excludingProperties;
 
         private void DrawPropertyFieldGUI()
         {
