@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace Plugins.UIDataBind.Components
 {
     [AddComponentMenu("UIDataBind/Color", 1)]
-    public sealed class ColorBinding: BasePropertyBindingWithComponentBehaviour<Graphic, Color>
+    public sealed class ColorBinding: BasePropertyBindingWithComponent<Graphic, Color>
     {
         protected override void UpdateValueHandler(Color value) => Component.color = value;
 

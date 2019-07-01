@@ -8,7 +8,7 @@ namespace Plugins.UIDataBind.Components
     [HideBindingValue]
     [RequireComponent(typeof(Image))]
     [AddComponentMenu("UIDataBind/Sprite", 1)]
-    public sealed class SpriteBinding: BasePropertyBindingWithComponentBehaviour<Image, Sprite>
+    public sealed class SpriteBinding: BasePropertyBindingWithComponent<Image, Sprite>
     {
 #pragma warning disable 0649
         [SerializeField]

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace Plugins.UIDataBind.Components
 {
     [AddComponentMenu("UIDataBind/Visible", 0)]
-    public sealed class VisibleBinding : BasePropertyBindingBehaviour<bool>
+    public sealed class VisibleBinding : BasePropertyBinding<bool>
     {
         #region ComponentScope
 

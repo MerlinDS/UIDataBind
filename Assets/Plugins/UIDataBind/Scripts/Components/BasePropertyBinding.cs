@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Plugins.UIDataBind.Components
 {
-    public abstract class BasePropertyBindingBehaviour<TValue> : BaseBinding, IPropertyBindingBehaviour<TValue>
+    public abstract class BasePropertyBinding<TValue> : BaseBinding, IPropertyBindingBehaviour<TValue>
     {
         private IBindingProperty<TValue> _bindingProperty;
 

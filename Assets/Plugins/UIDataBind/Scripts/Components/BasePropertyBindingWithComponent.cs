@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace Plugins.UIDataBind.Components
 {
-    public abstract class BasePropertyBindingWithComponentBehaviour<TComponent, TValue> :
-        BasePropertyBindingBehaviour<TValue>
+    public abstract class BasePropertyBindingWithComponent<TComponent, TValue> :
+        BasePropertyBinding<TValue>
         where TComponent : Component
     {
         private TComponent _component;
