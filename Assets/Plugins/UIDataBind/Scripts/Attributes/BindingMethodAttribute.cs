@@ -9,7 +9,7 @@ namespace Plugins.UIDataBind.Attributes
         {
         }
 
-        public BindingMethodAttribute(string bindingName = default) : base(bindingName)
+        public BindingMethodAttribute(string bindingName = default, string help = default) : base(bindingName, help)
         {
         }
     }

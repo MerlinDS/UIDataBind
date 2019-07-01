@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Plugins.UIDataBind.Attributes;
@@ -9,6 +10,9 @@ using UnityEngine;
 
 namespace Plugins.UIDataBind.Editor.Components
 {
+    /// <summary>
+    /// Base editor script for all of the <see cref="BaseBinding"/> component inspectors
+    /// </summary>
     public abstract class BaseBindingInspector: UnityEditor.Editor
     {
         private static readonly BindingPath PathTemplate = new BindingPath();
@@ -22,7 +26,7 @@ namespace Plugins.UIDataBind.Editor.Components
 
         private bool _showContext;
 
-        protected BaseBinding Binding { get; set; }
+        protected BaseBinding Binding { get; private set; }
         protected SerializedProperty[] ExcludingProperties { get; set; }
         protected BindingType BindingType => (BindingType)_type.intValue;
 
@@ -48,6 +52,8 @@ namespace Plugins.UIDataBind.Editor.Components
             _bindings.AddRange(GetAttributes(_context));
         }
 
+        #region Drawing
+
         public sealed override void OnInspectorGUI()
         {
             if (Binding == null)
@@ -60,7 +66,10 @@ namespace Plugins.UIDataBind.Editor.Components
 
             EditorGUILayout.Space();
             EditorGUI.BeginChangeCheck();
-            EditorGUILayout.PropertyField(_type, new GUIContent("Binding Type"));
+
+            var typeContent = new GUIContent("Binding Type", "A type of binding for the current component");
+            _type.intValue = EditorGUILayout.Popup(typeContent, _type.intValue, GetBindingTypeContents());
+
             if (_context == null && BindingType != BindingType.None)
             {
                 EditorGUILayout.HelpBox("Can't finds context for this binding.", MessageType.Warning);
@@ -79,6 +88,9 @@ namespace Plugins.UIDataBind.Editor.Components
                 ReactivateBinding();
         }
 
+        /// <summary>
+        /// The Internal GUI drawing method
+        /// </summary>
         protected virtual void OnInternalGUI()
         {
 
@@ -91,12 +103,17 @@ namespace Plugins.UIDataBind.Editor.Components
             var index = _bindings.FindIndex(a => a.Name == _name.stringValue);
             EditorGUILayout.BeginHorizontal();
 
-            index = EditorGUILayout.Popup(_name.name, index,_bindings.Select(a=>a.BindingName).ToArray());
-            _showContext = EditorGUILayout.ToggleLeft(string.Empty, _showContext, GUILayout.MaxWidth(30));
+            var names = _bindings.Select(a=>new GUIContent(a.BindingName, a.Help)).ToArray();
+            index = EditorGUILayout.Popup(new GUIContent(_name.name, "Name of a binding") , index, names);
+            _showContext = EditorGUILayout.ToggleLeft(new GUIContent(string.Empty, "Show current context"),
+                                                      _showContext, GUILayout.MaxWidth(30));
 
             EditorGUILayout.EndHorizontal();
-            if(_showContext)
-                EditorGUILayout.ObjectField("Context", (Component)_context, typeof(Component), false);
+            if (_showContext)
+            {
+                EditorGUILayout.ObjectField(new GUIContent("Context", "The component will be binned to this context"),
+                                            (Component)_context, typeof(Component), false);
+            }
 
             if (!EditorGUI.EndChangeCheck())
                 return;
@@ -107,12 +124,20 @@ namespace Plugins.UIDataBind.Editor.Components
             ReactivateBinding();
         }
 
-        public void ReactivateBinding()
+        #endregion
+
+        /// <summary>
+        /// This method will reactivate component in play mode
+        /// </summary>
+        protected void ReactivateBinding()
         {
             if (Application.isPlaying)
                 Binding.Reactivate();
         }
 
         protected abstract IEnumerable<BaseBindingAttribute> GetAttributes(IViewContext context);
+
+        public static GUIContent[] GetBindingTypeContents() =>
+            Enum.GetValues(typeof(BindingType)).Cast<BindingType>().Select(e=>e.ToGUIContent()).ToArray();
     }
 }

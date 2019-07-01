@@ -58,7 +58,8 @@ namespace Plugins.UIDataBind.Editor.Utils
             attribute = new TAttribute
             {
                 Name = memberInfo.Name,
-                BindingName = bindingName
+                BindingName = bindingName,
+                Help = attribute.Help
             };
 
             return attribute;

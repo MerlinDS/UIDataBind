@@ -10,8 +10,8 @@ namespace Plugins.UIDataBind.Attributes
 
         }
 
-        public BindingPropertyAttribute(string bindingName = default)
-            : base(bindingName)
+        public BindingPropertyAttribute(string bindingName = default, string help = default)
+            : base(bindingName, help)
         {
         }
     }

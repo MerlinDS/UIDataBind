@@ -1,5 +1,8 @@
+using System;
 using System.Linq;
+using Plugins.UIDataBind.Base;
 using UnityEditor;
+using UnityEngine;
 
 namespace Plugins.UIDataBind.Editor.Utils
 {
@@ -24,5 +27,8 @@ namespace Plugins.UIDataBind.Editor.Utils
             serializedObject.ApplyModifiedProperties();
             return EditorGUI.EndChangeCheck();
         }
+
+        public static GUIContent ToGUIContent(this BindingType type) =>
+            new GUIContent(type.ToString(), type.GetHelpString());
     }
 }
