@@ -43,8 +43,8 @@ namespace Plugins.UIDataBind.Components
             {
                 var contextName = this.FindContextName();
                 Debug.LogWarning(
-                    $"Property {path.PropertyName} was not founds in {contextName}! Insure that context was added " +
-                    $"and has {path.PropertyName} readonly field.");
+                    $"Property {path.Name} was not founds in {contextName}! Insure that context was added " +
+                    $"and has {path.Name} readonly field.");
                 enabled = false;
                 return;
             }

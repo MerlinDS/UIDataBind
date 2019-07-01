@@ -6,6 +6,6 @@ namespace Plugins.UIDataBind.Base
     public struct BindingPath
     {
         public BindingType Type;
-        public string PropertyName;
+        public string Name;
     }
 }

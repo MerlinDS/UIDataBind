@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
+using Plugins.UIDataBind.Attributes;
 using Plugins.UIDataBind.Components;
 using Plugins.UIDataBind.Properties;
 using UnityEngine;
@@ -15,15 +16,25 @@ namespace Plugins.UIDataBind.Base
     /// </summary>
     public class BindingKernel
     {
-        private static BindingKernel _instance;
+        private const BindingFlags MethodFlags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance |
+                                                 BindingFlags.DeclaredOnly;
+
+
+        private static readonly Type BindingMethodAttribute = typeof(BindingActionAttribute);
         private static readonly Type BindingPropertyType = typeof(IBindingProperty);
 
-        private readonly Dictionary<int, ContextBindingPoint> _componentToContextMap;
+        private static BindingKernel _instance;
+
+        private readonly Dictionary<int, ContextBindingPoint> _contextBindingPoints;
+        private readonly Dictionary<int, int> _componentToContextMap;
 
         public static BindingKernel Instance => _instance ?? (_instance = new BindingKernel());
 
-        private BindingKernel() =>
-            _componentToContextMap = new Dictionary<int, ContextBindingPoint>();
+        private BindingKernel()
+        {
+            _contextBindingPoints = new Dictionary<int, ContextBindingPoint>();
+            _componentToContextMap = new Dictionary<int, int>();
+        }
 
 
         [CanBeNull]
@@ -31,29 +42,39 @@ namespace Plugins.UIDataBind.Base
             FindBindingPoint(binding).Context;
 
         [CanBeNull]
-        public IBindingProperty FindProperty(BaseBinding binding, BindingPath path)
+        public TValue Find<TValue>(BaseBinding binding, BindingPath path)
         {
             var bindingPoint = FindBindingPoint(binding);
             if (bindingPoint.IsEmpty)
-                return null;
+                return default;
 
-            var propertyName = path.PropertyName;
-            return bindingPoint.Properties.Where(p => p.Name == propertyName)
-                .Select(p => p.Instance)
-                .FirstOrDefault();
+            var points = typeof(TValue) == typeof(Action)
+                ? bindingPoint.Methods
+                : bindingPoint.Properties;
+
+            var name = path.Name;
+            var point = points.FirstOrDefault(p => p.Name == name);
+            return (TValue) point.Instance;
         }
+
 
         private ContextBindingPoint FindBindingPoint(Component component)
         {
+            int contextId;
             var componentId = component.GetInstanceID();
+            if (_componentToContextMap.TryGetValue(componentId, out contextId))
+                return _contextBindingPoints[contextId];
+
             ContextBindingPoint point;
-            if (_componentToContextMap.TryGetValue(componentId, out point))
-                return point;
+            var context = component.GetComponentInParent<IViewContext>();
+            contextId = context.GetHashCode();
 
-            //TODO: Implement multi context selection
-            point = CreateBindingPoint(component.GetComponentInParent<IViewContext>());
-            _componentToContextMap.Add(componentId, point);
-
+            if (!_contextBindingPoints.TryGetValue(contextId, out point))
+            {
+                point = CreateBindingPoint(context);
+                _contextBindingPoints.Add(contextId, point);
+            }
+            _componentToContextMap.Add(componentId, contextId);
             return point;
         }
 
@@ -63,20 +84,34 @@ namespace Plugins.UIDataBind.Base
             if (context == null)
                 return default;
 
-            var properties = GetBindingPropertiesFrom(context);
+            var methods = GetBindingMethodsFrom(context).ToArray();
+            var properties = GetBindingPropertiesFrom(context).ToArray();
             return new ContextBindingPoint
             {
                 Context = context,
-                Properties = properties.ToArray()
+                Methods = methods,
+                Properties = properties
             };
         }
 
-        private static IEnumerable<PropertyPoint> GetBindingPropertiesFrom(IViewContext context)
+        private static IEnumerable<InstancePoint> GetBindingPropertiesFrom(IViewContext context)
         {
             return context.GetType()
                 .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                 .Where(f => BindingPropertyType.IsAssignableFrom(f.FieldType))
-                .Select(field => new PropertyPoint(field.Name, (IBindingProperty) field.GetValue(context)));
+                .Select(field => new InstancePoint(field.Name, (IBindingProperty) field.GetValue(context)));
         }
+
+        private static IEnumerable<InstancePoint> GetBindingMethodsFrom(IViewContext context)
+        {
+            return context.GetType().GetMethods(MethodFlags)
+                .Where(method => Attribute.IsDefined(method, BindingMethodAttribute))
+                .Where(method => method.GetParameters().Length == 0)
+                .Where(method => method.ReturnType == typeof(void))
+                .Select(method => new InstancePoint(method.Name, CreateDelegate(method, context)));
+        }
+
+        private static Action CreateDelegate(MethodInfo methodInfo, object target) =>
+            (Action) methodInfo.CreateDelegate(typeof(Action), target);
     }
 }

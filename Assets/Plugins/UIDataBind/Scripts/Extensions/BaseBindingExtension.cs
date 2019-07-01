@@ -20,7 +20,7 @@ namespace Plugins.UIDataBind.Extensions
             if (path.Type == BindingType.None || path.IsEmpty())
                 return new BaseBindingProperty<TValue>(defaultValue);
 
-            var bindingProperty = BindingKernel.Instance.FindProperty(binding, path);
+            var bindingProperty = BindingKernel.Instance.Find<IBindingProperty>(binding, path);
             if (bindingProperty == null || bindingProperty is IBindingProperty<TValue>)
                 return bindingProperty as IBindingProperty<TValue>;
 
@@ -32,6 +32,17 @@ namespace Plugins.UIDataBind.Extensions
             return isConvertible
                 ? new BindingPropertyAdapter<TValue>(bindingProperty)
                 : null;
+        }
+
+        public static Action FindBindingMethod([NotNull] this BaseBinding binding, BindingPath path)
+        {
+            if (binding == null)
+                throw new ArgumentNullException(nameof(binding));
+
+            if (path.Type == BindingType.None || path.IsEmpty())
+                return () => { };
+
+            return BindingKernel.Instance.Find<Action>(binding, path);
         }
 
         [NotNull]

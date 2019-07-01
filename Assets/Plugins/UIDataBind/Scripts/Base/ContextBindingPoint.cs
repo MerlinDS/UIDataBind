@@ -1,20 +1,19 @@
-using Plugins.UIDataBind.Properties;
-
 namespace Plugins.UIDataBind.Base
 {
     internal struct ContextBindingPoint
     {
         public IViewContext Context;
-        public PropertyPoint[] Properties;
+        public InstancePoint[] Properties;
+        public InstancePoint[] Methods;
         public bool IsEmpty => Context == null;
     }
 
-    internal struct PropertyPoint
+    internal struct InstancePoint
     {
-        public string Name;
-        public IBindingProperty Instance;
+        public readonly string Name;
+        public readonly object Instance;
 
-        public PropertyPoint(string name, IBindingProperty instance)
+        public InstancePoint(string name, object instance)
         {
             Name = name;
             Instance = instance;

@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 0
-    PropertyName: 
+    Name: 
   _value: Sample text
   _format: 'FROM COMPONENT: {0}'
 --- !u!1 &40585803
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: _sampleIntProperty
+    Name: _sampleIntProperty
   _value: Some test text
   _format: 'INT FROM CODE: {0}'
 --- !u!114 &40585806
@@ -628,7 +628,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: _sampleSpritePathProperty
+    Name: _sampleSpritePathProperty
   _value: {fileID: 0}
   _sprite: 
 --- !u!1 &263052978
@@ -684,7 +684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: _visibleProperty
+    Name: _visibleProperty
   _value: 0
 --- !u!114 &263052981
 MonoBehaviour:
@@ -754,7 +754,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 0
-    PropertyName: _sampleSpritePathProperty
+    Name: 
   _value: {fileID: 0}
   _sprite: UIDataBind Icon
 --- !u!114 &271280593
@@ -771,7 +771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 0
-    PropertyName: 
+    Name: 
   _value: 1
 --- !u!114 &271280594
 MonoBehaviour:
@@ -844,7 +844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 0
-    PropertyName: 
+    Name: 
   _value: {r: 0, g: 0.38178635, b: 1, a: 1}
 --- !u!1 &408027523
 GameObject:
@@ -860,6 +860,7 @@ GameObject:
   - component: {fileID: 408027525}
   - component: {fileID: 408027528}
   - component: {fileID: 408027529}
+  - component: {fileID: 408027530}
   m_Layer: 5
   m_Name: '[B]SapleButton'
   m_TagString: Untagged
@@ -1014,8 +1015,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: _buttonColorProperty
+    Name: _buttonColorProperty
   _value: {r: 0.6917435, g: 1, b: 0.41509432, a: 1}
+--- !u!114 &408027530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408027523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210bdfb367ed43fa9e25fa64016feee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _path:
+    Type: 1
+    Name: SwitchInt
 --- !u!1 &660493474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,7 +1085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: _sampleStringProperty
+    Name: _sampleStringProperty
   _value: Some test text
   _format: 'FROM CODE: {0}'
 --- !u!114 &660493477
@@ -1487,7 +1503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: _sampleIntProperty
+    Name: _sampleImageVisibleProperty
   _value: 0
 --- !u!114 &1056320263
 MonoBehaviour:
@@ -1503,7 +1519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: _sampleSpritePathProperty
+    Name: _sampleSpriteProperty
   _value: {fileID: 0}
   _sprite: 
 --- !u!1 &1160007901
@@ -1853,6 +1869,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path:
     Type: 1
-    PropertyName: _buttonProperty
+    Name: 
   _value: Action
   _format: '{0}'

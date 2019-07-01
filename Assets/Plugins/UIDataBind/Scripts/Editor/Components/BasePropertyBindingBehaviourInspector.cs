@@ -44,7 +44,7 @@ namespace Plugins.UIDataBind.Editor.Components
             _path = serializedObject.FindProperty("_path");
             _defaultValue = serializedObject.FindProperty("_value");
             _type = _path.FindPropertyRelative(nameof(PathTemplate.Type));
-            _propertyName = _path.FindPropertyRelative(nameof(PathTemplate.PropertyName));
+            _propertyName = _path.FindPropertyRelative(nameof(PathTemplate.Name));
 
             _excludingProperties = new[] {_path, _defaultValue};
 
