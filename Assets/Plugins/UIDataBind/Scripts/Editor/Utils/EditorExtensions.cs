@@ -5,7 +5,7 @@ namespace Plugins.UIDataBind.Editor.Utils
 {
     public static class EditorExtensions
     {
-        public static void DrawPropertiesExcluding(this SerializedObject serializedObject,
+        public static bool DrawPropertiesExcluding(this SerializedObject serializedObject,
             params SerializedProperty[] excludedProperties)
         {
             var excludedPath = excludedProperties.Select(p => p.propertyPath).ToArray();
@@ -22,7 +22,7 @@ namespace Plugins.UIDataBind.Editor.Utils
             }
 
             serializedObject.ApplyModifiedProperties();
-            EditorGUI.EndChangeCheck();
+            return EditorGUI.EndChangeCheck();
         }
     }
 }

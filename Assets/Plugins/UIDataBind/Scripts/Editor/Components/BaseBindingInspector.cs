@@ -71,7 +71,9 @@ namespace Plugins.UIDataBind.Editor.Components
                 DrawPathGUI();
 
             OnInternalGUI();
-            serializedObject.DrawPropertiesExcluding(ExcludingProperties);
+
+            if(serializedObject.DrawPropertiesExcluding(ExcludingProperties))
+                Binding.Reactivate();
         }
 
         protected virtual void OnInternalGUI()
