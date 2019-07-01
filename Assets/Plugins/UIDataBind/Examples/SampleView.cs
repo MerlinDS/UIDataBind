@@ -6,7 +6,6 @@ namespace Plugins.UIDataBind.Examples
 {
     public class SampleView : MonoBehaviour, IViewContext
     {
-
 #pragma warning disable 0649
         [SerializeField]
         private Sprite _testSprite;
@@ -16,6 +15,7 @@ namespace Plugins.UIDataBind.Examples
         {
             SampleSprite = _testSprite;
             SampleSpritePath = _testSprite.name;
+            _actionProperty.OnUpdateValue += b => SwitchInt();
         }
 
         public void SwitchInt()
@@ -47,6 +47,7 @@ namespace Plugins.UIDataBind.Examples
 
         [BindingProperty]
         private readonly StringProperty _sampleStringProperty = new StringProperty("Some sample string from code");
+
         public string SampleString
         {
             get => _sampleStringProperty.Value;
@@ -82,6 +83,7 @@ namespace Plugins.UIDataBind.Examples
 
         [BindingProperty("Button Label")]
         private readonly StringProperty _buttonProperty = new StringProperty("Action");
+
         public string ButtonLabel
         {
             get => _buttonProperty.Value;
@@ -90,11 +92,16 @@ namespace Plugins.UIDataBind.Examples
 
         [BindingProperty("Button Color")]
         private readonly ColorProperty _buttonColorProperty = new ColorProperty(Color.green);
+
         public Color ButtonColor
         {
             get => _buttonColorProperty.Value;
             set => _buttonColorProperty.Value = value;
         }
+
+        [BindingProperty("Action")]
+        private readonly BooleanProperty _actionProperty = new BooleanProperty();
+
         #endregion
     }
 }

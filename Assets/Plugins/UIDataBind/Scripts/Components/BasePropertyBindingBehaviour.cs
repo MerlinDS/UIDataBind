@@ -23,11 +23,12 @@ namespace Plugins.UIDataBind.Components
 
         public TValue Value
         {
-            get => _bindingProperty != null ? _bindingProperty.Value : default;
+            get => _bindingProperty != null ? _bindingProperty.Value : _value;
             set
             {
                 if (_bindingProperty != null)
                     _bindingProperty.Value = value;
+                _value = value;
             }
         }
 

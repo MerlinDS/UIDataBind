@@ -2,7 +2,7 @@ namespace Plugins.UIDataBind.Properties
 {
     public sealed class BooleanProperty : BaseBindingProperty<bool>
     {
-        public BooleanProperty(bool value) : base(value)
+        public BooleanProperty(bool value = default) : base(value)
         {
         }
     }
