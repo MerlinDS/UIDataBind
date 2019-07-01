@@ -7,13 +7,13 @@ namespace Plugins.UIDataBind.Examples
 {
     public class SampleView : MonoBehaviour, IViewContext
     {
-        [UsedImplicitly, BindingMethod("Visibility Change")]
+        [UsedImplicitly, BindingMethod("Visibility Change", "Will change a visibility of sub view")]
         private void OnVisibilityChanged() =>
             Visible = !Visible;
 
         #region Properties
 
-        [BindingProperty]
+        [BindingProperty(help:"Visibility flag of sub view")]
         private readonly BooleanProperty _visibleProperty = new BooleanProperty(true);
 
         public bool Visible
