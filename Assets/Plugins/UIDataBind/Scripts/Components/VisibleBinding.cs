@@ -9,6 +9,11 @@ namespace Plugins.UIDataBind.Components
     [AddComponentMenu("UIDataBind/Visible", 0)]
     public sealed class VisibleBinding : BasePropertyBinding<bool>
     {
+#pragma warning disable 0649
+        [SerializeField]
+        private bool _inverted;
+#pragma warning restore 0649
+
         #region ComponentScope
 
         private readonly HashSet<Graphic> _graphics = new HashSet<Graphic>();
@@ -24,6 +29,9 @@ namespace Plugins.UIDataBind.Components
 
         protected override void UpdateValueHandler(bool value)
         {
+            if (_inverted)
+                value = !value;
+
             if (_isDirty)
                 UpdateCache();
 
@@ -34,7 +42,13 @@ namespace Plugins.UIDataBind.Components
                 layout.ignoreLayout = !value;
 
             foreach (var binding in _bindings)
+            {
+                var inverted = binding._inverted;
+                if(!value)//Do not invert value in children if it FALSE
+                    binding._inverted = false;
                 binding.UpdateValueHandler(value && binding.Value);
+                binding._inverted = inverted;
+            }
 
         }
 

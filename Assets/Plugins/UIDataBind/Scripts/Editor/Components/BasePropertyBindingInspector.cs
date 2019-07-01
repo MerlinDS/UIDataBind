@@ -49,7 +49,7 @@ namespace Plugins.UIDataBind.Editor.Components
                 return;
 
             serializedObject.ApplyModifiedProperties();
-            Binding.Reactivate();
+            ReactivateBinding();
 
         }
     }

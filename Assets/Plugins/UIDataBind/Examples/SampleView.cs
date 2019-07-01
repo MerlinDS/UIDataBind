@@ -23,11 +23,13 @@ namespace Plugins.UIDataBind.Examples
         {
             SampleInt = SampleInt > 0 ? 0 : 1;
             SampleSpritePath = string.IsNullOrEmpty(SampleSpritePath) ? _testSprite.name : string.Empty;
+            ButtonColor = ButtonColor == Color.green ? Color.yellow : Color.green;
         }
 
         [BindingMethod("Sample Action 2")]
-        public void SwitchColor() =>
-            ButtonColor = ButtonColor == Color.green ? Color.yellow : Color.green;
+        public void SwitchVisibility() =>
+            Visible = !Visible;
+
 
         #region Properties
 
@@ -86,7 +88,7 @@ namespace Plugins.UIDataBind.Examples
         }
 
         [BindingProperty("Button Label")]
-        private readonly StringProperty _buttonProperty = new StringProperty("Action");
+        private readonly StringProperty _buttonProperty = new StringProperty("Visible off");
 
         public string ButtonLabel
         {

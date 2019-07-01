@@ -76,7 +76,7 @@ namespace Plugins.UIDataBind.Editor.Components
             OnInternalGUI();
 
             if(serializedObject.DrawPropertiesExcluding(ExcludingProperties))
-                Binding.Reactivate();
+                ReactivateBinding();
         }
 
         protected virtual void OnInternalGUI()
@@ -104,6 +104,11 @@ namespace Plugins.UIDataBind.Editor.Components
             _name.stringValue = index >= 0 ? _bindings[index].Name : string.Empty;
             serializedObject.ApplyModifiedProperties();
 
+            ReactivateBinding();
+        }
+
+        public void ReactivateBinding()
+        {
             if (Application.isPlaying)
                 Binding.Reactivate();
         }
