@@ -23,8 +23,11 @@ namespace Plugins.UIDataBind.Examples
         {
             SampleInt = SampleInt > 0 ? 0 : 1;
             SampleSpritePath = string.IsNullOrEmpty(SampleSpritePath) ? _testSprite.name : string.Empty;
-            ButtonColor = ButtonColor == Color.green ? Color.yellow : Color.green;
         }
+
+        [BindingMethod("Sample Action 2")]
+        public void SwitchColor() =>
+            ButtonColor = ButtonColor == Color.green ? Color.yellow : Color.green;
 
         #region Properties
 

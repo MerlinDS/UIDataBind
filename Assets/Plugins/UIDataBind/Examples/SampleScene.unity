@@ -1030,7 +1030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _path:
-    Type: 1
+    Type: 0
     Name: SwitchInt
 --- !u!1 &660493474
 GameObject:

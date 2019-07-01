@@ -27,5 +27,11 @@ namespace Plugins.UIDataBind.Components
         protected abstract void Deactivate();
 
         #endregion
+
+        public void Reactivate()
+        {
+            Deactivate();
+            Activate(Path);
+        }
     }
 }

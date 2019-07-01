@@ -12,7 +12,7 @@ namespace Plugins.UIDataBind.Editor.Components
     public abstract class BaseBindingInspector: UnityEditor.Editor
     {
         private static readonly BindingPath PathTemplate = new BindingPath();
-        private readonly List<BaseBindingAttribute> _availableBindings = new List<BaseBindingAttribute>();
+        private readonly List<BaseBindingAttribute> _bindings = new List<BaseBindingAttribute>();
 
         private IViewContext _context;
 
@@ -36,13 +36,13 @@ namespace Plugins.UIDataBind.Editor.Components
 
             ExcludingProperties = new[] {_path};
 
-            _availableBindings.Clear();
+            _bindings.Clear();
 
             _context = Binding.GetComponentInParent<IViewContext>();
             if (_context == null)
                 return;
 
-            _availableBindings.AddRange(GetAttributes(_context));
+            _bindings.AddRange(GetAttributes(_context));
         }
 
         public sealed override void OnInspectorGUI()
@@ -82,14 +82,16 @@ namespace Plugins.UIDataBind.Editor.Components
         private void DrawPathGUI()
         {
             EditorGUI.BeginChangeCheck();
-            var index = _availableBindings.FindIndex(a => a.Name == _name.stringValue);
-            index = EditorGUILayout.Popup(_name.name, index,
-                                          _availableBindings.Select(a=>a.BindingName).ToArray());
+            var index = _bindings.FindIndex(a => a.Name == _name.stringValue);
+            index = EditorGUILayout.Popup(_name.name, index,_bindings.Select(a=>a.BindingName).ToArray());
             if (!EditorGUI.EndChangeCheck())
                 return;
 
-            _name.stringValue = index >= 0 ? _availableBindings[index].Name : string.Empty;
+            _name.stringValue = index >= 0 ? _bindings[index].Name : string.Empty;
             serializedObject.ApplyModifiedProperties();
+
+            if (Application.isPlaying)
+                Binding.Reactivate();
         }
 
         protected abstract IEnumerable<BaseBindingAttribute> GetAttributes(IViewContext context);

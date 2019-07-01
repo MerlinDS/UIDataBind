@@ -39,11 +39,17 @@ namespace Plugins.UIDataBind.Editor.Components
             if (!_isAlwaysShowValue && BindingType != BindingType.None)
                 return;
 
+            if(!_isValueDrawable)
+                return;
+
             EditorGUI.BeginChangeCheck();
-            if(_isValueDrawable)
-                EditorGUILayout.PropertyField(_defaultValue);
-            if (EditorGUI.EndChangeCheck())
-                serializedObject.ApplyModifiedProperties();
+            EditorGUILayout.PropertyField(_defaultValue);
+
+            if (!EditorGUI.EndChangeCheck())
+                return;
+
+            serializedObject.ApplyModifiedProperties();
+            Binding.Reactivate();
 
         }
     }
