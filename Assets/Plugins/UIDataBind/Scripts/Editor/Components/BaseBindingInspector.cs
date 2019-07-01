@@ -20,12 +20,15 @@ namespace Plugins.UIDataBind.Editor.Components
         private SerializedProperty _name;
         private SerializedProperty _path;
 
+        private bool _showContext;
+
         protected BaseBinding Binding { get; set; }
         protected SerializedProperty[] ExcludingProperties { get; set; }
         protected BindingType BindingType => (BindingType)_type.intValue;
 
         protected virtual void OnEnable()
         {
+            _showContext = false;
             Binding = serializedObject.targetObject as BaseBinding;
             if (Binding == null)
                 return;
@@ -83,9 +86,18 @@ namespace Plugins.UIDataBind.Editor.Components
 
         private void DrawPathGUI()
         {
+
             EditorGUI.BeginChangeCheck();
             var index = _bindings.FindIndex(a => a.Name == _name.stringValue);
+            EditorGUILayout.BeginHorizontal();
+
             index = EditorGUILayout.Popup(_name.name, index,_bindings.Select(a=>a.BindingName).ToArray());
+            _showContext = EditorGUILayout.ToggleLeft(string.Empty, _showContext, GUILayout.MaxWidth(30));
+
+            EditorGUILayout.EndHorizontal();
+            if(_showContext)
+                EditorGUILayout.ObjectField("Context", (Component)_context, typeof(Component), false);
+
             if (!EditorGUI.EndChangeCheck())
                 return;
 
