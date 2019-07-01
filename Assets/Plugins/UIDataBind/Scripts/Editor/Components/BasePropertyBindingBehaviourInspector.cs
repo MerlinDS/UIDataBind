@@ -26,6 +26,7 @@ namespace Plugins.UIDataBind.Editor.Components
         private SerializedProperty[] _excludingProperties;
 
         private bool _isValueDrawable = true;
+        private bool _isAlwaysShowValue;
 
         private BindingType BindingType => (BindingType)_type.intValue;
 
@@ -37,6 +38,9 @@ namespace Plugins.UIDataBind.Editor.Components
                 return;
 
             _isValueDrawable = !Attribute.IsDefined(_binding.GetType(), typeof(HideBindingValueAttribute));
+            if(_isValueDrawable)
+                _isAlwaysShowValue = Attribute.IsDefined(_binding.GetType(), typeof(ShowBindingValueAttribute));
+
             _path = serializedObject.FindProperty("_path");
             _defaultValue = serializedObject.FindProperty("_value");
             _type = _path.FindPropertyRelative(nameof(PathTemplate.Type));
@@ -79,7 +83,8 @@ namespace Plugins.UIDataBind.Editor.Components
 
             if (BindingType != BindingType.None)
                 DrawPropertyFieldGUI();
-            else
+
+            if(_isAlwaysShowValue || BindingType == BindingType.None)
             {
                 EditorGUI.BeginChangeCheck();
                 if(_isValueDrawable)

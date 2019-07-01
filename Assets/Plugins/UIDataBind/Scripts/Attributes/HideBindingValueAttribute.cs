@@ -6,4 +6,9 @@ namespace Plugins.UIDataBind.Attributes
     {
 
     }
+
+    public class ShowBindingValueAttribute : Attribute
+    {
+
+    }
 }
