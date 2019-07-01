@@ -18,7 +18,7 @@ namespace Plugins.UIDataBind.Examples
             _actionProperty.OnUpdateValue += b => SwitchInt();
         }
 
-        [BindingAction("Sample Action")]
+        [BindingMethod("Sample Action")]
         public void SwitchInt()
         {
             SampleInt = SampleInt > 0 ? 0 : 1;

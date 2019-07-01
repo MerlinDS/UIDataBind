@@ -1,22 +1,12 @@
+using System;
+
 namespace Plugins.UIDataBind.Base
 {
     internal struct ContextBindingPoint
     {
         public IViewContext Context;
-        public InstancePoint[] Properties;
-        public InstancePoint[] Methods;
+        public Tuple<string, object>[] Properties;
+        public Tuple<string, object>[] Methods;
         public bool IsEmpty => Context == null;
-    }
-
-    internal struct InstancePoint
-    {
-        public readonly string Name;
-        public readonly object Instance;
-
-        public InstancePoint(string name, object instance)
-        {
-            Name = name;
-            Instance = instance;
-        }
     }
 }

@@ -4,14 +4,12 @@ namespace Plugins.UIDataBind.Attributes
 {
     public class BaseBindingAttribute : Attribute
     {
-        private readonly string _bindingName;
-
         public string Name { get; set; }
-        public string BindingName => _bindingName;
+        public string BindingName { get; set; }
 
         protected BaseBindingAttribute(string bindingName)
         {
-            _bindingName = bindingName;
+            BindingName = bindingName;
         }
     }
 }

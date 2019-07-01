@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Plugins.UIDataBind.Attributes;
@@ -10,11 +9,11 @@ using UnityEngine;
 
 namespace Plugins.UIDataBind.Editor.Components
 {
-    [CustomEditor(typeof(BasePropertyBindingBehaviour<>), true)]
-    public sealed class BasePropertyBindingBehaviourInspector : UnityEditor.Editor
+    [CustomEditor(typeof(BaseActionBinding), true)]
+    public class BaseActionBindingInspector: UnityEditor.Editor
     {
         private static readonly BindingPath PathTemplate = new BindingPath();
-        private readonly List<BindingPropertyAttribute> _availableFields = new List<BindingPropertyAttribute>();
+        private readonly List<BindingMethodAttribute> _availableBindings = new List<BindingMethodAttribute>();
 
         private IViewContext _context;
         private BaseBinding _binding;
@@ -22,14 +21,10 @@ namespace Plugins.UIDataBind.Editor.Components
         private SerializedProperty _type;
         private SerializedProperty _name;
         private SerializedProperty _path;
-        private SerializedProperty _defaultValue;
+
         private SerializedProperty[] _excludingProperties;
 
-        private bool _isValueDrawable = true;
-        private bool _isAlwaysShowValue;
-
         private BindingType BindingType => (BindingType)_type.intValue;
-
 
         private void OnEnable()
         {
@@ -37,27 +32,17 @@ namespace Plugins.UIDataBind.Editor.Components
             if (_binding == null)
                 return;
 
-            _isValueDrawable = !Attribute.IsDefined(_binding.GetType(), typeof(HideBindingValueAttribute));
-            if(_isValueDrawable)
-                _isAlwaysShowValue = Attribute.IsDefined(_binding.GetType(), typeof(ShowBindingValueAttribute));
-
             _path = serializedObject.FindProperty("_path");
-            _defaultValue = serializedObject.FindProperty("_value");
             _type = _path.FindPropertyRelative(nameof(PathTemplate.Type));
             _name = _path.FindPropertyRelative(nameof(PathTemplate.Name));
 
-            _excludingProperties = new[] {_path, _defaultValue};
-
+            _excludingProperties = new[] {_path};
             _context = _binding.GetComponentInParent<IViewContext>();
-            _availableFields.Clear();
-
             if (_context == null)
                 return;
 
-            var expectedType = ((IPropertyBindingBehaviour)_binding).GetValueType;
-            _availableFields.AddRange(_context.GetType().GetBindingPropertyAttributes(expectedType));
+            _availableBindings.AddRange(_context.GetType().GetBindingMethodAttributes());
         }
-
 
         public override void OnInspectorGUI()
         {
@@ -84,15 +69,6 @@ namespace Plugins.UIDataBind.Editor.Components
             if (BindingType != BindingType.None)
                 DrawPropertyFieldGUI();
 
-            if(_isAlwaysShowValue || BindingType == BindingType.None)
-            {
-                EditorGUI.BeginChangeCheck();
-                if(_isValueDrawable)
-                    EditorGUILayout.PropertyField(_defaultValue);
-                if (EditorGUI.EndChangeCheck())
-                    serializedObject.ApplyModifiedProperties();
-            }
-
 
             serializedObject.DrawPropertiesExcluding(_excludingProperties);
         }
@@ -100,14 +76,15 @@ namespace Plugins.UIDataBind.Editor.Components
         private void DrawPropertyFieldGUI()
         {
             EditorGUI.BeginChangeCheck();
-            var index = _availableFields.FindIndex(a => a.Name == _name.stringValue);
+            var index = _availableBindings.FindIndex(a => a.Name == _name.stringValue);
             index = EditorGUILayout.Popup(_name.name, index,
-                                          _availableFields.Select(a=>a.BindingName).ToArray());
+                                          _availableBindings.Select(a=>a.BindingName).ToArray());
             if (!EditorGUI.EndChangeCheck())
                 return;
 
-            _name.stringValue = index >= 0 ? _availableFields[index].Name : string.Empty;
+            _name.stringValue = index >= 0 ? _availableBindings[index].Name : string.Empty;
             serializedObject.ApplyModifiedProperties();
         }
+
     }
 }

@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using JetBrains.Annotations;
-using Plugins.UIDataBind.Attributes;
 using Plugins.UIDataBind.Components;
-using Plugins.UIDataBind.Properties;
+using Plugins.UIDataBind.Extensions;
 using UnityEngine;
 
 namespace Plugins.UIDataBind.Base
@@ -16,13 +14,6 @@ namespace Plugins.UIDataBind.Base
     /// </summary>
     public class BindingKernel
     {
-        private const BindingFlags MethodFlags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance |
-                                                 BindingFlags.DeclaredOnly;
-
-
-        private static readonly Type BindingMethodAttribute = typeof(BindingActionAttribute);
-        private static readonly Type BindingPropertyType = typeof(IBindingProperty);
-
         private static BindingKernel _instance;
 
         private readonly Dictionary<int, ContextBindingPoint> _contextBindingPoints;
@@ -53,8 +44,8 @@ namespace Plugins.UIDataBind.Base
                 : bindingPoint.Properties;
 
             var name = path.Name;
-            var point = points.FirstOrDefault(p => p.Name == name);
-            return (TValue) point.Instance;
+            var point = points.FirstOrDefault(p => p.Item1 == name);
+            return (TValue) point?.Item2;
         }
 
 
@@ -84,8 +75,8 @@ namespace Plugins.UIDataBind.Base
             if (context == null)
                 return default;
 
-            var methods = GetBindingMethodsFrom(context).ToArray();
-            var properties = GetBindingPropertiesFrom(context).ToArray();
+            var methods = context.GetBindingMethods().ToArray();
+            var properties = context.GetBindingProperties().ToArray();
             return new ContextBindingPoint
             {
                 Context = context,
@@ -93,25 +84,5 @@ namespace Plugins.UIDataBind.Base
                 Properties = properties
             };
         }
-
-        private static IEnumerable<InstancePoint> GetBindingPropertiesFrom(IViewContext context)
-        {
-            return context.GetType()
-                .GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-                .Where(f => BindingPropertyType.IsAssignableFrom(f.FieldType))
-                .Select(field => new InstancePoint(field.Name, (IBindingProperty) field.GetValue(context)));
-        }
-
-        private static IEnumerable<InstancePoint> GetBindingMethodsFrom(IViewContext context)
-        {
-            return context.GetType().GetMethods(MethodFlags)
-                .Where(method => Attribute.IsDefined(method, BindingMethodAttribute))
-                .Where(method => method.GetParameters().Length == 0)
-                .Where(method => method.ReturnType == typeof(void))
-                .Select(method => new InstancePoint(method.Name, CreateDelegate(method, context)));
-        }
-
-        private static Action CreateDelegate(MethodInfo methodInfo, object target) =>
-            (Action) methodInfo.CreateDelegate(typeof(Action), target);
     }
 }
