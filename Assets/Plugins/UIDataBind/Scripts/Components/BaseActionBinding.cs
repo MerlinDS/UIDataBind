@@ -5,6 +5,11 @@ using UnityEngine;
 
 namespace Plugins.UIDataBind.Components
 {
+    /// <summary>
+    /// The base binding for actions, used to bind action to a <see cref="IViewContext"/> <see cref="Action">methods</see>.
+    /// </summary>
+    /// <seealso cref="BaseBinding"/>
+    /// <seealso cref="BindingType"/>
     public abstract class BaseActionBinding : BaseBinding
     {
         protected Action ExternalAction { get; private set; }

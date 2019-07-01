@@ -7,6 +7,14 @@ using UnityEngine;
 
 namespace Plugins.UIDataBind.Components
 {
+    /// <summary>
+    /// The base binding for properties, used to bind a component to <see cref="IViewContext"/>
+    /// <see cref="BaseBindingProperty">bindingProperties</see>.
+    /// </summary>
+    ///
+    /// <seealso cref="BaseBinding"/>
+    /// <seealso cref="BindingType"/>
+    /// <seealso cref="BaseBindingProperty{T}"/>
     public abstract class BasePropertyBinding<TValue> : BaseBinding, IPropertyBindingBehaviour<TValue>
     {
         private IBindingProperty<TValue> _bindingProperty;

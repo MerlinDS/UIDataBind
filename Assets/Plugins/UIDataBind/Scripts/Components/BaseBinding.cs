@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace Plugins.UIDataBind.Components
 {
+    /// <summary>
+    /// The base binding <see cref="MonoBehaviour"/>, used to bind components to a <see cref="IViewContext"/>.
+    /// <seealso cref="BindingType"/>
+    /// </summary>
     public abstract class BaseBinding : MonoBehaviour
     {
 #pragma warning disable 0649

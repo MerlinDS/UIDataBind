@@ -3,11 +3,12 @@ using System;
 namespace Plugins.UIDataBind.Base
 {
     /// <summary>
-    /// Types of binding actions.
-    /// <seealso cref="Plugins.UIDataBind.Components.BaseBinding"/>
-    /// <seealso cref="Plugins.UIDataBind.Components.BasePropertyBinding{T}"/>
-    /// <seealso cref="Plugins.UIDataBind.Components.BaseActionBinding"/>
+    /// Use to select how to bind a component during play mode.
     /// </summary>
+    ///
+    /// <seealso cref="BindingType.None"/>
+    /// <seealso cref="BindingType.Context"/>
+//    /// <seealso cref="BindingType.Condition"/>
     public enum BindingType
     {
         /// <summary>

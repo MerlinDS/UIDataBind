@@ -10,7 +10,7 @@ namespace Plugins.UIDataBind.Components
     public sealed class VisibleBinding : BasePropertyBinding<bool>
     {
 #pragma warning disable 0649
-        [SerializeField]
+        [SerializeField, Tooltip("Invert visibility flag: if value == false then visible, if value == true then invisible")]
         private bool _inverted;
 #pragma warning restore 0649
 

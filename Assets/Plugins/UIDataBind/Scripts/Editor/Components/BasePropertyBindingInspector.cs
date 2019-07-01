@@ -5,6 +5,7 @@ using Plugins.UIDataBind.Base;
 using Plugins.UIDataBind.Components;
 using Plugins.UIDataBind.Editor.Utils;
 using UnityEditor;
+using UnityEngine;
 
 namespace Plugins.UIDataBind.Editor.Components
 {
@@ -43,7 +44,9 @@ namespace Plugins.UIDataBind.Editor.Components
                 return;
 
             EditorGUI.BeginChangeCheck();
-            EditorGUILayout.PropertyField(_defaultValue);
+            var label = new GUIContent(_defaultValue.displayName, "The default value will be used when a " +
+                                                                  "binding type is None, or property was not found");
+            EditorGUILayout.PropertyField(_defaultValue, label);
 
             if (!EditorGUI.EndChangeCheck())
                 return;

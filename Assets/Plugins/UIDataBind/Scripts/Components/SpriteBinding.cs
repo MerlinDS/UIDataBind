@@ -11,7 +11,7 @@ namespace Plugins.UIDataBind.Components
     public sealed class SpriteBinding: BasePropertyBindingWithComponent<Image, Sprite>
     {
 #pragma warning disable 0649
-        [SerializeField]
+        [SerializeField, Tooltip("The path to sprite asset, will be used when a binding type is None")]
         [BindingValue]
         private string _sprite;
 #pragma warning restore 0649
