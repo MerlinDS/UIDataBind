@@ -12,10 +12,13 @@ namespace Plugins.UIDataBind.Tests.Base
         public void ExternalContextTest()
         {
             var gameObject = new GameObject();
+            gameObject.SetActive(false);
+
             var expectedContext = Substitute.For<IViewContext>();
             var contextBinding = gameObject.AddComponent<ViewContextBinding>();
             contextBinding.Context = expectedContext;
 
+            gameObject.SetActive(true);
             Assert.That(contextBinding.Context, Is.SameAs(expectedContext));
         }
 
@@ -28,7 +31,7 @@ namespace Plugins.UIDataBind.Tests.Base
         public void InternalContextTest()
         {
             var gameObject = new GameObject();
-            var contextBinding = gameObject.AddComponent<ViewContextBinding>();
+            var contextBinding = gameObject.AddComponent<InternalContextBinding>();
 
             Assert.That(contextBinding.Context, Is.Not.Null);
         }
@@ -41,14 +44,24 @@ namespace Plugins.UIDataBind.Tests.Base
         public void SelfContextTest()
         {
             var gameObject = new GameObject();
-            var contextBinding = gameObject.AddComponent<ViewContextBinding>();
+            var contextBinding = gameObject.AddComponent<SelfContextBinding>();
 
             Assert.That(contextBinding.Context, Is.Not.Null);
         }
 
 
-
-
+        [Test]
+        public void EmptyContextTest()
+        {
+            var gameObject = new GameObject();
+            gameObject.SetActive(false);
+            var binding = gameObject.AddComponent<ViewContextBinding>();
+            /*
+             * Because of internal Unity assertion the test assertion fail on legal exception.
+             * That's why we will reactivate the component directly
+             */
+            Assert.That(()=>binding.Reactivate(), Throws.InvalidOperationException);
+        }
 
     }
 }
