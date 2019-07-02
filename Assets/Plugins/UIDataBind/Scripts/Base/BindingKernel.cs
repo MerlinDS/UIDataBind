@@ -12,7 +12,7 @@ namespace Plugins.UIDataBind.Base
     /// The kernel class of UIDataBinding.
     /// Responsible for collecting and storing <see cref="IViewContext"/>s with it binding properties.
     /// </summary>
-    public class BindingKernel
+    public partial class BindingKernel
     {
         private static BindingKernel _instance;
 
@@ -83,16 +83,6 @@ namespace Plugins.UIDataBind.Base
                 Methods = methods,
                 Properties = properties
             };
-        }
-
-        public void Register(int instanceId, IViewContext context)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Unregister(int instanceId, IViewContext context)
-        {
-            throw new NotImplementedException();
         }
     }
 }
