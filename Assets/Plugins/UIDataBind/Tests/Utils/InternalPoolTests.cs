@@ -1,9 +1,9 @@
 using System.Linq;
 using NUnit.Framework;
-using Plugins.UIDataBind.Components;
+using Plugins.UIDataBind.Utils;
 using UnityEngine;
 
-namespace Plugins.UIDataBind.Tests.Components
+namespace Plugins.UIDataBind.Tests.Utils
 {
     public class InternalPoolTests
     {

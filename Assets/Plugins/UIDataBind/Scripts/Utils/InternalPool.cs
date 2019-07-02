@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Plugins.UIDataBind.Components
+namespace Plugins.UIDataBind.Utils
 {
     public class InternalPool : IDisposable
     {
