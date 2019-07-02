@@ -11,7 +11,11 @@ namespace Plugins.UIDataBind.Tests.Collections
         [SetUp]
         public void SetUp()
         {
-            _collection = new BindingCollection<int>();
+            var array = new int[Random.Range(0, 10)];
+            for (var i = 0; i < array.Length; i++)
+                array[i] = i + 1;
+
+            _collection = new BindingCollection<int>(array);
         }
 
         [TearDown]
@@ -23,7 +27,6 @@ namespace Plugins.UIDataBind.Tests.Collections
         [Test]
         public void AddingTest()
         {
-
             var expectedItem = Random.Range(0, 1000);
             var index = _collection.Count;
             var eventOccurs = false;
@@ -47,9 +50,9 @@ namespace Plugins.UIDataBind.Tests.Collections
         [Test]
         public void RemovingTest()
         {
-
-            var expectedItem = Random.Range(0, 1000);
-            var index = _collection.Count;
+            var index = Random.Range(0, _collection.Count - 1);
+            var expectedItem = _collection[index];
+            var expectedCount = _collection.Count - 1;
             var eventOccurs = false;
 
             void Handler(int i, int item)
@@ -59,13 +62,11 @@ namespace Plugins.UIDataBind.Tests.Collections
                 eventOccurs = true;
             }
 
-            _collection.Add(expectedItem);
             _collection.OnItemRemoved += Handler;
             _collection.Remove(expectedItem);
             _collection.OnItemRemoved -= Handler;
-
             Assert.IsTrue(eventOccurs);
-            Assert.AreEqual(0, _collection.Count);
+            Assert.AreEqual(expectedCount, _collection.Count);
         }
     }
 }
