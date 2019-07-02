@@ -1,5 +1,6 @@
 using System;
 using JetBrains.Annotations;
+using Plugins.UIDataBind.Base;
 using Plugins.UIDataBind.Properties;
 
 namespace Plugins.UIDataBind.Utils

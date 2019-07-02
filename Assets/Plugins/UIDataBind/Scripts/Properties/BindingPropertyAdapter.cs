@@ -1,4 +1,5 @@
 using System;
+using Plugins.UIDataBind.Base;
 using Plugins.UIDataBind.Utils;
 
 namespace Plugins.UIDataBind.Properties

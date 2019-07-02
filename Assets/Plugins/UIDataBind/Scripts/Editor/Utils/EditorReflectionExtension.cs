@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Plugins.UIDataBind.Attributes;
+using Plugins.UIDataBind.Base;
 using Plugins.UIDataBind.Extensions;
 using Plugins.UIDataBind.Properties;
 using Plugins.UIDataBind.Utils;

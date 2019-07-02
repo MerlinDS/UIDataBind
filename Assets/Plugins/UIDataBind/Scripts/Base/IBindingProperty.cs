@@ -1,6 +1,6 @@
 using System;
 
-namespace Plugins.UIDataBind.Properties
+namespace Plugins.UIDataBind.Base
 {
     public interface IBindingProperty<TValue> : IBindingProperty
     {

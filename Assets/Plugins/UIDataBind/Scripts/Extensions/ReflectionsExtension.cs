@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Plugins.UIDataBind.Attributes;
+using Plugins.UIDataBind.Base;
 using Plugins.UIDataBind.Properties;
 
 namespace Plugins.UIDataBind.Extensions
