@@ -30,6 +30,15 @@ namespace Plugins.UIDataBind.Collections
 
         #region Collection API
 
+        public BindingCollection(IEnumerable<TValue> collection = null)
+        {
+            if (collection == null)
+                return;
+
+            foreach (var value in collection)
+                _internalCollection.Add(value);
+        }
+
         public IEnumerator<TValue> GetEnumerator() =>
             _internalCollection.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
