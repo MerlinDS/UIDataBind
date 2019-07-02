@@ -1,5 +1,6 @@
 using System;
 using Plugins.UIDataBind.Base;
+using Plugins.UIDataBind.Extensions;
 using UnityEngine;
 
 namespace Plugins.UIDataBind.Components
@@ -17,12 +18,10 @@ namespace Plugins.UIDataBind.Components
             if (Context == null)
                 throw new InvalidOperationException($"{this} has no {typeof(IViewContext)} for binding!");
 
-            //TODO: Register new context in kernel
+            this.Register();
         }
 
-        protected sealed override void Deactivate()
-        {
-            //TODO: UnRegister existing context in kernel
-        }
+        protected sealed override void Deactivate() =>
+            this.Unregister();
     }
 }

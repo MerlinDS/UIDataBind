@@ -10,6 +10,13 @@ namespace Plugins.UIDataBind.Extensions
 {
     public static class BaseBindingExtension
     {
+        public static void Register([NotNull] this ViewContextBinding contextBinding) =>
+            BindingKernel.Instance.Register(contextBinding.GetInstanceID(), contextBinding.Context);
+
+        public static void Unregister([NotNull] this ViewContextBinding contextBinding) =>
+            BindingKernel.Instance.Unregister(contextBinding.GetInstanceID(), contextBinding.Context);
+
+
         [CanBeNull]
         public static IBindingProperty<TValue> FindBindingProperty<TValue>([NotNull] this BaseBinding binding,
             BindingPath path, TValue defaultValue = default)
