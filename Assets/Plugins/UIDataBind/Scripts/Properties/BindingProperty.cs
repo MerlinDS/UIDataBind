@@ -2,7 +2,7 @@ using System;
 
 namespace Plugins.UIDataBind.Properties
 {
-    public class BaseBindingProperty<TValue> : BaseBindingProperty, IBindingProperty<TValue>
+    public class BindingProperty<TValue> : BindingProperty, IBindingProperty<TValue>
     {
         private TValue _value;
         public event Action<TValue> OnUpdateValue;
@@ -26,14 +26,14 @@ namespace Plugins.UIDataBind.Properties
             set => Value = (TValue) value;
         }
 
-        public BaseBindingProperty(TValue value = default) => Value = value;
+        public BindingProperty(TValue value = default) => Value = value;
 
         public void Dispose()
         {
         }
     }
 
-    public abstract class BaseBindingProperty
+    public abstract class BindingProperty
     {
         internal event Action OnInternalUpdateValue;
 

@@ -1,4 +1,5 @@
 using System;
+using Plugins.UIDataBind.Properties;
 
 namespace Plugins.UIDataBind.Base
 {
@@ -19,7 +20,7 @@ namespace Plugins.UIDataBind.Base
         None,
         /// <summary>
         /// The binding to a <see cref="IViewContext"/>
-        /// <see cref="Plugins.UIDataBind.Properties.BaseBindingProperty">bindingProperties</see>
+        /// <see cref="BindingProperty">bindingProperties</see>
         /// and <see cref="System.Action">methods</see>
         /// </summary>
         Context,

@@ -18,7 +18,7 @@ namespace Plugins.UIDataBind.Extensions
                 throw new ArgumentNullException(nameof(binding));
 
             if (path.Type == BindingType.None || path.IsEmpty())
-                return new BaseBindingProperty<TValue>(defaultValue);
+                return new BindingProperty<TValue>(defaultValue);
 
             var bindingProperty = BindingKernel.Instance.Find<IBindingProperty>(binding, path);
             if (bindingProperty == null || bindingProperty is IBindingProperty<TValue>)

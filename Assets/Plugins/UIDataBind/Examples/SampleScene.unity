@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 17059361}
   - component: {fileID: 17059363}
   - component: {fileID: 17059362}
+  - component: {fileID: 17059364}
   m_Layer: 5
   m_Name: '[B]Color'
   m_TagString: Untagged
@@ -278,6 +279,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17059357}
   m_CullTransparentMesh: 0
+--- !u!114 &17059364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17059357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d37e6309494e47bea536961a4c9ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _path:
+    Type: 0
+    Name: 
+  _value: {r: 0.5372549, g: 0.7971556, b: 1, a: 1}
 --- !u!1 &263052978
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,6 +2182,7 @@ GameObject:
   - component: {fileID: 1426210034}
   - component: {fileID: 1426210033}
   - component: {fileID: 1426210038}
+  - component: {fileID: 1426210039}
   m_Layer: 5
   m_Name: '[B]String'
   m_TagString: Untagged
@@ -2324,6 +2342,22 @@ MonoBehaviour:
   _path:
     Type: 1
     Name: OnImageColorChange
+--- !u!114 &1426210039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426210031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d37e6309494e47bea536961a4c9ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _path:
+    Type: 0
+    Name: 
+  _value: {r: 0.5372549, g: 1, b: 0.7304844, a: 1}
 --- !u!1 &1434185015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2537,6 +2571,7 @@ GameObject:
   - component: {fileID: 1571848214}
   - component: {fileID: 1571848213}
   - component: {fileID: 1571848212}
+  - component: {fileID: 1571848217}
   m_Layer: 5
   m_Name: '[B]Visibility'
   m_TagString: Untagged
@@ -2681,6 +2716,22 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &1571848217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571848210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d37e6309494e47bea536961a4c9ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _path:
+    Type: 0
+    Name: 
+  _value: {r: 1, g: 0.5377358, b: 0.5377358, a: 1}
 --- !u!1 &1674156843
 GameObject:
   m_ObjectHideFlags: 0

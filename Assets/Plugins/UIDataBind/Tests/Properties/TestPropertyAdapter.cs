@@ -8,7 +8,7 @@ namespace Plugins.UIDataBind.Tests.Properties
         [Test]
         public void TestValueSetting()
         {
-            var source = new BaseBindingProperty<int>(10);
+            var source = new BindingProperty<int>(10);
             var adapter = new BindingPropertyAdapter<string>(source);
 
             Assert.AreEqual(source.Value.ToString(), adapter.Value);
@@ -22,7 +22,7 @@ namespace Plugins.UIDataBind.Tests.Properties
         [Test]
         public void TestHandling()
         {
-            var source = new BaseBindingProperty<int>(10);
+            var source = new BindingProperty<int>(10);
             var adapter = new BindingPropertyAdapter<string>(source);
             var invokesCount = 0;
 
@@ -45,7 +45,7 @@ namespace Plugins.UIDataBind.Tests.Properties
         [Test]
         public void TestValueConversionErrorHandling()
         {
-            var source = new BaseBindingProperty<int>(10);
+            var source = new BindingProperty<int>(10);
             var adapter = new BindingPropertyAdapter<string>(source) {Value = "name"};
 
             Assert.AreEqual(source.Value.ToString(), adapter.Value);

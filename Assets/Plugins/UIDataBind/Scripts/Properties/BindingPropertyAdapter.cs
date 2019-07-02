@@ -10,7 +10,7 @@ namespace Plugins.UIDataBind.Properties
         private bool _upToDate;
 
         public BindingPropertyAdapter(IBindingProperty source) :
-            this(source, new BaseBindingProperty<TValue>())
+            this(source, new BindingProperty<TValue>())
         {
         }
 
@@ -19,7 +19,7 @@ namespace Plugins.UIDataBind.Properties
             _source = source;
             _target = target;
 
-            ((BaseBindingProperty)_source).OnInternalUpdateValue += SourceValueHandler;
+            ((BindingProperty)_source).OnInternalUpdateValue += SourceValueHandler;
             SourceValueHandler();
         }
 
@@ -37,7 +37,7 @@ namespace Plugins.UIDataBind.Properties
         private void ReleaseUnmanagedResources()
         {
             if(_source != null)
-                ((BaseBindingProperty)_source).OnInternalUpdateValue -= SourceValueHandler;
+                ((BindingProperty)_source).OnInternalUpdateValue -= SourceValueHandler;
             _upToDate = false;
         }
 
