@@ -9,10 +9,12 @@ namespace Plugins.UIDataBind.Tests.Components
     {
         private Transform _prefab;
         private Transform _container;
+        private InternalPool _pool;
 
         [SetUp]
         public void SetUp()
         {
+            _pool = new InternalPool();
             _container = new GameObject("Container").transform;
             _prefab = new GameObject("Prefab").transform;
             _prefab.gameObject.AddComponent<TestComponent>();
@@ -23,66 +25,62 @@ namespace Plugins.UIDataBind.Tests.Components
         {
             Object.DestroyImmediate(_container.gameObject);
             Object.DestroyImmediate(_prefab.gameObject);
+            _pool.Dispose();
         }
 
         [Test]
         public void SpawnTest()
         {
-            var pool = new InternalPool();
-            var instance = pool.Spawn(_prefab, _container);
+            var instance = _pool.Spawn(_prefab, _container);
             Assert.NotNull(instance);
             Assert.NotNull(instance.GetComponent<TestComponent>());
             Assert.AreSame(_container, instance.parent);
             Assert.IsTrue(instance.gameObject.activeInHierarchy);
 
-            Assert.IsTrue(pool.Spawned.Contains(instance));
+            Assert.IsTrue(_pool.Spawned.Contains(instance));
         }
 
         [Test]
         public void SpawnWithTypeTest()
         {
-            var pool = new InternalPool();
-            var instance = pool.Spawn<TestComponent>(_prefab, _container);
+            var instance = _pool.Spawn<TestComponent>(_prefab, _container);
             Assert.NotNull(instance);
             Assert.NotNull(instance.GetComponent<TestComponent>());
             Assert.AreSame(_container, instance.transform.parent);
             Assert.IsTrue(instance.gameObject.activeInHierarchy);
 
-            Assert.IsTrue(pool.Spawned.Contains(instance.transform));
+            Assert.IsTrue(_pool.Spawned.Contains(instance.transform));
         }
 
         [Test]
         public void DeSpawnTest()
         {
-            var pool = new InternalPool();
-            var instance = pool.Spawn(_prefab, _container);
-            pool.DeSpawn(instance);
+            var instance = _pool.Spawn(_prefab, _container);
+            _pool.DeSpawn(instance);
 
             Assert.AreSame(_container, instance.parent);
             Assert.IsFalse(instance.gameObject.activeInHierarchy);
 
-            Assert.IsFalse(pool.Spawned.Contains(instance));
+            Assert.IsFalse(_pool.Spawned.Contains(instance));
         }
 
         [Test]
         public void DeSpawnAllTest()
         {
-            var pool = new InternalPool();
-            pool.Spawn(_prefab, _container);
-            pool.Spawn(_prefab, _container);
-            pool.Spawn(_prefab, _container);
+            _pool.Spawn(_prefab, _container);
+            _pool.Spawn(_prefab, _container);
+            _pool.Spawn(_prefab, _container);
 
-            var instance = pool.Spawn(_prefab, _container);
-            pool.DeSpawnAll();
+            var instance = _pool.Spawn(_prefab, _container);
+            _pool.DeSpawnAll();
 
             Assert.AreSame(_container, instance.parent);
             Assert.IsFalse(instance.gameObject.activeInHierarchy);
-            Assert.AreEqual(0, pool.Spawned.Count());
+            Assert.AreEqual(0, _pool.Spawned.Count());
         }
 
         private class TestComponent : MonoBehaviour
         {
-
         }
     }
 }
