@@ -1,7 +1,7 @@
 using System;
 using JetBrains.Annotations;
 using Plugins.UIDataBind.Base;
-using Plugins.UIDataBind.Properties;
+using UnityEngine;
 
 namespace Plugins.UIDataBind.Utils
 {
@@ -27,7 +27,7 @@ namespace Plugins.UIDataBind.Utils
                 if(typeof(IConvertible).IsAssignableFrom(expectedType))
                     return true;
 
-                if (typeof(UnityEngine.Sprite).IsAssignableFrom(expectedType))
+                if (typeof(Sprite).IsAssignableFrom(expectedType))
                     return convertible == typeof(string);
 
                 /*if (typeof(UnityEngine.Color).IsAssignableFrom(expectedType))
@@ -49,17 +49,17 @@ namespace Plugins.UIDataBind.Utils
                 if(typeof(IConvertible).IsAssignableFrom(expectedType))
                     return ConvertValue(expectedType, convertible);
 
-                if (typeof(UnityEngine.Sprite).IsAssignableFrom(expectedType))
+                if (typeof(Sprite).IsAssignableFrom(expectedType))
                     return ConvertValue(convertible);
             }
             //TODO: Implement other conversions
             return default;
         }
 
-        private static UnityEngine.Sprite ConvertValue(IConvertible value)
+        private static Sprite ConvertValue(IConvertible value)
         {
             var path = (string)ConvertValue(typeof(string), value);
-            return UnityEngine.Resources.Load<UnityEngine.Sprite>(path);
+            return Resources.Load<Sprite>(path);
         }
 
         private static object ConvertValue(Type expectedType, IConvertible value)
@@ -78,5 +78,18 @@ namespace Plugins.UIDataBind.Utils
         }
 
 
+        public static TType SafeCast<TType>(object value)
+        {
+            switch (value)
+            {
+                case null:
+                    return default;
+                case TType concreteData:
+                    return concreteData;
+                default:
+                    Debug.LogError($"Specified cast is not valid: \"{value}\" to {typeof(TType)}");
+                    return default;
+            }
+        }
     }
 }
