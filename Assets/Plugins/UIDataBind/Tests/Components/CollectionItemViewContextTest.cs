@@ -1,9 +1,6 @@
-using System;
 using NUnit.Framework;
 using Plugins.UIDataBind.Components;
 using UnityEngine;
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace Plugins.UIDataBind.Tests.Components
 {
@@ -34,18 +31,11 @@ namespace Plugins.UIDataBind.Tests.Components
         [Test]
         public void ConfigureWithInvalidCastTest()
         {
-            try
-            {
-                //Disable log during this test: The legal Debug.LogError will fail this test
-                var logEnabled = Debug.unityLogger.logEnabled;
-                Debug.unityLogger.logEnabled = false;
-                _itemView.Configure("Incorrect data value");
-                Debug.unityLogger.logEnabled = logEnabled;
-            }
-            catch (InvalidCastException e)
-            {
-                Assert.Fail(e.Message);
-            }
+            //Disable log during this test: The legal Debug.LogError will fail this test
+            var logEnabled = Debug.unityLogger.logEnabled;
+            Debug.unityLogger.logEnabled = false;
+            Assert.DoesNotThrow(()=>_itemView.Configure("Incorrect data value"));
+            Debug.unityLogger.logEnabled = logEnabled;
         }
 
     }
