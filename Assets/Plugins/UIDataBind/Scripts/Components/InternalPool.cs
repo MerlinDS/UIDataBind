@@ -38,7 +38,7 @@ namespace Plugins.UIDataBind.Components
         public void DeSpawn(Transform instance)
         {
             if (!_instances.Contains(instance))
-                throw new AggregateException($"{instance} don't belongs to this pool!");
+                throw new ArgumentException($"{instance} don't belongs to this pool!", nameof(instance));
 
             if (_spawned.Contains(instance))
                 _spawned.Remove(instance);

@@ -62,6 +62,8 @@ namespace Plugins.UIDataBind.Tests.Components
             Assert.IsFalse(instance.gameObject.activeInHierarchy);
 
             Assert.IsFalse(_pool.Spawned.Contains(instance));
+
+            Assert.That(()=>_pool.DeSpawn(_container), Throws.ArgumentException);
         }
 
         [Test]
