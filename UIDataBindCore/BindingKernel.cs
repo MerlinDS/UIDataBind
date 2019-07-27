@@ -1,6 +1,6 @@
 using System;
 
-namespace UIDataBindCore.Core
+namespace UIDataBindCore
 {
     /// <summary>
     /// The kernel of the UIDataBindCore library.
@@ -17,14 +17,17 @@ namespace UIDataBindCore.Core
 
         #region PUBLIC API
 
-        ///<summary></summary>
-        public void Register()
+        /// <summary></summary>
+        /// <param name="context"></param>
+        public void Register(IDataContext context)
         {
+            //TODO: Implement creation of the scope of bindings (field reflections)
             throw new NotImplementedException();
         }
 
-        ///<summary></summary>
-        public void Unregister()
+        /// <summary></summary>
+        /// <param name="context"></param>
+        public void Unregister(IDataContext context)
         {
             throw new NotImplementedException();
         }

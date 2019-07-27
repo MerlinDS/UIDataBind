@@ -1,4 +1,4 @@
-namespace UIDataBindCore.Core
+namespace UIDataBindCore
 {
     /// <summary>
     /// The main interface of the data context.
