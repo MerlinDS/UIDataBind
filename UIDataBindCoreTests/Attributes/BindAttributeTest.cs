@@ -40,7 +40,6 @@ namespace UIDataBindCoreTests.Attributes
             Assert.That(attribute.Help, Is.EqualTo(TestDataContext.BindMethodHelp));
             Assert.That(attribute.Name, Is.EqualTo(nameof(TestDataContext.BindMethod)));
             context.BindMethod();
-            context.Dispose();
         }
     }
 }

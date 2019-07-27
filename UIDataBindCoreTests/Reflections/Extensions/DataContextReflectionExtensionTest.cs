@@ -39,7 +39,6 @@ namespace UIDataBindCoreTests.Reflections.Extensions
             Assert.That(contextType.Name, Is.EqualTo(type.Name));
             Assert.That(contextType.IsInitializable, Is.True);
             Assert.That(contextType.Members, Is.Empty);
-            context.Dispose();
             context.Init();
         }
 
@@ -53,10 +52,6 @@ namespace UIDataBindCoreTests.Reflections.Extensions
 
         private class InitializableTestDataContext : IDataContext, IInitializable
         {
-            public void Dispose()
-            {
-
-            }
 
             public void Init()
             {
