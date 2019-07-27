@@ -15,10 +15,16 @@ namespace UIDataBindCore.Attributes
         /// <summary>
         /// The human readable pseudonym of a bound member
         /// </summary>
-        public string Aliases { get; set; }
+        public string Alias { get; private set; }
         /// <summary>
         /// The help string a bound member
         /// </summary>
-        public string Help { get; set; }
+        public string Help { get; private set; }
+
+        public BindAttribute(string alias = default, string help = default)
+        {
+            Alias = alias;
+            Help = help;
+        }
     }
 }

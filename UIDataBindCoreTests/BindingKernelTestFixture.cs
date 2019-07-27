@@ -1,7 +1,6 @@
-using System;
 using NSubstitute;
 using NUnit.Framework;
-using UIDataBindCore.Core;
+using UIDataBindCore;
 
 namespace UIDataBindCoreTests
 {
@@ -9,11 +8,25 @@ namespace UIDataBindCoreTests
     public class BindingKernelTestFixture
     {
         [Test]
-        public void TempTest()
+        public void SingletonTest()
+        {
+            var firstKernel = BindingKernel.Instance;
+            Assert.That(firstKernel, Is.Not.Null);
+            var secondKernel = BindingKernel.Instance;
+            Assert.That(firstKernel, Is.SameAs(secondKernel));
+        }
+
+        [Test]
+        public void RegisterTest()
         {
             var context = Substitute.For<IDataContext>();
-            Console.WriteLine(context.ToString());
-            BindingKernel.Instance.Register();
+            BindingKernel.Instance.Register(context);
+        }
+        [Test]
+        public void UnregisterTest()
+        {
+            var context = Substitute.For<IDataContext>();
+            BindingKernel.Instance.Unregister(context);
         }
     }
 }
