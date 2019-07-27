@@ -1,7 +1,7 @@
 using System.Reflection;
 using NUnit.Framework;
-using UIDataBindCore;
 using UIDataBindCore.Attributes;
+using UIDataBindCoreTests.Utils;
 
 namespace UIDataBindCoreTests.Attributes
 {
@@ -40,23 +40,6 @@ namespace UIDataBindCoreTests.Attributes
             Assert.That(attribute.Help, Is.EqualTo(TestDataContext.BindMethodHelp));
             Assert.That(attribute.Name, Is.EqualTo(nameof(TestDataContext.BindMethod)));
             context.BindMethod();
-        }
-
-        private class TestDataContext : IDataContext
-        {
-            public const string BindMemberAlias = nameof(BindMemberAlias);
-            public const string BindMemberHelp = nameof(BindMemberHelp);
-
-            public const string BindMethodAlias = nameof(BindMethodAlias);
-            public const string BindMethodHelp = nameof(BindMethodHelp);
-
-            [Bind(BindMemberAlias, BindMemberHelp)]
-            public readonly int BindMember = 1;
-
-            [Bind(BindMethodAlias, BindMethodHelp)]
-            public void BindMethod()
-            {
-            }
         }
     }
 }
