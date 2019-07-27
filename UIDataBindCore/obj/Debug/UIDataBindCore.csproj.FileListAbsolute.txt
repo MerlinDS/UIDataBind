@@ -1,6 +1,0 @@
-D:\Projects\UIDataBind\UIDataBindCore\bin\Debug\UIDataBindCore.dll
-D:\Projects\UIDataBind\UIDataBindCore\bin\Debug\UIDataBindCore.pdb
-D:\Projects\UIDataBind\UIDataBindCore\obj\Debug\UIDataBindCore.csprojAssemblyReference.cache
-D:\Projects\UIDataBind\UIDataBindCore\obj\Debug\UIDataBindCore.csproj.CoreCompileInputs.cache
-D:\Projects\UIDataBind\UIDataBindCore\obj\Debug\UIDataBindCore.dll
-D:\Projects\UIDataBind\UIDataBindCore\obj\Debug\UIDataBindCore.pdb

@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UIDataBindCore")]
-[assembly: AssemblyDescription("The UIDataBind core library. This library contains independent core classes for the UIDataBind plugin.")]
+[assembly: AssemblyTitle("UIDataBindCoreTests")]
+[assembly: AssemblyDescription("Tests fo UIDataBindCore libraries")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("MerlinDS")]
-[assembly: AssemblyProduct("UIDataBindCore")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("UIDataBindCoreTests")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("47A432CA-5136-49E9-B570-8EA4A75D869A")]
+[assembly: Guid("5E799731-D063-409C-894E-582BC18D7BC4")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.0.1.0")]
-[assembly: AssemblyFileVersion("0.0.1.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

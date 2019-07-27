@@ -12,6 +12,7 @@ namespace Plugins.UIDataBind.Base
     /// The kernel class of UIDataBinding.
     /// Responsible for collecting and storing <see cref="IViewContext"/>s with it binding properties.
     /// </summary>
+    [Obsolete("Use BindingKernel form UIDataBindingCore library instead")]
     public partial class BindingKernel
     {
         private static BindingKernel _instance;
