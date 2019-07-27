@@ -18,5 +18,10 @@ namespace UIDataBindCoreTests.Utils
         public void BindMethod()
         {
         }
+
+        public void Dispose()
+        {
+
+        }
     }
 }
