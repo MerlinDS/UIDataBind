@@ -11,12 +11,17 @@ namespace UIDataBindCoreTests.Utils
         public const string BindMethodAlias = nameof(BindMethodAlias);
         public const string BindMethodHelp = nameof(BindMethodHelp);
 
+        public bool IsBindMethodInvoked;
+
         [Bind(BindMemberAlias, BindMemberHelp)]
-        public readonly int BindMember = 1;
+        public readonly IBindProperty BindMember = new TestBindProperty();
 
         [Bind(BindMethodAlias, BindMethodHelp)]
         public void BindMethod()
         {
+            IsBindMethodInvoked = true;
         }
     }
+
+    public class TestBindProperty : IBindProperty{}
 }
