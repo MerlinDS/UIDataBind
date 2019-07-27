@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using UIDataBindCore.Attributes;
 
-namespace UIDataBindCore
+namespace UIDataBindCore.Base
 {
     public struct DataContextInfo
     {

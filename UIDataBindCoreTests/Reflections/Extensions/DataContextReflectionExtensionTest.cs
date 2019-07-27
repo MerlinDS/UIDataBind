@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
 using UIDataBindCore;
+using UIDataBindCore.Base;
 using UIDataBindCore.Reflections.Extensions;
 using UIDataBindCoreTests.Utils;
 
