@@ -14,7 +14,7 @@ namespace Plugins.UIDataBind.Extensions
             BindingKernel.Instance.Register(contextBinding.GetInstanceID(), contextBinding.Context);
 
         public static void Unregister([NotNull] this ViewContextBinding contextBinding) =>
-            BindingKernel.Instance.Unregister(contextBinding.GetInstanceID(), contextBinding.Context);
+            BindingKernel.Instance.Unregister(contextBinding.GetInstanceID());
 
 
         [CanBeNull]

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Plugins.UIDataBind.Base
@@ -5,7 +6,7 @@ namespace Plugins.UIDataBind.Base
     /// <summary>
     /// Base <see cref="MonoBehaviour"/> class for all components in IUDataBind
     /// </summary>
-    public abstract class BaseBehaviour : MonoBehaviour
+    public abstract class BaseBehaviour : MonoBehaviour, IDisposable
     {
         #region Unity Events
 
@@ -34,6 +35,11 @@ namespace Plugins.UIDataBind.Base
         {
             Deactivate();
             Activate();
+        }
+
+        public virtual void Dispose()
+        {
+
         }
 
         #endregion
