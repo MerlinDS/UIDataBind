@@ -17,7 +17,7 @@ namespace UIDataBindCoreTests
         }
 
         [Test]
-        public void RegisterTest()
+        public void ContextRegistrationTest()
         {
             var context = Substitute.For<IDataContext>();
             BindingKernel.Instance.Register(context);

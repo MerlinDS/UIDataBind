@@ -23,5 +23,10 @@ namespace UIDataBindCoreTests.Utils
         }
     }
 
-    public class TestBindProperty : IBindProperty{}
+    public class TestBindProperty : IBindProperty
+    {
+        public void Dispose()
+        {
+        }
+    }
 }
