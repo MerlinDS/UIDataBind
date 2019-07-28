@@ -7,7 +7,7 @@ using UIDataBindCore.Base;
 using UIDataBindCore.Extensions;
 using UIDataBindCoreTests.Utils;
 
-namespace UIDataBindCoreTests.Reflections.Extensions
+namespace UIDataBindCoreTests.Extensions
 {
     [TestFixture]
     public class DataContextReflectionExtensionTest
