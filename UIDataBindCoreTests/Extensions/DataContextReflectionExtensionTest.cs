@@ -84,6 +84,8 @@ namespace UIDataBindCoreTests.Extensions
             context.IsBindMethodInvoked = false;
             contextReferences.Methods.First().Value.Invoke();
             Assert.That(context.IsBindMethodInvoked, Is.True);
+
+            contextReferences.Dispose();
         }
 
         private class InitializableTestDataContext : IDataContext, IInitializable

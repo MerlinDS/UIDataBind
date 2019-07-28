@@ -4,10 +4,10 @@ using UIDataBindCoreTests.Utils;
 
 namespace UIDataBindCoreTests.Extensions
 {
-    [TestFixture]
+//    [TestFixture]
     public class DataContextExtensionTest
     {
-        [Test]
+//        [Test]
         public void RegisterTest()
         {
             var context = new TestDataContext();
@@ -15,7 +15,7 @@ namespace UIDataBindCoreTests.Extensions
             Assert.Fail("Not implemented yet!");
         }
 
-        [Test]
+//        [Test]
         public void UnregisterTest()
         {
             var context = new TestDataContext();

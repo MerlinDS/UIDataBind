@@ -6,14 +6,12 @@ namespace UIDataBindCore.Base
 {
     public struct DataContextScope : IDisposable
     {
-        public int Count { get; private set; }
-        public DataContextInfo Info { get; }
-
         private readonly Dictionary<int, DataContextReferences> _references;
+        public DataContextInfo Info { get; }
+        public int Count => _references.Count;
 
         public DataContextScope(DataContextInfo info) : this()
         {
-            Count = 0;
             Info = info;
             _references = new Dictionary<int, DataContextReferences>();
         }
@@ -22,23 +20,14 @@ namespace UIDataBindCore.Base
         public bool Has(IDataContext instance) =>
             _references.ContainsKey(instance.GetHashCode());
 
-        public void Add(IDataContext instance)
-        {
+        public void Add(IDataContext instance) =>
             _references.Add(instance.GetHashCode(), instance.GetReferences(Info));
-            Count++;
-        }
 
 
-        public void Remove(IDataContext instance)
-        {
+        public void Remove(IDataContext instance) =>
             _references.Remove(instance.GetHashCode());
-            Count--;
-        }
 
-        public void Dispose()
-        {
+        public void Dispose() =>
             _references.Clear();
-            Count = 0;
-        }
     }
 }

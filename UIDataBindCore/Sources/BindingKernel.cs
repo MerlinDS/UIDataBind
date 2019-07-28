@@ -9,7 +9,7 @@ namespace UIDataBindCore
     /// <summary>
     /// The kernel of the UIDataBindCore library.
     /// </summary>
-    public class BindingKernel
+    public class BindingKernel : IDisposable
     {
         private readonly Dictionary<Guid, DataContextScope> _contextScopes;
 
@@ -18,10 +18,8 @@ namespace UIDataBindCore
         private static BindingKernel _instance;
         public static BindingKernel Instance => _instance ?? (_instance = new BindingKernel());
 
-        private BindingKernel()
-        {
+        private BindingKernel() =>
             _contextScopes = new Dictionary<Guid, DataContextScope>();
-        }
 
         #endregion
 
@@ -49,8 +47,11 @@ namespace UIDataBindCore
                 throw new ArgumentException($"Scope of {contextType} was not registered yet!");
 
             var scope = GetScopeOf(contextType);
+            if(!scope.Has(context))
+                throw new ArgumentException($"{context} was not registered ins Scope yet!");
+
             scope.Remove(context);
-            if (scope.Count != 0)
+            if (scope.Count > 0)
                 return;
 
             //If there are no instances of context data in current scope, unregister it
@@ -58,6 +59,14 @@ namespace UIDataBindCore
             scope.Dispose();
         }
 
+        public void Dispose()
+        {
+            foreach (var scope in _contextScopes.Values)
+                scope.Dispose();
+
+            _contextScopes.Clear();
+            _instance = null;
+        }
         #endregion
 
         private void TryAddContextInstance(IDataContext context, Type contextType)
@@ -90,5 +99,7 @@ namespace UIDataBindCore
             _contextScopes.Remove(contextType.GUID);
 
         #endregion
+
+
     }
 }
