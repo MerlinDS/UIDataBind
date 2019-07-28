@@ -22,11 +22,6 @@ namespace UIDataBindCore.Base
         public Guid Guid;
 
         /// <summary>
-        /// A <see cref="IDataContext"/> type
-        /// </summary>
-        public Type Type;
-
-        /// <summary>
         /// <see cref="IDataContext"/> members that can be bound: all members with <see cref="BindAttribute"/> on them.
         /// </summary>
         public MemberInfo[] Members;

@@ -27,7 +27,6 @@ namespace UIDataBindCore.Extensions
             {
                 Name = type.Name,
                 Guid = type.GUID,
-                Type = type,
                 IsInitializable = InitializableType.IsAssignableFrom(type),
                 Members = type.GetBindMembers()
             };
