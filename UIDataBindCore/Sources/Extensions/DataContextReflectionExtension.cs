@@ -28,7 +28,6 @@ namespace UIDataBindCore.Extensions
             return new DataContextInfo
             {
                 Name = contextType.Name,
-                Guid = contextType.GUID,
                 IsInitializable = InitializableType.IsAssignableFrom(contextType),
                 Members = contextType.GetBindMembers()
             };
@@ -36,7 +35,7 @@ namespace UIDataBindCore.Extensions
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static MemberInfo[] GetBindMembers(this IReflect type) =>
-            type.GetMembers(BindingFlags).Where(f => Attribute.IsDefined((MemberInfo) f, BindAttributeType)).ToArray();
+            type.GetMembers(BindingFlags).Where(f => Attribute.IsDefined(f, BindAttributeType)).ToArray();
 
         public static DataContextReferences GetReferences(this IDataContext context, DataContextInfo info)
         {
