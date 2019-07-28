@@ -4,7 +4,7 @@ using System.Reflection;
 using NUnit.Framework;
 using UIDataBindCore;
 using UIDataBindCore.Base;
-using UIDataBindCore.Reflections.Extensions;
+using UIDataBindCore.Extensions;
 using UIDataBindCoreTests.Utils;
 
 namespace UIDataBindCoreTests.Reflections.Extensions

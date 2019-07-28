@@ -5,9 +5,9 @@ using System.Runtime.CompilerServices;
 using UIDataBindCore.Attributes;
 using UIDataBindCore.Base;
 
-namespace UIDataBindCore.Reflections.Extensions
+namespace UIDataBindCore.Extensions
 {
-    public static class DataContextReflectionExtension
+    public static class ReflectionExtension
     {
         private const BindingFlags BindingFlags = System.Reflection.BindingFlags.NonPublic |
                                                   System.Reflection.BindingFlags.Public |
@@ -35,7 +35,7 @@ namespace UIDataBindCore.Reflections.Extensions
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static MemberInfo[] GetBindMembers(this IReflect type) =>
-            type.GetMembers(BindingFlags).Where(f => Attribute.IsDefined(f, BindAttributeType)).ToArray();
+            type.GetMembers(BindingFlags).Where(f => Attribute.IsDefined((MemberInfo) f, BindAttributeType)).ToArray();
 
         public static DataContextReferences GetReferences(this IDataContext context, DataContextInfo info)
         {
