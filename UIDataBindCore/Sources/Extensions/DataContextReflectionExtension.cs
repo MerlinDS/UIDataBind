@@ -17,18 +17,20 @@ namespace UIDataBindCore.Extensions
         private static readonly Type BindAttributeType = typeof(BindAttribute);
         private static readonly Type InitializableType = typeof(IInitializable);
 
-        public static DataContextInfo GetDataContextType(this IDataContext context)
+        public static DataContextInfo GetDataContextType(this Type contextType)
         {
-            if (context == null)
-                throw new ArgumentNullException(nameof(context));
+            if (contextType == null)
+                throw new ArgumentNullException(nameof(contextType));
 
-            var type = context.GetType();
+            if(!typeof(IDataContext).IsAssignableFrom(contextType))
+                throw new ArgumentException("Context type must be assignable from IDataContext", nameof(contextType));
+
             return new DataContextInfo
             {
-                Name = type.Name,
-                Guid = type.GUID,
-                IsInitializable = InitializableType.IsAssignableFrom(type),
-                Members = type.GetBindMembers()
+                Name = contextType.Name,
+                Guid = contextType.GUID,
+                IsInitializable = InitializableType.IsAssignableFrom(contextType),
+                Members = contextType.GetBindMembers()
             };
         }
 

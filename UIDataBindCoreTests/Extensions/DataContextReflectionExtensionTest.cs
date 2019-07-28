@@ -15,17 +15,20 @@ namespace UIDataBindCoreTests.Extensions
         [Test]
         public void GetDataContextInfoExceptionTest()
         {
-            IDataContext context = null;
+            Type contextType = null;
             // ReSharper disable once ExpressionIsAlwaysNull
-            Assert.Throws<ArgumentNullException>(() => context.GetDataContextType());
+            Assert.Throws<ArgumentNullException>(() => contextType.GetDataContextType());
+
+            contextType = GetType();
+            // ReSharper disable once ExpressionIsAlwaysNull
+            Assert.Throws<ArgumentException>(() => contextType.GetDataContextType());
         }
 
         [Test]
         public void GetDataContextInfoTest()
         {
-            var context = new TestDataContext();
-            var type = context.GetType();
-            var contextType = context.GetDataContextType();
+            var type = new TestDataContext().GetType();
+            var contextType = type.GetDataContextType();
 
             Assert.That(contextType, Is.Not.EqualTo(default(DataContextInfo)));
             Assert.That(contextType.Name, Is.EqualTo(type.Name));
@@ -42,7 +45,7 @@ namespace UIDataBindCoreTests.Extensions
         {
             var context = new InitializableTestDataContext();
             var type = context.GetType();
-            var contextType = context.GetDataContextType();
+            var contextType = type.GetDataContextType();
 
             Assert.That(contextType, Is.Not.EqualTo(default(DataContextInfo)));
             Assert.That(contextType.Name, Is.EqualTo(type.Name));
@@ -67,7 +70,7 @@ namespace UIDataBindCoreTests.Extensions
         public void GetDataContextReferencesTest()
         {
             var context = new TestDataContext();
-            var contextReferences = context.GetReferences(context.GetDataContextType());
+            var contextReferences = context.GetReferences(context.GetType().GetDataContextType());
 
             Assert.That(contextReferences, Is.Not.EqualTo(default(DataContextInfo)));
             Assert.That(contextReferences.Instance, Is.SameAs(context));
