@@ -1,7 +1,8 @@
+using System;
+
 namespace UIDataBindCore
 {
-    public interface IBindProperty
+    public interface IBindProperty : IDisposable
     {
-        
     }
 }
