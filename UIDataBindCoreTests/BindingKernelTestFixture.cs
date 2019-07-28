@@ -32,8 +32,8 @@ namespace UIDataBindCoreTests
         [Test]
         public void UnregisterTest()
         {
-            var firstContext = Substitute.For<ITestContext>();
-            var secondContext = Substitute.For<ITestContext>();
+            var firstContext = Substitute.For<IDataContext>();
+            var secondContext = Substitute.For<IDataContext>();
             Assert.Throws<ArgumentException>(() => BindingKernel.Instance.Unregister(firstContext));
             BindingKernel.Instance.Register(firstContext);
             BindingKernel.Instance.Register(secondContext);
@@ -41,11 +41,6 @@ namespace UIDataBindCoreTests
             Assert.Throws<ArgumentException>(() => BindingKernel.Instance.Unregister(firstContext));
             BindingKernel.Instance.Unregister(secondContext);
             Assert.Throws<ArgumentException>(() => BindingKernel.Instance.Unregister(firstContext));
-        }
-
-        public interface ITestContext : IDataContext
-        {
-
         }
     }
 }
