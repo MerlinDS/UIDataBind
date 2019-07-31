@@ -1,6 +1,6 @@
 using System;
 
-namespace UIDataBindCore.Properties.Adapters
+namespace UIDataBindCore.Properties
 {
     public class BindPropertyAdapter<TSource, TTarget> : IBindProperty<TTarget>
     {
@@ -15,11 +15,7 @@ namespace UIDataBindCore.Properties.Adapters
 
         #region Public API
 
-        public static IBindProperty<TTarget> Instantiate(IBindProperty<TSource> source,
-            Func<TTarget, TSource> toSource, Func<TSource, TTarget> toTarget) =>
-            new BindPropertyAdapter<TSource, TTarget>(source, toSource, toTarget);
-
-        private BindPropertyAdapter(IBindProperty<TSource> source, Func<TTarget, TSource> toSource,
+        public BindPropertyAdapter(IBindProperty<TSource> source, Func<TTarget, TSource> toSource,
             Func<TSource, TTarget> toTarget)
         {
             _source = source;
@@ -48,7 +44,7 @@ namespace UIDataBindCore.Properties.Adapters
                 {
                     _upToDate = true;
                     _target.Value = value;
-                    _source.Value = ToSource(value);
+                    _source.Value = _toSource(value);
                     _upToDate = false;
                 }
 #pragma warning disable 168
@@ -71,34 +67,7 @@ namespace UIDataBindCore.Properties.Adapters
         private void SourceUpdateHandler(TSource value)
         {
             if (!_upToDate)
-                _target.Value = ToTarget(value);
-        }
-
-        private TSource ToSource(TTarget value)
-        {
-            try
-            {
-                return _toSource.Invoke(value);
-            }
-            catch (OverflowException e)
-            {
-                Console.WriteLine(e);
-                return _source.Value;
-            }
-        }
-
-        private TTarget ToTarget(TSource value)
-        {
-            try
-            {
-                return _toTarget.Invoke(value);
-            }
-            catch (OverflowException e)
-            {
-                Console.WriteLine(e);
-                return _target.Value;
-            }
-
+                _target.Value = _toTarget(value);
         }
 
         #endregion

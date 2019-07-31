@@ -1,14 +1,15 @@
 using System;
-using UIDataBindCore.Properties.Adapters;
 
 namespace UIDataBindCore.Extensions
 {
-    public static class BindPropertyConvertingExtension
+    public static partial class AdapterExtension
     {
         public static IBindProperty<TValue> AsPropertyOf<TValue>(this IBindProperty source)
         {
             switch (source)
             {
+                case IBindProperty<bool> property:
+                    return property.To<TValue>();
                 case IBindProperty<byte> property:
                     return property.To<TValue>();
                 case IBindProperty<int> property:
@@ -17,7 +18,7 @@ namespace UIDataBindCore.Extensions
                     return property.To<TValue>();
                 case IBindProperty<double> property:
                     return property.To<TValue>();
-                case IBindProperty<decimal> property:
+                case IBindProperty<string> property:
                     return property.To<TValue>();
                 default:
                     throw new NotImplementedException();
