@@ -1,3 +1,4 @@
+using NSubstitute;
 using UIDataBindCore;
 using UIDataBindCore.Attributes;
 
@@ -14,19 +15,12 @@ namespace UIDataBindCoreTests.Utils
         public bool IsBindMethodInvoked;
 
         [Bind(BindMemberAlias, BindMemberHelp)]
-        public readonly IBindProperty BindMember = new TestBindProperty();
+        public readonly IBindProperty BindMember = Substitute.For<IBindProperty>();
 
         [Bind(BindMethodAlias, BindMethodHelp)]
         public void BindMethod()
         {
             IsBindMethodInvoked = true;
-        }
-    }
-
-    public class TestBindProperty : IBindProperty
-    {
-        public void Dispose()
-        {
         }
     }
 }
