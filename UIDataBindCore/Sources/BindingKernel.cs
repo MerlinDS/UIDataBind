@@ -38,6 +38,19 @@ namespace UIDataBindCore
             TryAddContextInstance(context, contextType);
         }
 
+        public IBindProperty FindProperty(IDataContext context, string memberName)
+        {
+            DataContextScope scope;
+            return FindScopeOf(context, out scope) ? scope.FindProperty(context, memberName) : default;
+        }
+
+        public Action FindMethod(IDataContext context, string memberName)
+        {
+            DataContextScope scope;
+            return FindScopeOf(context, out scope) ? scope.FindMethod(context, memberName) : default;
+        }
+
+
         /// <summary></summary>
         /// <param name="context"></param>
         public void Unregister(IDataContext context)
@@ -47,7 +60,7 @@ namespace UIDataBindCore
                 throw new ArgumentException($"Scope of {contextType} was not registered yet!");
 
             var scope = GetScopeOf(contextType);
-            if(!scope.Has(context))
+            if (!scope.Has(context))
                 throw new ArgumentException($"{context} was not registered ins Scope yet!");
 
             scope.Remove(context);
@@ -67,6 +80,7 @@ namespace UIDataBindCore
             _contextScopes.Clear();
             _instance = null;
         }
+
         #endregion
 
         private void TryAddContextInstance(IDataContext context, Type contextType)
@@ -81,6 +95,20 @@ namespace UIDataBindCore
         }
 
         #region Scopes
+
+        private bool FindScopeOf(IDataContext context, out DataContextScope scope)
+        {
+            scope = default;
+            var contextType = context.GetType();
+            if (!HasScopeOf(contextType))
+                return false;
+
+            scope = GetScopeOf(contextType);
+            if (!scope.Has(context))
+                TryAddContextInstance(context, contextType);
+
+            return true;
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool HasScopeOf(Type contextType) =>
@@ -99,7 +127,5 @@ namespace UIDataBindCore
             _contextScopes.Remove(contextType.GUID);
 
         #endregion
-
-
     }
 }

@@ -10,7 +10,7 @@ namespace UIDataBindCore.Base
         public DataContextInfo Info { get; }
         public int Count => _references.Count;
 
-        public DataContextScope(DataContextInfo info) : this()
+        public DataContextScope(DataContextInfo info)
         {
             Info = info;
             _references = new Dictionary<int, DataContextReferences>();
@@ -29,5 +29,17 @@ namespace UIDataBindCore.Base
 
         public void Dispose() =>
             _references.Clear();
+
+        public IBindProperty FindProperty(IDataContext instance, string memberName)
+        {
+            var references = _references[instance.GetHashCode()];
+            return references.Properties.ContainsKey(memberName) ? references.Properties[memberName] : default;
+        }
+
+        public Action FindMethod(IDataContext instance, string memberName)
+        {
+            var references = _references[instance.GetHashCode()];
+            return references.Methods.ContainsKey(memberName) ? references.Methods[memberName] : default;
+        }
     }
 }
