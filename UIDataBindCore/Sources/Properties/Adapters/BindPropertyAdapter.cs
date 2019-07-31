@@ -48,7 +48,7 @@ namespace UIDataBindCore.Properties.Adapters
                 {
                     _upToDate = true;
                     _target.Value = value;
-                    _source.Value = _toSource.Invoke(value);
+                    _source.Value = ToSource(value);
                     _upToDate = false;
                 }
 #pragma warning disable 168
@@ -71,7 +71,34 @@ namespace UIDataBindCore.Properties.Adapters
         private void SourceUpdateHandler(TSource value)
         {
             if (!_upToDate)
-                _target.Value = _toTarget(value);
+                _target.Value = ToTarget(value);
+        }
+
+        private TSource ToSource(TTarget value)
+        {
+            try
+            {
+                return _toSource.Invoke(value);
+            }
+            catch (OverflowException e)
+            {
+                Console.WriteLine(e);
+                return _source.Value;
+            }
+        }
+
+        private TTarget ToTarget(TSource value)
+        {
+            try
+            {
+                return _toTarget.Invoke(value);
+            }
+            catch (OverflowException e)
+            {
+                Console.WriteLine(e);
+                return _target.Value;
+            }
+
         }
 
         #endregion

@@ -22,7 +22,7 @@ namespace UIDataBindCore.Properties.Adapters
             if (targetType.IsDecimal())
                 return (IBindProperty<TTarget>) BindPropertyAdapter<byte, decimal>.Instantiate(source, Convert.ToByte, Convert.ToDecimal);
             if (targetType.IsString())
-                return (IBindProperty<TTarget>) BindPropertyAdapter<byte, string>.Instantiate(source, byte.Parse, v => v.ToString());
+                return (IBindProperty<TTarget>) BindPropertyAdapter<byte, string>.Instantiate(source, byte.Parse, Convert.ToString);
 
             throw new FormatException($"Can't convert {source} to {typeof(IBindProperty<TTarget>)}");
         }
@@ -44,7 +44,7 @@ namespace UIDataBindCore.Properties.Adapters
             if (targetType.IsDecimal())
                 return (IBindProperty<TTarget>) BindPropertyAdapter<int, decimal>.Instantiate(source, Convert.ToInt32, Convert.ToDecimal);
             if (targetType.IsString())
-                return (IBindProperty<TTarget>) BindPropertyAdapter<int, string>.Instantiate(source, int.Parse, v => v.ToString());
+                return (IBindProperty<TTarget>) BindPropertyAdapter<int, string>.Instantiate(source, int.Parse, Convert.ToString);
 
             throw new FormatException($"Can't convert {source} to {typeof(IBindProperty<TTarget>)}");
         }
@@ -66,7 +66,7 @@ namespace UIDataBindCore.Properties.Adapters
             if (targetType.IsDecimal())
                 return (IBindProperty<TTarget>) BindPropertyAdapter<float, decimal>.Instantiate(source, Convert.ToSingle, Convert.ToDecimal);
             if (targetType.IsString())
-                return (IBindProperty<TTarget>) BindPropertyAdapter<float, string>.Instantiate(source, float.Parse, v => v.ToString(CultureInfo.InvariantCulture));
+                return (IBindProperty<TTarget>) BindPropertyAdapter<float, string>.Instantiate(source, float.Parse, Convert.ToString);
 
             throw new FormatException($"Can't convert {source} to {typeof(IBindProperty<TTarget>)}");
         }
@@ -88,7 +88,7 @@ namespace UIDataBindCore.Properties.Adapters
             if (targetType.IsDecimal())
                 return (IBindProperty<TTarget>) BindPropertyAdapter<double, decimal>.Instantiate(source, Convert.ToDouble, Convert.ToDecimal);
             if (targetType.IsString())
-                return (IBindProperty<TTarget>) BindPropertyAdapter<double, string>.Instantiate(source, double.Parse, v => v.ToString(CultureInfo.InvariantCulture));
+                return (IBindProperty<TTarget>) BindPropertyAdapter<double, string>.Instantiate(source, double.Parse, Convert.ToString);
 
             throw new FormatException($"Can't convert {source} to {typeof(IBindProperty<TTarget>)}");
         }
@@ -110,7 +110,7 @@ namespace UIDataBindCore.Properties.Adapters
             if (targetType.IsDecimal())
                 return (IBindProperty<TTarget>) source;
             if (targetType.IsString())
-                return (IBindProperty<TTarget>) BindPropertyAdapter<decimal, string>.Instantiate(source, decimal.Parse, v => v.ToString(CultureInfo.InvariantCulture));
+                return (IBindProperty<TTarget>) BindPropertyAdapter<decimal, string>.Instantiate(source, decimal.Parse, Convert.ToString);
 
             throw new FormatException($"Can't convert {source} to {typeof(IBindProperty<TTarget>)}");
         }
