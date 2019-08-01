@@ -1,9 +1,12 @@
 using System;
+using UIDataBindCore.Base;
+using UIDataBindCore.Converters;
 
 namespace UIDataBindCore.Extensions
 {
     public static partial class AdapterExtension
     {
+
         public static IBindProperty<TValue> AsPropertyOf<TValue>(this IBindProperty source)
         {
             switch (source)
@@ -23,6 +26,20 @@ namespace UIDataBindCore.Extensions
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        public static IBindProperty<TValue> NewAsPropertyOf<TValue>(this IBindProperty source)
+        {
+
+            var collection = new ConvertersCollection();
+            var converter = collection.Retrieve<TValue>(source.GetType());
+            if (converter != null)
+            {
+
+                //TODO: Create Adapter with converter
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

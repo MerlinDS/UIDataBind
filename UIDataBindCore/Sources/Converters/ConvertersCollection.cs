@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UIDataBindCore.Utils;
 
-namespace UIDataBindCore.Base
+namespace UIDataBindCore.Converters
 {
-    public class PropertyConvertersCollection : IDisposable
+    public class ConvertersCollection : IDisposable
     {
         private readonly ICollection<Tuple<Type, Type, IPropertyConverter>> _converters;
 
-        public PropertyConvertersCollection() =>
+        public ConvertersCollection() =>
             _converters = new List<Tuple<Type, Type, IPropertyConverter>>();
 
         public void Register<TValue0, TValue1>(IPropertyConverter<TValue0, TValue1> propertyConverter)

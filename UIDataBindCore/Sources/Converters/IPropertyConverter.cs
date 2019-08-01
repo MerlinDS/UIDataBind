@@ -1,4 +1,4 @@
-namespace UIDataBindCore.Utils
+namespace UIDataBindCore.Converters
 {
     public interface IPropertyConverter<TValue0, TValue1> : IPropertyConverter
     {

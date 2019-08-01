@@ -1,4 +1,5 @@
 using System;
+using UIDataBindCore.Utils;
 
 namespace UIDataBindCore.Properties
 {

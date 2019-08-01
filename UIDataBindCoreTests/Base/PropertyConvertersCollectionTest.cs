@@ -2,6 +2,7 @@ using System;
 using NSubstitute;
 using NUnit.Framework;
 using UIDataBindCore.Base;
+using UIDataBindCore.Converters;
 using UIDataBindCore.Utils;
 
 namespace UIDataBindCoreTests.Base
@@ -12,7 +13,7 @@ namespace UIDataBindCoreTests.Base
         [Test]
         public void GetConverterTest()
         {
-            var collection = new PropertyConvertersCollection();
+            var collection = new ConvertersCollection();
             var expectedConverter = Substitute.For<IPropertyConverter<int, object>>();
             collection.Register(expectedConverter);
             collection.Register(expectedConverter);
