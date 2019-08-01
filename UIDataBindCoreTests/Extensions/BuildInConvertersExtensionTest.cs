@@ -11,11 +11,8 @@ namespace UIDataBindCoreTests.Extensions
         private ConvertersCollection _collection;
 
         [SetUp]
-        public void SetUp()
-        {
-            _collection = new ConvertersCollection();
-            _collection.RegisterBuildIn();
-        }
+        public void SetUp() =>
+            _collection = new ConvertersCollection().RegisterBuildIn();
 
         [TearDown]
         public void TearDown() =>
@@ -25,6 +22,7 @@ namespace UIDataBindCoreTests.Extensions
         public void ArgumentNullExceptionTest()
         {
             ConvertersCollection c = null;
+            // ReSharper disable once ExpressionIsAlwaysNull
             Assert.Throws<ArgumentNullException>(() => c.RegisterBuildIn());
         }
 

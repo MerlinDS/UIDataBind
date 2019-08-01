@@ -1,5 +1,5 @@
 using System;
-using UIDataBindCore.Utils;
+using UIDataBindCore.Converters;
 
 namespace UIDataBindCore.Properties
 {
@@ -10,18 +10,15 @@ namespace UIDataBindCore.Properties
         private readonly IBindProperty<TSource> _source;
         private readonly IBindProperty<TTarget> _target;
 
-        private readonly Func<TSource, TTarget> _toTarget;
-        private readonly Func<TTarget, TSource> _toSource;
-
+        private readonly IPropertyConverter<TSource, TTarget> _converter;
 
         #region Public API
 
-        public BindPropertyAdapter(IBindProperty<TSource> source, Func<TTarget, TSource> toSource,
-            Func<TSource, TTarget> toTarget)
+        public BindPropertyAdapter(IBindProperty source,
+            IPropertyConverter converter)
         {
-            _source = source;
-            _toTarget = toTarget;
-            _toSource = toSource;
+            _source = (IBindProperty<TSource>) source;
+            _converter = (IPropertyConverter<TSource, TTarget>) converter;
 
             _target = new BindProperty<TTarget>();
             _source.OnUpdate += SourceUpdateHandler;
@@ -41,20 +38,10 @@ namespace UIDataBindCore.Properties
             get => _target.Value;
             set
             {
-                try
-                {
-                    _upToDate = true;
-                    _target.Value = value;
-                    _source.Value = _toSource(value);
-                    _upToDate = false;
-                }
-#pragma warning disable 168
-                catch (FormatException exception)
-#pragma warning restore 168
-                {
-                    _upToDate = false;
-                    SourceUpdateHandler(_source.Value);
-                }
+                _upToDate = true;
+                _target.Value = value;
+                _source.Value = _converter.Convert(value);
+                _upToDate = false;
             }
         }
 
@@ -68,7 +55,7 @@ namespace UIDataBindCore.Properties
         private void SourceUpdateHandler(TSource value)
         {
             if (!_upToDate)
-                _target.Value = _toTarget(value);
+                _target.Value = _converter.Convert(value);
         }
 
         #endregion

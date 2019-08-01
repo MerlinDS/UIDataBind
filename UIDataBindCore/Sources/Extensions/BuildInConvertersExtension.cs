@@ -5,7 +5,7 @@ namespace UIDataBindCore.Extensions
 {
     public static class BuildInConvertersExtension
     {
-        public static void RegisterBuildIn(this ConvertersCollection collection)
+        public static ConvertersCollection RegisterBuildIn(this ConvertersCollection collection)
         {
             if (collection == null)
                 throw new ArgumentNullException(nameof(collection));
@@ -16,6 +16,7 @@ namespace UIDataBindCore.Extensions
             collection.RegisterSingle();
             collection.RegisterDouble();
             collection.RegisterString();
+            return collection;
         }
 
         private static void RegisterBoolean(this ConvertersCollection collection)
