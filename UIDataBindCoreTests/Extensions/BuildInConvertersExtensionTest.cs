@@ -2,6 +2,7 @@ using System;
 using NUnit.Framework;
 using UIDataBindCore.Converters;
 using UIDataBindCore.Extensions;
+using UnityEngine;
 
 namespace UIDataBindCoreTests.Extensions
 {
@@ -26,6 +27,24 @@ namespace UIDataBindCoreTests.Extensions
             Assert.Throws<ArgumentNullException>(() => c.RegisterBuildIn());
         }
 
+        [Test]
+        public void UnityTest()
+        {
+            Test<string, Sprite>();
+            Test<Sprite, string>();
+            Test<Texture, string>();
+            Test<string, Texture>();
+            Test<Texture2D, string>();
+            Test<string, Texture2D>();
+            Test<Texture2D, string>();
+            Test<string, Texture2D>();
+            Test<GameObject, string>();
+            Test<string, GameObject>();
+            Test<Vector2, Vector2Int>();
+            Test<Vector2Int, Vector2>();
+            Test<Vector3, Vector3Int>();
+            Test<Vector3Int, Vector3>();
+        }
         [Test]
         public void BooleanTest()
         {

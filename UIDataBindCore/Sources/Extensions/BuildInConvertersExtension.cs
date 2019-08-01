@@ -1,5 +1,6 @@
 using System;
 using UIDataBindCore.Converters;
+using UnityEngine;
 
 namespace UIDataBindCore.Extensions
 {
@@ -16,6 +17,7 @@ namespace UIDataBindCore.Extensions
             conversionMethods.RegisterSingle();
             conversionMethods.RegisterDouble();
             conversionMethods.RegisterString();
+            conversionMethods.RegisterUnityTypes();
 
             return conversionMethods;
         }
@@ -72,6 +74,19 @@ namespace UIDataBindCore.Extensions
             conversionMethods.Register<string, int>(SafeConvert.ToString, SafeConvert.ToInt32);
             conversionMethods.Register<string, float>(SafeConvert.ToString, SafeConvert.ToSingle);
             conversionMethods.Register<string, double>(SafeConvert.ToString, SafeConvert.ToDouble);
+        }
+
+        private static void RegisterUnityTypes(this IConversionMethods conversionMethods)
+        {
+            conversionMethods.Register<string, Sprite>(v => v.name, Resources.Load<Sprite>);
+            conversionMethods.Register<string, Texture>(v => v.name, Resources.Load<Texture>);
+            conversionMethods.Register<string, Texture2D>(v => v.name, Resources.Load<Texture2D>);
+            conversionMethods.Register<string, GameObject>(v => v.name, Resources.Load<GameObject>);
+
+            conversionMethods.Register<Vector2, Vector2Int>(v => (Vector2) v,
+                                                            v => new Vector2Int((int) v.x, (int) v.y));
+            conversionMethods.Register<Vector3, Vector3Int>(v => (Vector3) v,
+                                                            v => new Vector3Int((int) v.x, (int) v.y, (int) v.z));
         }
     }
 }
