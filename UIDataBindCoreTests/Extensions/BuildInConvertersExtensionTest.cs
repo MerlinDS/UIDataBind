@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using UIDataBindCore.Converters;
 using UIDataBindCore.Extensions;
@@ -19,6 +20,13 @@ namespace UIDataBindCoreTests.Extensions
         [TearDown]
         public void TearDown() =>
             _collection.Dispose();
+
+        [Test]
+        public void ArgumentNullExceptionTest()
+        {
+            ConvertersCollection c = null;
+            Assert.Throws<ArgumentNullException>(() => c.RegisterBuildIn());
+        }
 
         [Test]
         public void BooleanTest()
