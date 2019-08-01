@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
-namespace UIDataBindCore.Utils
+namespace UIDataBindCore.Converters
 {
     /// <summary>Converts a base data type to another base data type.</summary>
     public static class SafeConvert

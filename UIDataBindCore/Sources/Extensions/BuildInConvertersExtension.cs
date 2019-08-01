@@ -5,72 +5,73 @@ namespace UIDataBindCore.Extensions
 {
     public static class BuildInConvertersExtension
     {
-        public static ConvertersCollection RegisterBuildIn(this ConvertersCollection collection)
+        public static IConversionMethods RegisterBuildIn(this IConversionMethods conversionMethods)
         {
-            if (collection == null)
-                throw new ArgumentNullException(nameof(collection));
+            if (conversionMethods == null)
+                throw new ArgumentNullException(nameof(conversionMethods));
 
-            collection.RegisterBoolean();
-            collection.RegisterByte();
-            collection.RegisterInt32();
-            collection.RegisterSingle();
-            collection.RegisterDouble();
-            collection.RegisterString();
-            return collection;
+            conversionMethods.RegisterBoolean();
+            conversionMethods.RegisterByte();
+            conversionMethods.RegisterInt32();
+            conversionMethods.RegisterSingle();
+            conversionMethods.RegisterDouble();
+            conversionMethods.RegisterString();
+
+            return conversionMethods;
         }
 
-        private static void RegisterBoolean(this ConvertersCollection collection)
+        private static void RegisterBoolean(this IConversionMethods conversionMethods)
         {
-            collection.Register(new BooleanToByteConverter());
-            collection.Register(new BooleanToIntConverter());
-            collection.Register(new BooleanToSingleConverter());
-            collection.Register(new BooleanToDoubleConverter());
-            collection.Register(new BooleanToStringConverter());
+            conversionMethods.Register<bool, byte>(SafeConvert.ToBoolean, SafeConvert.ToByte);
+            conversionMethods.Register<bool, int>(SafeConvert.ToBoolean, SafeConvert.ToInt32);
+            conversionMethods.Register<bool, float>(SafeConvert.ToBoolean, SafeConvert.ToSingle);
+            conversionMethods.Register<bool, double>(SafeConvert.ToBoolean, SafeConvert.ToDouble);
+            conversionMethods.Register<bool, string>(SafeConvert.ToBoolean, SafeConvert.ToString);
         }
 
-        private static void RegisterByte(this ConvertersCollection collection)
+        private static void RegisterByte(this IConversionMethods conversionMethods)
         {
-            collection.Register(new ByteToBooleanConverter());
-            collection.Register(new ByteToIntConverter());
-            collection.Register(new ByteToSingleConverter());
-            collection.Register(new ByteToDoubleConverter());
-            collection.Register(new ByteToStringConverter());
+            conversionMethods.Register<byte, bool>(SafeConvert.ToByte, SafeConvert.ToBoolean);
+            conversionMethods.Register<byte, int>(SafeConvert.ToByte, SafeConvert.ToInt32);
+            conversionMethods.Register<byte, float>(SafeConvert.ToByte, SafeConvert.ToSingle);
+            conversionMethods.Register<byte, double>(SafeConvert.ToByte, SafeConvert.ToDouble);
+            conversionMethods.Register<byte, string>(SafeConvert.ToByte, SafeConvert.ToString);
         }
 
-        private static void RegisterInt32(this ConvertersCollection collection)
+        private static void RegisterInt32(this IConversionMethods conversionMethods)
         {
-            collection.Register(new IntToBooleanConverter());
-            collection.Register(new IntToByteConverter());
-            collection.Register(new IntToSingleConverter());
-            collection.Register(new IntToDoubleConverter());
-            collection.Register(new IntToStringConverter());
+            conversionMethods.Register<int, bool>(SafeConvert.ToInt32, SafeConvert.ToBoolean);
+            conversionMethods.Register<int, byte>(SafeConvert.ToInt32, SafeConvert.ToByte);
+            conversionMethods.Register<int, float>(SafeConvert.ToInt32, SafeConvert.ToSingle);
+            conversionMethods.Register<int, double>(SafeConvert.ToInt32, SafeConvert.ToDouble);
+            conversionMethods.Register<int, string>(SafeConvert.ToInt32, SafeConvert.ToString);
         }
 
-        private static void RegisterSingle(this ConvertersCollection collection)
+        private static void RegisterSingle(this IConversionMethods conversionMethods)
         {
-            collection.Register(new SingleToBooleanConverter());
-            collection.Register(new SingleToByteConverter());
-            collection.Register(new SingleToIntConverter());
-            collection.Register(new SingleToDoubleConverter());
-            collection.Register(new SingleToStringConverter());
+            conversionMethods.Register<float, bool>(SafeConvert.ToSingle, SafeConvert.ToBoolean);
+            conversionMethods.Register<float, byte>(SafeConvert.ToSingle, SafeConvert.ToByte);
+            conversionMethods.Register<float, int>(SafeConvert.ToSingle, SafeConvert.ToInt32);
+            conversionMethods.Register<float, double>(SafeConvert.ToSingle, SafeConvert.ToDouble);
+            conversionMethods.Register<float, string>(SafeConvert.ToSingle, SafeConvert.ToString);
         }
 
-        private static void RegisterDouble(this ConvertersCollection collection)
+        private static void RegisterDouble(this IConversionMethods conversionMethods)
         {
-            collection.Register(new DoubleToBooleanConverter());
-            collection.Register(new DoubleToByteConverter());
-            collection.Register(new DoubleToIntConverter());
-            collection.Register(new DoubleToSingleConverter());
-            collection.Register(new DoubleToStringConverter());
+            conversionMethods.Register<double, bool>(SafeConvert.ToDouble, SafeConvert.ToBoolean);
+            conversionMethods.Register<double, byte>(SafeConvert.ToDouble, SafeConvert.ToByte);
+            conversionMethods.Register<double, int>(SafeConvert.ToDouble, SafeConvert.ToInt32);
+            conversionMethods.Register<double, float>(SafeConvert.ToDouble, SafeConvert.ToSingle);
+            conversionMethods.Register<double, string>(SafeConvert.ToDouble, SafeConvert.ToString);
         }
 
-        private static void RegisterString(this ConvertersCollection collection)
+        private static void RegisterString(this IConversionMethods conversionMethods)
         {
-            collection.Register(new StringToBooleanConverter());
-            collection.Register(new StringToByteConverter());
-            collection.Register(new StringToIntConverter());
-            collection.Register(new StringToSingleConverter());
-            collection.Register(new StringToDoubleConverter());
+            conversionMethods.Register<string, bool>(SafeConvert.ToString, SafeConvert.ToBoolean);
+            conversionMethods.Register<string, byte>(SafeConvert.ToString, SafeConvert.ToByte);
+            conversionMethods.Register<string, int>(SafeConvert.ToString, SafeConvert.ToInt32);
+            conversionMethods.Register<string, float>(SafeConvert.ToString, SafeConvert.ToSingle);
+            conversionMethods.Register<string, double>(SafeConvert.ToString, SafeConvert.ToDouble);
         }
     }
 }

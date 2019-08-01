@@ -8,20 +8,20 @@ namespace UIDataBindCoreTests.Extensions
     [TestFixture]
     public class BuildInConvertersExtensionTest
     {
-        private ConvertersCollection _collection;
+        private IConversionMethods _methods;
 
         [SetUp]
         public void SetUp() =>
-            _collection = new ConvertersCollection().RegisterBuildIn();
+            _methods = new ConversionMethods().RegisterBuildIn();
 
         [TearDown]
         public void TearDown() =>
-            _collection.Dispose();
+            _methods.Dispose();
 
         [Test]
         public void ArgumentNullExceptionTest()
         {
-            ConvertersCollection c = null;
+            IConversionMethods c = null;
             // ReSharper disable once ExpressionIsAlwaysNull
             Assert.Throws<ArgumentNullException>(() => c.RegisterBuildIn());
         }
@@ -78,10 +78,10 @@ namespace UIDataBindCoreTests.Extensions
 
         private void Test<TValue0, TValue1>()
         {
-            var converter = _collection.Retrieve<TValue0>(typeof(TValue1));
+            var converter = _methods.Retrieve(typeof(TValue0), typeof(TValue1));
+
             Assert.That(converter, Is.Not.Null);
-            Assert.That(converter, Is.InstanceOf<IPropertyConverter<TValue0, TValue1>>()
-                            .Or.InstanceOf<IPropertyConverter<TValue1, TValue0>>());
+            Assert.That(converter, Is.InstanceOf<Func<TValue0, TValue1>>());
         }
     }
 }

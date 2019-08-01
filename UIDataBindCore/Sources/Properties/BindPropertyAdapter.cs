@@ -1,5 +1,4 @@
 using System;
-using UIDataBindCore.Converters;
 
 namespace UIDataBindCore.Properties
 {
@@ -10,15 +9,23 @@ namespace UIDataBindCore.Properties
         private readonly IBindProperty<TSource> _source;
         private readonly IBindProperty<TTarget> _target;
 
-        private readonly IPropertyConverter<TSource, TTarget> _converter;
+        private readonly Func<TSource, TTarget> _toTarget;
+        private readonly Func<TTarget, TSource> _toSource;
+
 
         #region Public API
 
-        public BindPropertyAdapter(IBindProperty source,
-            IPropertyConverter converter)
+        public BindPropertyAdapter(IBindProperty<TSource> source, Func<TSource, TTarget> toTarget,
+            Func<TTarget, TSource> toSource) : this(source, toSource, toTarget)
         {
-            _source = (IBindProperty<TSource>) source;
-            _converter = (IPropertyConverter<TSource, TTarget>) converter;
+
+        }
+        public BindPropertyAdapter(IBindProperty<TSource> source, Func<TTarget, TSource> toSource,
+            Func<TSource, TTarget> toTarget)
+        {
+            _source = source;
+            _toTarget = toTarget;
+            _toSource = toSource;
 
             _target = new BindProperty<TTarget>();
             _source.OnUpdate += SourceUpdateHandler;
@@ -38,10 +45,20 @@ namespace UIDataBindCore.Properties
             get => _target.Value;
             set
             {
-                _upToDate = true;
-                _target.Value = value;
-                _source.Value = _converter.Convert(value);
-                _upToDate = false;
+                try
+                {
+                    _upToDate = true;
+                    _target.Value = value;
+                    _source.Value = _toSource(value);
+                    _upToDate = false;
+                }
+#pragma warning disable 168
+                catch (FormatException exception)
+#pragma warning restore 168
+                {
+                    _upToDate = false;
+                    SourceUpdateHandler(_source.Value);
+                }
             }
         }
 
@@ -55,7 +72,7 @@ namespace UIDataBindCore.Properties
         private void SourceUpdateHandler(TSource value)
         {
             if (!_upToDate)
-                _target.Value = _converter.Convert(value);
+                _target.Value = _toTarget(value);
         }
 
         #endregion

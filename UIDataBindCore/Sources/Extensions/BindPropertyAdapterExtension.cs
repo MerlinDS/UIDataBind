@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UIDataBindCore.Converters;
 using UIDataBindCore.Properties;
 
@@ -8,7 +9,8 @@ namespace UIDataBindCore.Extensions
     {
         private static readonly Type BindPropertyAdapterType = typeof(BindPropertyAdapter<,>);
 
-        public static IBindProperty<TValue> AsPropertyOf<TValue>(this ConvertersCollection converters, IBindProperty source)
+        public static IBindProperty<TValue> AsPropertyOf<TValue>(this IConversionMethods converters,
+            IBindProperty source)
         {
             if (converters == null)
                 throw new ArgumentNullException(nameof(converters));
@@ -18,22 +20,30 @@ namespace UIDataBindCore.Extensions
 
             var targetType = typeof(TValue);
             if (targetType == source.ValueType)
-                return (IBindProperty<TValue>)source;
+                return (IBindProperty<TValue>) source;
 
-            var converter = converters.Retrieve<TValue>(source.ValueType);
-            if (converter == null)
-                return null;
+            if (!converters.Has(targetType, source.ValueType))
+                return default;
 
-            return (IBindProperty<TValue>)GetAdapterInstance(source, targetType, converter);
+            return (IBindProperty<TValue>) GetAdapterInstance(converters, source, targetType);
         }
 
-        private static object GetAdapterInstance(IBindProperty source, Type targetType, IPropertyConverter converter) =>
-            Activator.CreateInstance(GetConstructedType(source.ValueType, targetType), source, converter);
+        private static object GetAdapterInstance(this IConversionMethods converters, IBindProperty source,
+            Type targetType) =>
+            Activator.CreateInstance(GetConstructedType(source.ValueType, targetType),
+                                     converters.GetArguments(source, targetType));
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Type GetConstructedType(Type sourceType, Type targetType) =>
             BindPropertyAdapterType.MakeGenericType(sourceType, targetType);
 
-
-
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static object[] GetArguments(this IConversionMethods converters, IBindProperty source,
+            Type targetType) => new object[]
+        {
+            source,
+            converters.Retrieve(source.ValueType, targetType),
+            converters.Retrieve(targetType, source.ValueType)
+        };
     }
 }
