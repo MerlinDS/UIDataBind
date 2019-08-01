@@ -57,7 +57,8 @@ namespace UIDataBindCore.Converters
         public static float ToSingle(bool value)   => Convert.ToSingle(value);
         public static float ToSingle(byte value)   => Convert.ToSingle(value);
         public static float ToSingle(int value)    => Convert.ToSingle(value);
-        public static float ToSingle(double value) => Convert.ToSingle(value);
+        public static float ToSingle(double value) =>
+            value >= float.MaxValue ? float.MaxValue : value <= float.MinValue ? float.MinValue : Convert.ToSingle(value);
         public static float ToSingle(string value) =>
             FromString(value, 0, float.MaxValue, Convert.ToSingle);
 
@@ -95,15 +96,7 @@ namespace UIDataBindCore.Converters
             }
             catch (Exception exception)
             {
-                switch (exception)
-                {
-                    case FormatException _:
-                        return @default;
-                    case OverflowException _:
-                        return overflow;
-                    default:
-                        throw;
-                }
+                return exception is FormatException ? @default : overflow;
             }
         }
     }
