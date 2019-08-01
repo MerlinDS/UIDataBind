@@ -71,8 +71,19 @@ namespace UIDataBindCore.Properties
 
         private void SourceUpdateHandler(TSource value)
         {
-            if (!_upToDate)
+            if (_upToDate)
+                return;
+
+            try
+            {
                 _target.Value = _toTarget(value);
+            }
+#pragma warning disable 168
+            catch (FormatException exception)
+#pragma warning restore 168
+            {
+                _target.Value = default;
+            }
         }
 
         #endregion
