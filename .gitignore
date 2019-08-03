@@ -54,3 +54,4 @@ fabric.properties
 .idea/httpRequests
 
 */obj/
+/packages/
