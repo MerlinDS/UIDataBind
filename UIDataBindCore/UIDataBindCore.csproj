@@ -43,6 +43,7 @@
     <Compile Include="Sources\Base\DataContextInfo.cs" />
     <Compile Include="Sources\Base\DataContextReferences.cs" />
     <Compile Include="Sources\Base\DataContextScope.cs" />
+    <Compile Include="Sources\Base\TypesPair.cs" />
     <Compile Include="Sources\BindingKernel.cs" />
     <Compile Include="Sources\Converters\ConversionMethods.cs" />
     <Compile Include="Sources\Converters\IConversionMethods.cs" />
