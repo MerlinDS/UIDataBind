@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UIDataBindCore.Base;
 
 namespace UIDataBindCore.Converters
@@ -18,19 +19,11 @@ namespace UIDataBindCore.Converters
 
         public void Register<TType0, TType1>(Func<TType1, TType0> from1To0, Func<TType0, TType1> from0To1)
         {
-            var type0 = typeof(TType0);
-            var type1 = typeof(TType1);
-            if(Has(type0, type1))
+            if(Has<TType0, TType1>())
                 return;
 
-            Add(type0, type1, from0To1);
-            Add(type1, type0, from1To0);
-        }
-
-        private void Add(Type type0, Type type1, Delegate @delegate)
-        {
-            _keys.Add(new TypesPair(type0, type1));
-            _content.Add(@delegate);
+            Add<TType0, TType1>(from0To1);
+            Add<TType1, TType0>(from1To0);
         }
 
         public bool Has(Type type0, Type type1) =>
@@ -51,6 +44,16 @@ namespace UIDataBindCore.Converters
             _keys.Clear();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void Add<TType0, TType1>(Delegate @delegate)
+        {
+            _keys.Add(TypesPair.Create<TType0, TType1>());
+            _content.Add(@delegate);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool Has<TType0, TType1>() =>
+            _keys.Any(k=>k.Equals<TType0, TType1>());
 
     }
 }
