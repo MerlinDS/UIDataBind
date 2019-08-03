@@ -21,9 +21,9 @@ namespace Tests.UIDataBindCore.Converters
             conversionMethods.Register(fromBoolToInt, fromIntToBool);//Do noting
             Assert.That(conversionMethods.Retrieve(typeof(bool), typeof(int)), Is.SameAs(fromBoolToInt));
             Assert.That(conversionMethods.Retrieve(typeof(int), typeof(bool)), Is.SameAs(fromIntToBool));
-            Assert.That(conversionMethods.Retrieve(typeof(int), typeof(float)), Is.Null);
+            Assert.Throws<ArgumentException>(()=>conversionMethods.Retrieve(typeof(int), typeof(float)));
             conversionMethods.Dispose();
-            Assert.That(conversionMethods.Retrieve(typeof(int), typeof(bool)), Is.Null);
+            Assert.Throws<ArgumentException>(()=>conversionMethods.Retrieve(typeof(int), typeof(bool)));
         }
     }
 }
