@@ -26,6 +26,8 @@ namespace UIDataBindCore.Base
         public override bool Equals(object obj) =>
             obj is TypesPair other && Equals(other);
 
+        public bool Equals<T1, T2>() =>
+            this.Equals(typeof(T1), typeof(T2));
         public bool Equals(Type a, Type b) =>
             _a == a && _b == b;
 

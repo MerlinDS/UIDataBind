@@ -30,6 +30,9 @@ namespace Tests.UIDataBindCore.Base
 
             Assert.That(a.Equals(typeof(int), typeof(bool)), Is.True);
             Assert.That(a.Equals(typeof(bool), typeof(int)), Is.False);
+
+            Assert.That(a.Equals<int, bool>(), Is.True);
+            Assert.That(a.Equals<bool, bool>(), Is.False);
         }
 
         [Test]
