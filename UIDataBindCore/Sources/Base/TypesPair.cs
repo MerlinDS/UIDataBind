@@ -24,6 +24,9 @@ namespace UIDataBindCore.Base
         public override bool Equals(object obj) =>
             obj is TypesPair other && Equals(other);
 
+        public bool Equals(Type a, Type b) =>
+            _a == a && _b == b;
+
         public override int GetHashCode() =>
             ((_a != null ? _a.GetHashCode() : 0) * 397) ^ (_b != null ? _b.GetHashCode() : 0);
 
