@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIDataBindCore", "UIDataBindCore\UIDataBindCore.csproj", "{B7A36351-A85E-4269-BFD8-47AAE0ACFA0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{1FC5C707-9D85-4635-AA35-391D738C392F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7A36351-A85E-4269-BFD8-47AAE0ACFA0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7A36351-A85E-4269-BFD8-47AAE0ACFA0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7A36351-A85E-4269-BFD8-47AAE0ACFA0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7A36351-A85E-4269-BFD8-47AAE0ACFA0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FC5C707-9D85-4635-AA35-391D738C392F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FC5C707-9D85-4635-AA35-391D738C392F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FC5C707-9D85-4635-AA35-391D738C392F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FC5C707-9D85-4635-AA35-391D738C392F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
