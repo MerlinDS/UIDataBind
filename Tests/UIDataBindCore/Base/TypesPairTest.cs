@@ -9,19 +9,17 @@ namespace Tests.UIDataBindCore.Base
         [Test]
         public void AccessorsTest()
         {
-            var typeA = typeof(int);
-            var typeB = typeof(bool);
-            var pair = new TypesPair(typeA, typeB);
-            Assert.That(pair.A, Is.SameAs(typeA));
-            Assert.That(pair.B, Is.SameAs(typeB));
+            var pair = TypesPair.Create<int, bool>();
+            Assert.That(pair.A, Is.SameAs(typeof(int)));
+            Assert.That(pair.B, Is.SameAs(typeof(bool)));
         }
 
         [Test]
         public void EqualsTest()
         {
-            var a = new TypesPair(typeof(int), typeof(bool));
-            var b = new TypesPair(typeof(int), typeof(bool));
-            var c = new TypesPair( typeof(bool), typeof(int));
+            var a = TypesPair.Create<int, bool>();
+            var b = TypesPair.Create<int, bool>();
+            var c = TypesPair.Create<bool, int>();
             Assert.That(a.Equals(a), Is.True);
             Assert.That(a.Equals(b), Is.True);
             Assert.That(a.Equals(c), Is.False);
@@ -37,9 +35,9 @@ namespace Tests.UIDataBindCore.Base
         [Test]
         public void GetHashCodeTest()
         {
-            var a = new TypesPair(typeof(int), typeof(bool)).GetHashCode();
-            var b = new TypesPair(typeof(int), typeof(bool)).GetHashCode();
-            var c = new TypesPair( typeof(bool), typeof(int)).GetHashCode();
+            var a = TypesPair.Create<int, bool>().GetHashCode();
+            var b = TypesPair.Create<int, bool>().GetHashCode();
+            var c = TypesPair.Create<bool, int>().GetHashCode();
             Assert.That(a, Is.EqualTo(a));
             Assert.That(a, Is.EqualTo(b));
             Assert.That(a, Is.Not.EqualTo(c));
@@ -48,7 +46,7 @@ namespace Tests.UIDataBindCore.Base
         [Test]
         public void ToStringTest()
         {
-            var a = new TypesPair(typeof(int), typeof(bool)).ToString();
+            var a = TypesPair.Create<int, bool>().ToString();
             var expected = $"{nameof(TypesPair)}[{typeof(int)} {typeof(bool)}]";
             Assert.That(a, Is.EqualTo(expected));
         }

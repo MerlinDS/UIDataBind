@@ -8,6 +8,8 @@ namespace UIDataBindCore.Base
         private readonly Type _a;
         private readonly Type _b;
 
+        public static TypesPair Create<T1, T2>()
+            => new TypesPair(typeof(T1), typeof(T2));
         public TypesPair(Type a, Type b)
         {
             _a = a;
