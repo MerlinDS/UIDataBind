@@ -65,7 +65,8 @@
     <Compile Include="UIDataBindCore\Converters\SafeConvertTest.cs" />
     <Compile Include="UIDataBindCore\Extensions\BindPropertyAdapterExtensionTest.cs" />
     <Compile Include="UIDataBindCore\Extensions\BuildInConvertersExtensionTest.cs" />
-    <Compile Include="UIDataBindCore\Extensions\DataContextExtensionTest.cs" />
+    <Compile Include="UIDataBindCore\Extensions\DataContextFindMethodExtensionTest.cs" />
+    <Compile Include="UIDataBindCore\Extensions\DataContextFindPropertyExtensionTest.cs" />
     <Compile Include="UIDataBindCore\Extensions\DataContextReflectionExtensionTest.cs" />
     <Compile Include="UIDataBindCore\Properties\BindPropertyAdapterTest.cs" />
     <Compile Include="UIDataBindCore\Properties\BindPropertyTest.cs" />

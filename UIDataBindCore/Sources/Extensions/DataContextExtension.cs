@@ -5,6 +5,8 @@ namespace UIDataBindCore.Extensions
 {
     public static class DataContextExtension
     {
+        private static BindingKernel Kernel => BindingKernel.Instance;
+
         /// <summary>
         /// Register <see cref="IDataContext"/> instance in the <see cref="BindingKernel"/>
         /// </summary>
@@ -19,7 +21,21 @@ namespace UIDataBindCore.Extensions
         public static void Unregister(this IDataContext context) =>
             Kernel.Unregister(context);
 
-        public static IBindProperty<TValue> FinProperty<TValue>(this IDataContext context, string memberName)
+        public static IBindProperty<TValue> FindProperty<TValue>(this IDataContext context, string memberName) =>
+            FindMember(context, memberName, InternalFindProperty<TValue>);
+
+        private static IBindProperty<TValue> InternalFindProperty<TValue>(this IDataContext context, string memberName) =>
+            Kernel.ConversionMethods.AsPropertyOf<TValue> (Kernel.FindProperty(context, memberName))
+            ?? new BindProperty<TValue>();
+
+        public static Action FindMethod(this IDataContext context, string memberName) =>
+            FindMember(context, memberName, InternalFindMethod);
+
+        private static Action InternalFindMethod(this IDataContext context, string memberName) =>
+            Kernel.FindMethod(context, memberName) ?? (() => { });
+
+        private static TValue FindMember<TValue>(this IDataContext context, string memberName,
+            Func<IDataContext, string, TValue> findMethod)
         {
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
@@ -29,17 +45,14 @@ namespace UIDataBindCore.Extensions
 
             try
             {
-                var sourceProperty = Kernel.FindProperty(context, memberName);
-                return Kernel.ConversionMethods.AsPropertyOf<TValue>(sourceProperty) ?? new BindProperty<TValue>();
+                return findMethod.Invoke(context, memberName);
             }
             catch (InvalidOperationException exception)
             {
-                if(exception.Source == nameof(BindingKernel))
+                if (exception.Source == nameof(BindingKernel))
                     throw new InvalidOperationException(exception.Message, exception);
                 throw;
             }
         }
-
-        private static BindingKernel Kernel => BindingKernel.Instance;
     }
 }

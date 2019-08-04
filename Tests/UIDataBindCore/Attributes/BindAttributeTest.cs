@@ -29,7 +29,7 @@ namespace Tests.UIDataBindCore.Attributes
         {
             var context = new TestDataContext();
             var contextType = context.GetType();
-            var bindMethod = contextType.GetMethod(nameof(TestDataContext.BindMethod),
+            var bindMethod = contextType.GetMethod(nameof(TestDataContext.BindMethodWithArgs),
                                                    BindingFlags.Instance | BindingFlags.Public);
             // ReSharper disable once AssignNullToNotNullAttribute
             var attribute = (BindAttribute) System.Attribute.GetCustomAttribute(bindMethod, typeof(BindAttribute));
@@ -38,7 +38,7 @@ namespace Tests.UIDataBindCore.Attributes
             Assert.That(attribute, Is.Not.Null);
             Assert.That(attribute.Alias, Is.EqualTo(TestDataContext.BindMethodAlias));
             Assert.That(attribute.Help, Is.EqualTo(TestDataContext.BindMethodHelp));
-            Assert.That(attribute.Name, Is.EqualTo(nameof(TestDataContext.BindMethod)));
+            Assert.That(attribute.Name, Is.EqualTo(nameof(TestDataContext.BindMethodWithArgs)));
             context.BindMethod();
         }
     }

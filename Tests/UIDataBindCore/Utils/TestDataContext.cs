@@ -1,3 +1,4 @@
+using System;
 using NSubstitute;
 using UIDataBindCore;
 using UIDataBindCore.Attributes;
@@ -21,6 +22,21 @@ namespace Tests.UIDataBindCore.Utils
         public void BindMethod()
         {
             IsBindMethodInvoked = true;
+        }
+
+        [Bind(BindMethodAlias, BindMethodHelp)]
+        public void BindMethodWithArgs(int value)
+        {
+            Property = value;
+        }
+
+        [PropertyBind]
+        public int Property { get; set; }
+
+        [AttributeUsage(AttributeTargets.Property)]
+        private class PropertyBindAttribute : BindAttribute
+        {
+
         }
     }
 }

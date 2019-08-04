@@ -9,7 +9,7 @@ using UIDataBindCore.Properties;
 namespace Tests.UIDataBindCore.Extensions
 {
     [TestFixture]
-    public class DataContextExtensionTest
+    public class DataContextFindPropertyExtensionTest
     {
         private DataContext _context;
         [SetUp]
@@ -19,45 +19,45 @@ namespace Tests.UIDataBindCore.Extensions
         public void TearDown() => _context?.Unbind();
 
         [Test]
-        public void FindPropertySameTypeTest()
+        public void SameTypeTest()
         {
-            var bindProperty = _context.FinProperty<bool>(nameof(DataContext.BindProperty));
+            var bindProperty = _context.FindProperty<bool>(nameof(DataContext.BindProperty));
             Assert.That(bindProperty, Is.Not.Null);
             Assert.That(bindProperty, Is.SameAs(_context.BindProperty));
         }
 
         [Test]
-        public void FindPropertyNotExistingTest()
+        public void NotExistingTest()
         {
-            var bindProperty = _context.FinProperty<bool>("some property name");
+            var bindProperty = _context.FindProperty<bool>("some property name");
             Assert.That(bindProperty, Is.Not.Null);
             Assert.That(bindProperty, Is.InstanceOf<IBindProperty<bool>>());
             Assert.That(bindProperty, Is.Not.SameAs(_context.BindProperty));
         }
 
         [Test]
-        public void FindPropertyDiffTypeTest()
+        public void DiffTypeTest()
         {
-            var bindProperty = _context.FinProperty<int>(nameof(DataContext.BindProperty));
+            var bindProperty = _context.FindProperty<int>(nameof(DataContext.BindProperty));
             Assert.That(bindProperty, Is.Not.Null);
             Assert.That(bindProperty, Is.InstanceOf<BindPropertyAdapter<bool, int>>());
         }
 
         [Test]
-        public void FindPropertyNotConvertibleTypeTest()
+        public void NotConvertibleTypeTest()
         {
-            var bindProperty = _context.FinProperty<object>(nameof(DataContext.BindProperty));
+            var bindProperty = _context.FindProperty<object>(nameof(DataContext.BindProperty));
             Assert.That(bindProperty, Is.Not.Null);
             Assert.That(bindProperty, Is.InstanceOf<IBindProperty<object>>());
             Assert.That(bindProperty, Is.Not.SameAs(_context.BindProperty));
         }
 
         [Test]
-        public void FindPropertyInMultiContextsTest()
+        public void InMultiContextsTest()
         {
             var secondContext = new DataContext();
-            var a = _context.FinProperty<bool>(nameof(DataContext.BindProperty));
-            var b = secondContext.FinProperty<bool>(nameof(DataContext.BindProperty));
+            var a = _context.FindProperty<bool>(nameof(DataContext.BindProperty));
+            var b = secondContext.FindProperty<bool>(nameof(DataContext.BindProperty));
             Assert.That(a, Is.Not.Null);
             Assert.That(b, Is.Not.Null);
             Assert.That(a, Is.Not.SameAs(b));
@@ -65,36 +65,36 @@ namespace Tests.UIDataBindCore.Extensions
             Assert.That(b, Is.SameAs(secondContext.BindProperty));
             secondContext.Unbind();
             Assert.Throws<InvalidOperationException>(
-                () => secondContext.FinProperty<bool>(nameof(DataContext.BindProperty)));
+                () => secondContext.FindProperty<bool>(nameof(DataContext.BindProperty)));
         }
 
         [Test]
-        public void FindPropertyArgumentNullExceptionTest()
+        public void ArgumentNullExceptionTest()
         {
             IDataContext context = null;
             // ReSharper disable once ExpressionIsAlwaysNull
-            Assert.Throws<ArgumentNullException>(()=>context.FinProperty<bool>(nameof(DataContext.BindProperty)));
+            Assert.Throws<ArgumentNullException>(()=>context.FindProperty<bool>(nameof(DataContext.BindProperty)));
         }
 
         [Test]
-        public void FindPropertyArgumentExceptionTest() =>
-            Assert.Throws<ArgumentException>(()=>_context.FinProperty<bool>(null));
+        public void ArgumentExceptionTest() =>
+            Assert.Throws<ArgumentException>(()=>_context.FindProperty<bool>(null));
 
         [Test]
-        public void FindPropertyKernelInvalidOperationExceptionTest()
+        public void KernelInvalidOperationExceptionTest()
         {
             var context = new DataContext();
             context.Unbind();
-            Assert.Throws<InvalidOperationException>(() => context.FinProperty<bool>(nameof(DataContext.BindProperty)));
+            Assert.Throws<InvalidOperationException>(() => context.FindProperty<bool>(nameof(DataContext.BindProperty)));
         }
 
         [Test]
-        public void FindPropertyInvalidOperationExceptionTest()
+        public void InvalidOperationExceptionTest()
         {
             var context = new DataContextWithException();
             context.Register();
             context.ThrowsError = true;
-            Assert.Throws<InvalidOperationException>(() => context.FinProperty<bool>(nameof(DataContext.BindProperty)));
+            Assert.Throws<InvalidOperationException>(() => context.FindProperty<bool>(nameof(DataContext.BindProperty)));
         }
 
 

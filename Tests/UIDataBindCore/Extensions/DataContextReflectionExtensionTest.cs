@@ -27,7 +27,10 @@ namespace Tests.UIDataBindCore.Extensions
         [Test]
         public void GetDataContextInfoTest()
         {
-            var type = new TestDataContext().GetType();
+            var context = new TestDataContext {Property = 1};
+
+
+            var type = context.GetType();
             var contextType = type.GetDataContextType();
 
             Assert.That(contextType, Is.Not.EqualTo(default(DataContextInfo)));
@@ -38,6 +41,12 @@ namespace Tests.UIDataBindCore.Extensions
 
             Assert.That(contextType.Members.Any(m => m.Name == nameof(TestDataContext.BindMember)), Is.True);
             Assert.That(contextType.Members.Any(m => m.Name == nameof(TestDataContext.BindMethod)), Is.True);
+
+            Assert.That(contextType.Members.Any(m => m.Name == nameof(TestDataContext.BindMethodWithArgs)), Is.False);
+            Assert.That(contextType.Members.Any(m => m.Name == nameof(TestDataContext.Property)), Is.False);
+
+            context.BindMethodWithArgs(2);
+            Assert.That(context.Property, Is.EqualTo(2));
         }
 
         [Test]

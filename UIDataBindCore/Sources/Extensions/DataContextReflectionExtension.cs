@@ -16,13 +16,14 @@ namespace UIDataBindCore.Extensions
 
         private static readonly Type BindAttributeType = typeof(BindAttribute);
         private static readonly Type InitializableType = typeof(IInitializable);
+        private static readonly Type BindingPropertyType = typeof(IBindProperty);
 
         public static DataContextInfo GetDataContextType(this Type contextType)
         {
             if (contextType == null)
                 throw new ArgumentNullException(nameof(contextType));
 
-            if(!typeof(IDataContext).IsAssignableFrom(contextType))
+            if (!typeof(IDataContext).IsAssignableFrom(contextType))
                 throw new ArgumentException("Context type must be assignable from IDataContext", nameof(contextType));
 
             return new DataContextInfo
@@ -35,7 +36,24 @@ namespace UIDataBindCore.Extensions
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static MemberInfo[] GetBindMembers(this IReflect type) =>
-            type.GetMembers(BindingFlags).Where(f => Attribute.IsDefined(f, BindAttributeType)).ToArray();
+            type.GetMembers(BindingFlags).Where(Filter).ToArray();
+
+        private static bool Filter(MemberInfo member)
+        {
+            if (!Attribute.IsDefined(member, BindAttributeType))
+                return false;
+
+            switch (member.MemberType)
+            {
+                case MemberTypes.Field:
+                    return BindingPropertyType.IsAssignableFrom((member as FieldInfo)?.FieldType);
+                case MemberTypes.Method:
+                    var methodInfo = (member as MethodInfo);
+                    return methodInfo?.ReturnType == typeof(void) && methodInfo.GetParameters().Length == 0;
+                default:
+                    return false;
+            }
+        }
 
         public static DataContextReferences GetReferences(this IDataContext context, DataContextInfo info)
         {

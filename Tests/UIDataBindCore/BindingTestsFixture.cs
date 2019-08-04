@@ -41,7 +41,7 @@ namespace Tests.UIDataBindCore
             }
             public void Bind(IDataContext context)
             {
-                Property = context.FinProperty<bool>(Path);
+                Property = context.FindProperty<bool>(Path);
             }
 
             public void Unbind() => Property = null;
