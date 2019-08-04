@@ -35,10 +35,10 @@ namespace Tests.UIDataBindCore.Extensions
         }
 
         [Test]
-        public void SourceArgumentNullExceptionTest()
+        public void SourceArgumentNullTest()
         {
             var converters = new ConversionMethods().RegisterBuildIn();
-            Assert.Throws<ArgumentNullException>(() => converters.AsPropertyOf<bool>(null));
+            Assert.That(converters.AsPropertyOf<bool>(null), Is.Null);
         }
 
         [Test]

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UIDataBindCore.Base;
+using UIDataBindCore.Converters;
 using UIDataBindCore.Extensions;
 
 namespace UIDataBindCore
@@ -18,13 +19,18 @@ namespace UIDataBindCore
         private static BindingKernel _instance;
         public static BindingKernel Instance => _instance ?? (_instance = new BindingKernel());
 
-        private BindingKernel() =>
+        private BindingKernel()
+        {
             _contextScopes = new Dictionary<Guid, DataContextScope>();
+            ConversionMethods = new ConversionMethods().RegisterBuildIn();
+        }
 
         #endregion
 
 
         #region PUBLIC API
+
+        public IConversionMethods ConversionMethods { get; }
 
         /// <summary></summary>
         /// <param name="context"></param>
@@ -105,7 +111,7 @@ namespace UIDataBindCore
 
             scope = GetScopeOf(contextType);
             if (!scope.Has(context))
-                TryAddContextInstance(context, contextType);
+                throw new InvalidOperationException("Context was not registered!") {Source = nameof(BindingKernel)};
 
             return true;
         }

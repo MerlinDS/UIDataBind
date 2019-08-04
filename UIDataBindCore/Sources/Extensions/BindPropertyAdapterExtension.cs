@@ -16,7 +16,7 @@ namespace UIDataBindCore.Extensions
                 throw new ArgumentNullException(nameof(converters));
 
             if (source == null)
-                throw new ArgumentNullException(nameof(source));
+                return default;
 
             var targetType = typeof(TValue);
             if (targetType == source.ValueType)

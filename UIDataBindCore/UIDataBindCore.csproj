@@ -52,6 +52,7 @@
     <Compile Include="Sources\Extensions\BuildInConvertersExtension.cs" />
     <Compile Include="Sources\Extensions\DataContextExtension.cs" />
     <Compile Include="Sources\Extensions\DataContextReflectionExtension.cs" />
+    <Compile Include="Sources\IBinder.cs" />
     <Compile Include="Sources\IBindProperty.cs" />
     <Compile Include="Sources\IDataContext.cs" />
     <Compile Include="Sources\Properties\BindProperty.cs" />

@@ -60,6 +60,7 @@
     <Compile Include="UIDataBindCore\Attributes\BindAttributeTest.cs" />
     <Compile Include="UIDataBindCore\Base\TypesPairTest.cs" />
     <Compile Include="UIDataBindCore\BindingKernelTestFixture.cs" />
+    <Compile Include="UIDataBindCore\BindingTestsFixture.cs" />
     <Compile Include="UIDataBindCore\Converters\ConversionMethodsTests.cs" />
     <Compile Include="UIDataBindCore\Converters\SafeConvertTest.cs" />
     <Compile Include="UIDataBindCore\Extensions\BindPropertyAdapterExtensionTest.cs" />
