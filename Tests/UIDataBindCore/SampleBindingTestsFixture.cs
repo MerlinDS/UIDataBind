@@ -53,12 +53,12 @@ namespace Tests.UIDataBindCore
             var binder = new SampleMethodBinder(nameof(dataContext.BindMethod) );
             binder.Bind(dataContext);
             Action expectedMethod = dataContext.BindMethod;
-            dataContext.MethodInvoked = false;
+            dataContext.Boolean = false;
 
             Assert.That(binder.HasMethod, Is.True);
             Assert.That(binder.Method.Target, Is.SameAs(expectedMethod.Target));
             binder.Invoke();
-            Assert.That(dataContext.MethodInvoked, Is.True);
+            Assert.That(dataContext.Boolean, Is.True);
             binder.Unbind();
             Assert.That(binder.HasMethod, Is.False);
 
