@@ -56,7 +56,7 @@ namespace Tests.UIDataBindCore
         /// Boolean property that will be bind to external sources
         /// </summary>
         [Bind]
-        public readonly BindProperty<bool> BooleanProperty = new BindProperty<bool>(true);
+        public readonly BooleanProperty BooleanProperty = new BooleanProperty(true);
 
         /// <summary>
         /// Accessor to the <see cref="BooleanProperty"/> value
@@ -71,7 +71,7 @@ namespace Tests.UIDataBindCore
         /// Int property that will be bind to external sources
         /// </summary>
         [Bind]
-        public readonly BindProperty<int> IntProperty = new BindProperty<int>(1);
+        public readonly IntProperty IntProperty = new IntProperty(1);
 
         /// <summary>
         /// Accessor to the <see cref="IntProperty"/> value

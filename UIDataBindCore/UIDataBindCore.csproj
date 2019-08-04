@@ -57,6 +57,7 @@
     <Compile Include="Sources\IDataContext.cs" />
     <Compile Include="Sources\Properties\BindProperty.cs" />
     <Compile Include="Sources\Properties\BindPropertyAdapter.cs" />
+    <Compile Include="Sources\Properties\BuiltInProperties.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
