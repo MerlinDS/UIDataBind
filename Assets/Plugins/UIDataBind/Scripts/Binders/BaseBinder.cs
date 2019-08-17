@@ -1,3 +1,4 @@
+using Plugins.UIDataBind.Attributes;
 using UIDataBindCore;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace Plugins.UIDataBind.Binders
         [SerializeField]
         private BindingType _bindingType;
 
-        [SerializeField]
+        [BindingPath, SerializeField]
         private string _path;
 #pragma warning restore 0649
 
