@@ -311,6 +311,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1495346792}
+  - component: {fileID: 1495346794}
+  - component: {fileID: 1495346793}
   m_Layer: 5
   m_Name: '[C]MainContext'
   m_TagString: Untagged
@@ -337,6 +339,33 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1495346793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495346791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5942b827c6f74754823bc143d35a720e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bindingType: 0
+  _path: 
+  _value: 0
+--- !u!114 &1495346794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495346791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be1481048f343d886e109f07788fcf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1674156843
 GameObject:
   m_ObjectHideFlags: 0

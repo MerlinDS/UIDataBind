@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Plugins.UIDataBind.Binders
 {
-    public class PropertyBinder<TValue> : BaseBinder
+    public abstract class PropertyBinder<TValue> : BaseBinder
     {
 
         #region Serialized fields
@@ -14,14 +14,14 @@ namespace Plugins.UIDataBind.Binders
 #pragma warning restore 0649
 
         #endregion
-        public override void Bind(IDataContext context)
+        public override void Bind()
         {
-            throw new System.NotImplementedException();
+            Debug.Log(Context);
         }
 
         public override void Unbind()
         {
-            throw new System.NotImplementedException();
+            Debug.Log(Context);
         }
     }
 }

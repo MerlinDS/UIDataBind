@@ -1,4 +1,3 @@
-using System;
 using UIDataBindCore;
 using UnityEngine;
 
@@ -33,13 +32,21 @@ namespace Plugins.UIDataBind.Binders
         #region Context
 
         private IDataContext _context;
-        protected IDataContext Context => _context ?? (_context = GetComponentInParent<IDataContext>());
+        public IDataContext Context
+        {
+            get
+            {
+                if (_context == null)
+                    _context = GetComponent<IDataContext>();
+                return _context ?? (_context = GetComponentInParent<IDataContext>());
+            }
+        }
 
         #endregion
 
         #region Unity Events
 
-        private void OnEnable() => Bind(Context);
+        private void OnEnable() => Bind();
 
         private void OnDisable() => Unbind();
 
@@ -48,7 +55,7 @@ namespace Plugins.UIDataBind.Binders
         #region Bindings
 
         /// <inheritdoc/>
-        public abstract void Bind(IDataContext context);
+        public abstract void Bind();
 
         /// <inheritdoc/>
         public abstract void Unbind();
