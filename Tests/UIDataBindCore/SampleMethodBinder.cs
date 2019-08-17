@@ -20,13 +20,18 @@ namespace Tests.UIDataBindCore
         /// </summary>
         public Action Method => _method;
         public bool HasMethod=> _method != null;
-        public SampleMethodBinder(string path) => _path = path;
+
+        public IDataContext Context { get; }
+        public SampleMethodBinder(IDataContext context, string path)
+        {
+            _path = path;
+            Context = context;
+        }
 
         /// <summary>
         /// Finding of a method in a <see cref="IDataContext"/> and save it to binder
         /// </summary>
-        /// <param name="context">A context instance where a method stored</param>
-        public void Bind(IDataContext context) => _method = context.FindMethod(_path);
+        public void Bind() => _method = Context.FindMethod(_path);
 
         /// <summary>
         /// Remove a method from binder

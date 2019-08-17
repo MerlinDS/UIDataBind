@@ -2,7 +2,8 @@ namespace UIDataBindCore
 {
     public interface IBinder
     {
-        void Bind(IDataContext context);
+        IDataContext Context { get; }
+        void Bind();
         void Unbind();
     }
 }

@@ -10,8 +10,8 @@ namespace Tests.UIDataBindCore
         public void BindPropertyWithSameTypeTest()
         {
             var dataContext = new SampleDataContext();
-            var booleanBinder = new SamplePropertyBinder<bool>(nameof(dataContext.BooleanProperty) );
-            booleanBinder.Bind(dataContext);
+            var booleanBinder = new SamplePropertyBinder<bool>(dataContext, nameof(dataContext.BooleanProperty) );
+            booleanBinder.Bind();
 
             Assert.That(booleanBinder.HasProperty, Is.True);
             Assert.That(booleanBinder.Value, Is.EqualTo(dataContext.Boolean));
@@ -30,8 +30,8 @@ namespace Tests.UIDataBindCore
         public void BindPropertyWithDiffTypeTest()
         {
             var dataContext = new SampleDataContext();
-            var booleanBinder = new SamplePropertyBinder<bool>(nameof(dataContext.IntProperty) );
-            booleanBinder.Bind(dataContext);
+            var booleanBinder = new SamplePropertyBinder<bool>(dataContext, nameof(dataContext.IntProperty) );
+            booleanBinder.Bind();
 
             Assert.That(booleanBinder.HasProperty, Is.True);
             Assert.That(booleanBinder.Value, Is.EqualTo(Convert.ToBoolean(dataContext.Int32)));
@@ -50,8 +50,8 @@ namespace Tests.UIDataBindCore
         public void BindMethodTest()
         {
             var dataContext = new SampleDataContext();
-            var binder = new SampleMethodBinder(nameof(dataContext.BindMethod) );
-            binder.Bind(dataContext);
+            var binder = new SampleMethodBinder(dataContext, nameof(dataContext.BindMethod));
+            binder.Bind();
             Action expectedMethod = dataContext.BindMethod;
             dataContext.Boolean = false;
 

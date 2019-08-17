@@ -98,8 +98,10 @@ namespace Tests.UIDataBindCore.Extensions
 
         private class DataContext : IDataContext, IBinder
         {
-            public DataContext() => Bind(this);
-            public void Bind(IDataContext context) => context.Register();
+            public IDataContext Context => this;
+            public void Bind() => Context.Register();
+
+            public DataContext() => Bind();
 
             public void Unbind() => this.Unregister();
 

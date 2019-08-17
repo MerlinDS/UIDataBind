@@ -12,14 +12,15 @@ namespace Tests.UIDataBindCore
     /// </summary>
     public class SampleDataContext : IDataContext, IBinder
     {
-        public SampleDataContext() => Bind(this);
+        public IDataContext Context => this;
+        public SampleDataContext() => Bind();
 
         /// <summary>
         /// A DataContext needs to be registered before binding it to external sources.
         /// It could be done from a constructor or other initialization methods.
         /// </summary>
-        public void Bind(IDataContext context)
-            => context.Register();
+        public void Bind()
+            => Context.Register();
 
         /// <summary>
         /// Before disposing of a DataContext use unregister to remove it from binding.
