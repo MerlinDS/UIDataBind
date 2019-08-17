@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UIDataBindCore;
 using UIDataBindCore.Extensions;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace Plugins.UIDataBind.Binders
 
         #endregion
 
+        [UsedImplicitly]
         public TValue Value
         {
             get => _property != null ? _property.Value : _value;
