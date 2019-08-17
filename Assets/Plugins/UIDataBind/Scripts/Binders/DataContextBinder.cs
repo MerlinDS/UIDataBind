@@ -4,13 +4,15 @@ using UnityEngine;
 
 namespace Plugins.UIDataBind.Binders
 {
-    public interface IDataContextBinder
+    public class DataContextBinder<TContext> : DataContextBinder
+        where TContext : class, IDataContext, new()
     {
-        IDataContext Context { get; }
+        public override IDataContext Context { get; } = new TContext();
     }
-    public class DataContextBinder : MonoBehaviour, IDataContextBinder, IBinder
+
+    public abstract class DataContextBinder : MonoBehaviour, IDataContextBinder
     {
-        public virtual IDataContext Context { get; }
+        public abstract IDataContext Context { get; }
 
         #region Unity Events
 

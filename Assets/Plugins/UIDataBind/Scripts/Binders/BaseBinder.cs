@@ -31,14 +31,17 @@ namespace Plugins.UIDataBind.Binders
 
         #region Context
 
-        private IDataContext _context;
+        private IDataContextBinder _dataContextBinder;
         public IDataContext Context
         {
             get
             {
-                if (_context == null)
-                    _context = GetComponent<IDataContext>();
-                return _context ?? (_context = GetComponentInParent<IDataContext>());
+                if (_dataContextBinder == null)
+                    _dataContextBinder = GetComponent<IDataContextBinder>();
+                if (_dataContextBinder == null)
+                    _dataContextBinder = GetComponentInParent<IDataContextBinder>();
+
+                return _dataContextBinder?.Context;
             }
         }
 

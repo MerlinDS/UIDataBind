@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bindingType: 0
-  _path: 
+  _path: _visibleProperty
   _value: 0
 --- !u!114 &1495346794
 MonoBehaviour:
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1495346791}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2be1481048f343d886e109f07788fcf9, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d3d3084eb00ca24d8d789a7b38c7579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1674156843
