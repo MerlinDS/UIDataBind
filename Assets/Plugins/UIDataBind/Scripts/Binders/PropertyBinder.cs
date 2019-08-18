@@ -1,6 +1,8 @@
+using System;
 using JetBrains.Annotations;
 using UIDataBindCore;
 using UIDataBindCore.Extensions;
+using UIDataBindCore.Properties;
 using UnityEngine;
 
 namespace Plugins.UIDataBind.Binders
@@ -31,9 +33,39 @@ namespace Plugins.UIDataBind.Binders
             }
         }
 
+        #region Bindings
+
         public override void Bind()
         {
-            _property?.Dispose();
+            Unbind();
+
+            switch (BindingType)
+            {
+                case BindingType.None:
+                    BindToSelf();
+                    break;
+                case BindingType.Context:
+                    BindToContext();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void BindToSelf()
+        {
+            if (BindingType != BindingType.None)
+                return;
+
+            _property = new BindProperty<TValue>(_value);
+            InternalUpdateValueHandler(_property.Value);
+        }
+
+        private void BindToContext()
+        {
+            if (BindingType != BindingType.Context)
+                return;
+
             _property = Context.FindProperty<TValue>(Path);
             if (_property == null)
             {
@@ -44,8 +76,8 @@ namespace Plugins.UIDataBind.Binders
                 return;
             }
 
-            _property.OnUpdate += UpdateValueHandler;
-            UpdateValueHandler(_property.Value);
+            _property.OnUpdate += InternalUpdateValueHandler;
+            InternalUpdateValueHandler(_property.Value);
         }
 
         public override void Unbind()
@@ -53,10 +85,17 @@ namespace Plugins.UIDataBind.Binders
             if (_property == null)
                 return;
 
-            _property.OnUpdate -= UpdateValueHandler;
+            _property.OnUpdate -= InternalUpdateValueHandler;
             _property.Dispose();
         }
 
+        #endregion
+
+        private void InternalUpdateValueHandler(TValue value)
+        {
+            _value = value;
+            UpdateValueHandler(value);
+        }
         protected abstract void UpdateValueHandler(TValue value);
     }
 }
