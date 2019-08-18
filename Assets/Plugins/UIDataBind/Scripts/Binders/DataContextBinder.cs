@@ -1,36 +1,56 @@
 using UIDataBindCore;
 using UIDataBindCore.Extensions;
-using UnityEngine;
 
 namespace Plugins.UIDataBind.Binders
 {
     public class DataContextBinder<TContext> : DataContextBinder
         where TContext : class, IDataContext, new()
     {
-        public override IDataContext Context { get; } = new TContext();
+        protected override IDataContext GetContextInstance() => new TContext();
     }
 
-    public abstract class DataContextBinder : MonoBehaviour, IDataContextBinder
+    public abstract class DataContextBinder : AbstractBinder, IDataContextBinder
     {
-        public abstract IDataContext Context { get; }
+        private bool _bound;
+        private IDataContext _context;
+        public sealed override IDataContext Context
+        {
+            get
+            {
+                if (_context != null)
+                    return _context;
 
-        #region Unity Events
+                _context = GetContextInstance();
+                Bind();
+                return _context;
+            }
+        }
 
-        private void OnEnable() => Bind();
-
-        private void OnDisable() => Unbind();
-
-        #endregion
-
+        protected abstract IDataContext GetContextInstance();
 
         #region Bindings
 
         /// <inheritdoc/>
-        public void Bind() => Context.Register();
+        public override void Bind()
+        {
+            if(_bound)
+                return;
+
+            Context.Register();
+            _bound = true;
+        }
 
         /// <inheritdoc/>
-        public void Unbind() => Context.Unregister();
+        public override void Unbind()
+        {
+            if(!_bound || _context == null)
+                return;
+
+            Context.Unregister();
+            _bound = false;
+        }
 
         #endregion
+
     }
 }

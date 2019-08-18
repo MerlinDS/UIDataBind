@@ -6,7 +6,7 @@ namespace Plugins.UIDataBind.Binders
     /// <summary>
     /// The base binding <see cref="MonoBehaviour"/>, used to bind components to a <see cref="IDataContext"/>.
     /// </summary>
-    public abstract class BaseBinder : MonoBehaviour, IBinder
+    public abstract class BaseBinder : AbstractBinder
     {
         #region Serialized Fields
 
@@ -32,7 +32,7 @@ namespace Plugins.UIDataBind.Binders
         #region Context
 
         private IDataContextBinder _dataContextBinder;
-        public IDataContext Context
+        public sealed override IDataContext Context
         {
             get
             {
@@ -44,24 +44,6 @@ namespace Plugins.UIDataBind.Binders
                 return _dataContextBinder?.Context;
             }
         }
-
-        #endregion
-
-        #region Unity Events
-
-        private void OnEnable() => Bind();
-
-        private void OnDisable() => Unbind();
-
-        #endregion
-
-        #region Bindings
-
-        /// <inheritdoc/>
-        public abstract void Bind();
-
-        /// <inheritdoc/>
-        public abstract void Unbind();
 
         #endregion
     }
