@@ -1,19 +1,35 @@
 using Plugins.UIDataBind.Binders;
 using Plugins.UIDataBind.Editor.Extensions;
+using UIDataBindCore;
 using UnityEditor;
+using UnityEngine;
 
 namespace Plugins.UIDataBind.Editor.Binders
 {
-    [CustomEditor(typeof(BaseBinder), true)]
-    public class BinderInspector : UnityEditor.Editor
+    public abstract class BinderInspector : UnityEditor.Editor
     {
         private SerializedProperty _bindingType;
         private SerializedProperty _path;
+        private IDataContext _context;
 
-        private void OnEnable()
+        public IDataContext Context => _context;
+
+        protected virtual void OnEnable()
         {
-            _bindingType = serializedObject.FindProperty(nameof(_bindingType));
             _path = serializedObject.FindProperty(nameof(_path));
+            _bindingType = serializedObject.FindProperty(nameof(_bindingType));
+            FindBoundContext();
+        }
+
+        private void FindBoundContext() =>
+            _context = ((target as Component)?.GetComponent<IDataContextBinder>()
+                        ?? (target as Component)?.GetComponentInParent<IDataContextBinder>())?.Context;
+
+        private void OnDisable()
+        {
+            _context = null;
+            _bindingType.Dispose();
+            _path.Dispose();
         }
 
         public override void OnInspectorGUI()
@@ -22,8 +38,18 @@ namespace Plugins.UIDataBind.Editor.Binders
             EditorGUI.BeginChangeCheck();
 
             EditorGUILayout.PropertyField(_bindingType);
-            if(_bindingType.enumValueIndex == (int)BindingType.Context)
-                EditorGUILayout.PropertyField(_path);
+            if (_bindingType.enumValueIndex == (int) BindingType.Context)
+            {
+                if (_context == null)
+                {
+                    EditorGUILayout.HelpBox("Can't find data context.\n" +
+                                            "Add DataContextBinder to this game object, or to a parent game object.",
+                                            MessageType.Error);
+                    return;
+                }
+
+                OnBinding(_path);
+            }
 
             if(EditorGUI.EndChangeCheck())
                 serializedObject.ApplyModifiedProperties();
@@ -31,5 +57,6 @@ namespace Plugins.UIDataBind.Editor.Binders
             serializedObject.DrawDefaultInspector(_bindingType, _path);
         }
 
+        protected abstract void OnBinding(SerializedProperty path);
     }
 }

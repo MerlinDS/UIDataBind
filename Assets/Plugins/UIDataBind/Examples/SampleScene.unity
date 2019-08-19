@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bindingType: 1
-  _path: _visibleProperty
+  _path: _counterProperty
   _value: 0
 --- !u!114 &1495346794
 MonoBehaviour:

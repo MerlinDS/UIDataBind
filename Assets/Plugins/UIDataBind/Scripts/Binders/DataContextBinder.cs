@@ -1,5 +1,6 @@
 using UIDataBindCore;
 using UIDataBindCore.Extensions;
+using UnityEngine;
 
 namespace Plugins.UIDataBind.Binders
 {
@@ -17,11 +18,13 @@ namespace Plugins.UIDataBind.Binders
         {
             get
             {
-                if (_context != null)
-                    return _context;
-
-                _context = GetContextInstance();
-                Bind();
+                // ReSharper disable once InvertIf
+                if (_context == null)
+                {
+                    _context = GetContextInstance();
+                    if (Application.isPlaying)
+                        Bind();
+                }
                 return _context;
             }
         }
@@ -46,7 +49,7 @@ namespace Plugins.UIDataBind.Binders
             if(!_bound || _context == null)
                 return;
 
-            Context.Unregister();
+            _context?.Unregister();
             _bound = false;
         }
 
