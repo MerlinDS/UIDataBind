@@ -60,11 +60,7 @@ namespace Plugins.UIDataBind.Editor.Binders
                 serializedObject.ApplyModifiedProperties();
 
             if (previousType != _bindingType.enumValueIndex && Application.isPlaying)
-            {
-                //Rebind component
-                (serializedObject.targetObject as IBinder)?.Unbind();
                 (serializedObject.targetObject as IBinder)?.Bind();
-            }
 
             OnGUI();
             serializedObject.DrawDefaultInspector(_excludedProperties.ToArray());

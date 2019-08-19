@@ -13,6 +13,12 @@ namespace Plugins.UIDataBind.Examples
             SpritePath = "UIBound Icon";
         }
 
+        [Bind(help: "Test method to invoke from binder")]
+        private void TestMethod()
+        {
+            Debug.Log($"{nameof(TestMethod)} invoked");
+        }
+
         #region Bind Properties
 
         [Bind(help: "Visibility of main context")]
