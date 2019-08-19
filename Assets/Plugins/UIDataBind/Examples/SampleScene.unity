@@ -390,8 +390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 261ef4b764e04b2da1db5a610a667284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bindingType: 0
-  _path: _spriteProperty
+  _bindingType: 1
+  _path: _spritePathProperty
   _value: {fileID: 0}
   _sprite: UIBound Icon
 --- !u!1 &1495346791

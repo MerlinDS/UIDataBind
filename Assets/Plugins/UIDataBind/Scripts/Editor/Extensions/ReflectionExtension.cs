@@ -35,6 +35,13 @@ namespace Plugins.UIDataBind.Editor.Extensions
                 .Select(GetBindAttribute);
         }
 
+        public static IEnumerable<BindAttribute> GetMethodAttributesFrom(this SerializedObject serializedObject, IDataContext context)
+        {
+            var members = context.GetType().GetDataContextType().Members;
+            return members.Where(member => member.MemberType == MemberTypes.Method)
+                .Select(GetBindAttribute);
+        }
+
         private static bool CanBeUsedFor(this MemberInfo member, Type expectedType)
         {
             var memberGenericType = member.GetGenericType();

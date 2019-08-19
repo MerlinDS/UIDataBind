@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UIDataBindCore;
 using UIDataBindCore.Attributes;
 using UIDataBindCore.Properties;
@@ -7,16 +8,18 @@ namespace Plugins.UIDataBind.Examples
 {
     public class SampleMainContext : IDataContext, IInitializable
     {
+        private const string UIDataBindIcon = "UIDataBind Icon";
+        private const string UIBoundIcon = "UIBound Icon";
+
         public void Init()
         {
-            Sprite = Resources.Load<Sprite>("UIDataBind Icon");
-            SpritePath = "UIBound Icon";
+            SpritePath = UIDataBindIcon;
         }
 
-        [Bind(help: "Test method to invoke from binder")]
+        [Bind(help: "Test method to invoke from binder"), UsedImplicitly]
         private void TestMethod()
         {
-            Debug.Log($"{nameof(TestMethod)} invoked");
+            SpritePath = SpritePath == UIBoundIcon ? UIDataBindIcon : UIBoundIcon;
         }
 
         #region Bind Properties
