@@ -8,12 +8,15 @@ namespace Plugins.UIDataBind.Binders
         where TContext : class, IDataContext, new()
     {
         protected override IDataContext GetContextInstance() => new TContext();
+
+        protected new TContext Context => (TContext) base.Context;
     }
 
     public abstract class DataContextBinder : AbstractBinder, IDataContextBinder
     {
         private bool _bound;
         private IDataContext _context;
+
         public sealed override IDataContext Context
         {
             get
@@ -25,6 +28,7 @@ namespace Plugins.UIDataBind.Binders
                     if (Application.isPlaying)
                         Bind();
                 }
+
                 return _context;
             }
         }
@@ -36,7 +40,7 @@ namespace Plugins.UIDataBind.Binders
         /// <inheritdoc/>
         public override void Bind()
         {
-            if(_bound)
+            if (_bound)
                 return;
 
             Context.Register();
@@ -46,7 +50,7 @@ namespace Plugins.UIDataBind.Binders
         /// <inheritdoc/>
         public override void Unbind()
         {
-            if(!_bound || _context == null)
+            if (!_bound || _context == null)
                 return;
 
             _context?.Unregister();
@@ -54,6 +58,5 @@ namespace Plugins.UIDataBind.Binders
         }
 
         #endregion
-
     }
 }

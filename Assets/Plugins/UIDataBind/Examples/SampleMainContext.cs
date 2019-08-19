@@ -11,6 +11,13 @@ namespace Plugins.UIDataBind.Examples
         private const string UIDataBindIcon = "UIDataBind Icon";
         private const string UIBoundIcon = "UIBound Icon";
 
+        private Color _firstColor;
+        private Color _secondColor;
+        public void Configure(Color firstColor, Color secondColor)
+        {
+            _firstColor = firstColor;
+            _secondColor = secondColor;
+        }
         public void Init()
         {
             Debug.Log("Init");
@@ -22,6 +29,7 @@ namespace Plugins.UIDataBind.Examples
         {
             SpritePath = SpritePath == UIBoundIcon ? UIDataBindIcon : UIBoundIcon;
             NextSpritePath = SpritePath == UIBoundIcon ? UIDataBindIcon : UIBoundIcon;
+            Color = Color == _firstColor ? _secondColor : _firstColor;
         }
 
         #region Bind Properties
@@ -71,6 +79,16 @@ namespace Plugins.UIDataBind.Examples
             set => _nextSpritePathProperty.Value = value;
         }
 
+        [Bind]
+        private readonly BindProperty<Color> _colorProperty = new BindProperty<Color>();
+
+        public Color Color
+        {
+            get => _colorProperty.Value;
+            set => _colorProperty.Value = value;
+        }
+
         #endregion
+
     }
 }

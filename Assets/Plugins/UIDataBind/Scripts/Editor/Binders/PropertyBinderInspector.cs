@@ -22,6 +22,9 @@ namespace Plugins.UIDataBind.Editor.Binders
 
         protected override void OnEnable()
         {
+            if(!Application.isPlaying)
+                UnityConverters.Register();
+
             _value = serializedObject.FindProperty("_value");
             _hideValue = serializedObject.HasHideBinderValueAttribute();
             AddExcludedProperties(_value);

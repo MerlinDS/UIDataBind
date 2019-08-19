@@ -314,6 +314,7 @@ GameObject:
   - component: {fileID: 1352169900}
   - component: {fileID: 1352169899}
   - component: {fileID: 1352169901}
+  - component: {fileID: 1352169902}
   m_Layer: 5
   m_Name: '[I]Icon'
   m_TagString: Untagged
@@ -395,6 +396,21 @@ MonoBehaviour:
   _path: _spritePathProperty
   _value: {fileID: 0}
   _sprite: UIBound Icon
+--- !u!114 &1352169902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352169897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7760667a2a864897af61e83d19142126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bindingType: 1
+  _path: _colorProperty
+  _value: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1495346791
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,6 +476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3d3084eb00ca24d8d789a7b38c7579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _firstColor: {r: 1, g: 1, b: 1, a: 1}
+  _secondColor: {r: 1, g: 0.47757167, b: 0.34509802, a: 0.62352943}
 --- !u!1 &1674156843
 GameObject:
   m_ObjectHideFlags: 0
