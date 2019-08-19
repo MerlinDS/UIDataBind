@@ -13,13 +13,15 @@ namespace Plugins.UIDataBind.Examples
 
         public void Init()
         {
-            SpritePath = UIDataBindIcon;
+            Debug.Log("Init");
+            TestMethod();
         }
 
         [Bind(help: "Test method to invoke from binder"), UsedImplicitly]
         private void TestMethod()
         {
             SpritePath = SpritePath == UIBoundIcon ? UIDataBindIcon : UIBoundIcon;
+            NextSpritePath = SpritePath == UIBoundIcon ? UIDataBindIcon : UIBoundIcon;
         }
 
         #region Bind Properties
@@ -58,6 +60,15 @@ namespace Plugins.UIDataBind.Examples
         {
             get => _spritePathProperty.Value;
             set => _spritePathProperty.Value = value;
+        }
+
+        [Bind]
+        private readonly BindProperty<string> _nextSpritePathProperty = new BindProperty<string>();
+
+        public string NextSpritePath
+        {
+            get => _nextSpritePathProperty.Value;
+            set => _nextSpritePathProperty.Value = value;
         }
 
         #endregion

@@ -60,11 +60,12 @@ namespace Plugins.UIDataBind.Editor.Binders
 
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(_value);
-            if (!EditorGUI.EndChangeCheck() || !Application.isPlaying)
+            if (!EditorGUI.EndChangeCheck())
                 return;
 
             serializedObject.ApplyModifiedProperties();
-            _resetMethod.Invoke();
+            if(Application.isPlaying)
+                _resetMethod.Invoke();
         }
     }
 }
