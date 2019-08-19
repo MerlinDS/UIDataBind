@@ -12,6 +12,14 @@ namespace Plugins.UIDataBind.Editor.Extensions
 {
     public static class ReflectionExtension
     {
+        [NotNull]
+        public static Action GetPropertyBindingResetMethod(this object propertyBinder)
+        {
+            var methodInfo = propertyBinder.GetType().GetMethod("ResetValue", BindingFlags.Instance | BindingFlags.Public);
+            if (methodInfo != null && methodInfo.CreateDelegate(typeof(Action), propertyBinder) is Action action)
+                return action;
+            return () => { };
+        }
         public static IEnumerable<BindAttribute> GetPropertyAttributesFrom(this object propertyBinder, IDataContext context)
         {
             var binderType = propertyBinder.GetType().GetPropertyValueType();

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using Plugins.UIDataBind.Binders;
 using Plugins.UIDataBind.Editor.Extensions;
 using UIDataBindCore;
@@ -11,12 +12,20 @@ namespace Plugins.UIDataBind.Editor.Binders
     [CustomEditor(typeof(PropertyBinder<>), true)]
     public class PropertyBinderInspector: BinderInspector
     {
-        private GUIContent[] _pathOptions;
         private string[] _properties;
+        private GUIContent[] _pathOptions;
+
+        private SerializedProperty _value;
+        private PropertyInfo _valueProperty;
+        private Action _resetMethod;
 
         protected override void OnEnable()
         {
+            _value = serializedObject.FindProperty("_value");
+            AddExcludedProperties(_value);
             base.OnEnable();
+
+            _resetMethod = serializedObject.targetObject.GetPropertyBindingResetMethod();
             if(Context != null)
                 CollectProperties();
         }
@@ -40,6 +49,17 @@ namespace Plugins.UIDataBind.Editor.Binders
             serializedObject.ApplyModifiedProperties();
             if (Application.isPlaying)
                 (target as IBinder)?.Bind();
+        }
+
+        protected override void OnGUI()
+        {
+            EditorGUI.BeginChangeCheck();
+            EditorGUILayout.PropertyField(_value);
+            if (!EditorGUI.EndChangeCheck() || !Application.isPlaying)
+                return;
+
+            serializedObject.ApplyModifiedProperties();
+            _resetMethod.Invoke();
         }
     }
 }

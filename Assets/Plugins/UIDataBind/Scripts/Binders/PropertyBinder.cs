@@ -97,5 +97,9 @@ namespace Plugins.UIDataBind.Binders
             UpdateValueHandler(value);
         }
         protected abstract void UpdateValueHandler(TValue value);
+
+        public void ResetValue() => Value = _value;
+
+
     }
 }
