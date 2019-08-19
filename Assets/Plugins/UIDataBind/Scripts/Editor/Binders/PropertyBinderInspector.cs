@@ -18,21 +18,23 @@ namespace Plugins.UIDataBind.Editor.Binders
         private SerializedProperty _value;
         private PropertyInfo _valueProperty;
         private Action _resetMethod;
+        private bool _hideValue;
 
         protected override void OnEnable()
         {
             _value = serializedObject.FindProperty("_value");
+            _hideValue = serializedObject.HasHideBinderValueAttribute();
             AddExcludedProperties(_value);
             base.OnEnable();
 
-            _resetMethod = serializedObject.targetObject.GetPropertyBindingResetMethod();
+            _resetMethod = serializedObject.GetPropertyBindingResetMethod();
             if(Context != null)
                 CollectProperties();
         }
 
         private void CollectProperties()
         {
-            var attributes = serializedObject.targetObject.GetPropertyAttributesFrom(Context).ToList();
+            var attributes = serializedObject.GetPropertyAttributesFrom(Context).ToList();
             _pathOptions = attributes.Select(a => new GUIContent(a.Alias, a.Help)).ToArray();
             _properties = attributes.Select(a => a.Name).ToArray();
         }
@@ -53,6 +55,9 @@ namespace Plugins.UIDataBind.Editor.Binders
 
         protected override void OnGUI()
         {
+            if(_hideValue)
+                return;
+
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(_value);
             if (!EditorGUI.EndChangeCheck() || !Application.isPlaying)

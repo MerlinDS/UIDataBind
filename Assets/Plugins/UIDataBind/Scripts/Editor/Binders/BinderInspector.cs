@@ -41,6 +41,7 @@ namespace Plugins.UIDataBind.Editor.Binders
             serializedObject.UpdateIfRequiredOrScript();
             EditorGUI.BeginChangeCheck();
 
+            var previousType = _bindingType.enumValueIndex;
             EditorGUILayout.PropertyField(_bindingType);
             if (_bindingType.enumValueIndex == (int) BindingType.Context)
             {
@@ -55,10 +56,17 @@ namespace Plugins.UIDataBind.Editor.Binders
                 OnBinding(_path);
             }
 
-            OnGUI();
             if (EditorGUI.EndChangeCheck())
                 serializedObject.ApplyModifiedProperties();
 
+            if (previousType != _bindingType.enumValueIndex && Application.isPlaying)
+            {
+                //Rebind component
+                (serializedObject.targetObject as IBinder)?.Unbind();
+                (serializedObject.targetObject as IBinder)?.Bind();
+            }
+
+            OnGUI();
             serializedObject.DrawDefaultInspector(_excludedProperties.ToArray());
         }
 

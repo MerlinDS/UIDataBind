@@ -58,6 +58,7 @@ namespace Plugins.UIDataBind.Binders
                 return;
 
             _property = new BindProperty<TValue>(_value);
+            _property.OnUpdate += InternalUpdateValueHandler;
             InternalUpdateValueHandler(_property.Value);
         }
 

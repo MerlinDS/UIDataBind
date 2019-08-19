@@ -10,6 +10,7 @@ namespace Plugins.UIDataBind.Examples
         public void Init()
         {
             Sprite = Resources.Load<Sprite>("UIDataBind Icon");
+            SpritePath = "UIBound Icon";
         }
 
         #region Bind Properties
@@ -39,6 +40,15 @@ namespace Plugins.UIDataBind.Examples
         {
             get => _spriteProperty.Value;
             set => _spriteProperty.Value = value;
+        }
+
+        [Bind(help: "Test image path")]
+        private readonly BindProperty<string> _spritePathProperty = new BindProperty<string>();
+
+        public string SpritePath
+        {
+            get => _spritePathProperty.Value;
+            set => _spritePathProperty.Value = value;
         }
 
         #endregion
