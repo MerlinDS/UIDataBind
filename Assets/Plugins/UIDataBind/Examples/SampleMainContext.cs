@@ -5,11 +5,16 @@ using UnityEngine;
 
 namespace Plugins.UIDataBind.Examples
 {
-    public class SampleMainContext : IDataContext
+    public class SampleMainContext : IDataContext, IInitializable
     {
+        public void Init()
+        {
+            Sprite = Resources.Load<Sprite>("UIDataBind Icon");
+        }
+
         #region Bind Properties
 
-        [Bind(help:"Visibility of main context")]
+        [Bind(help: "Visibility of main context")]
         private readonly BooleanProperty _visibleProperty = new BooleanProperty(true);
 
         public bool Visible
@@ -18,7 +23,7 @@ namespace Plugins.UIDataBind.Examples
             set => _visibleProperty.Value = value;
         }
 
-        [Bind(help:"Test counter")]
+        [Bind(help: "Test counter")]
         private readonly BindProperty<int> _counterProperty = new BindProperty<int>(1);
 
         public int Counter
@@ -27,7 +32,7 @@ namespace Plugins.UIDataBind.Examples
             set => _counterProperty.Value = value;
         }
 
-        [Bind(help:"Test image sprite")]
+        [Bind(help: "Test image sprite")]
         private readonly BindProperty<Sprite> _spriteProperty = new BindProperty<Sprite>();
 
         public Sprite Sprite
