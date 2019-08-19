@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Reflection;
 using Plugins.UIDataBind.Binders;
 using Plugins.UIDataBind.Editor.Extensions;
 using UIDataBindCore;
@@ -24,8 +23,7 @@ namespace Plugins.UIDataBind.Editor.Binders
 
         private void CollectProperties()
         {
-            var valueType = serializedObject.targetObject.GetType().GetPropertyValueType();
-            var attributes = Context.GetType().GetAttributes(MemberTypes.Field, valueType).ToList();
+            var attributes = serializedObject.targetObject.GetPropertyAttributesFrom(Context).ToList();
             _pathOptions = attributes.Select(a => new GUIContent(a.Alias, a.Help)).ToArray();
             _properties = attributes.Select(a => a.Name).ToArray();
         }

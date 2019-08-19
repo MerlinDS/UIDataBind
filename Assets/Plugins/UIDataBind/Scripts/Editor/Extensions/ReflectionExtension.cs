@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using UIDataBindCore;
 using UIDataBindCore.Attributes;
@@ -11,18 +12,13 @@ namespace Plugins.UIDataBind.Editor.Extensions
 {
     public static class ReflectionExtension
     {
-        public static IEnumerable<BindAttribute> GetAttributes(this Type contextType, MemberTypes memberTypes,
-            Type expectedType = null)
+        public static IEnumerable<BindAttribute> GetPropertyAttributesFrom(this object propertyBinder, IDataContext context)
         {
-            var members = contextType.GetDataContextType().Members;
-            foreach (var member in members)
-            {
-                if(member.MemberType != memberTypes)
-                    continue;
+            var binderType = propertyBinder.GetType().GetPropertyValueType();
+            var members = context.GetType().GetDataContextType().Members;
 
-                if(member.CanBeUsedFor(expectedType))
-                    yield return GetBindAttribute(member);
-            }
+            return members.Where(member => member.MemberType == MemberTypes.Field && member.CanBeUsedFor(binderType))
+                .Select(GetBindAttribute);
         }
 
         private static bool CanBeUsedFor(this MemberInfo member, Type expectedType)
@@ -57,7 +53,8 @@ namespace Plugins.UIDataBind.Editor.Extensions
         }
 
         [CanBeNull]
-        public static Type GetPropertyValueType(this Type propertyBinderType) =>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Type GetPropertyValueType(this Type propertyBinderType) =>
             propertyBinderType?.GetProperty("Value", BindingFlags.Instance | BindingFlags.Public)?.PropertyType;
     }
 }
