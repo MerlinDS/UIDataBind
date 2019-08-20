@@ -43,7 +43,7 @@ namespace Plugins.UIDataBind.Editor.Binders
             serializedObject.UpdateIfRequiredOrScript();
             EditorGUI.BeginChangeCheck();
 
-            BindingType = (BindingType)_bindingType.enumValueIndex;
+            BindingType = (BindingType) _bindingType.enumValueIndex;
             EditorGUILayout.PropertyField(_bindingType);
             if (BindingType == BindingType.Context)
             {
@@ -61,10 +61,10 @@ namespace Plugins.UIDataBind.Editor.Binders
             if (EditorGUI.EndChangeCheck())
                 serializedObject.ApplyModifiedProperties();
 
-            if (BindingType != (BindingType)_bindingType.enumValueIndex && Application.isPlaying)
+            if (BindingType != (BindingType) _bindingType.enumValueIndex && Application.isPlaying)
                 (serializedObject.targetObject as IBinder)?.Bind();
 
-            BindingType = (BindingType)_bindingType.enumValueIndex;
+            BindingType = (BindingType) _bindingType.enumValueIndex;
             OnGUI();
             serializedObject.DrawDefaultInspector(_excludedProperties.ToArray());
         }

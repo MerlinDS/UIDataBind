@@ -1,8 +1,10 @@
+using Plugins.UIDataBind.Attributes;
 using TMPro;
 using UnityEngine;
 
 namespace Plugins.UIDataBind.Binders
 {
+    [HideBinderValue(BindingType.Context)]
     [AddComponentMenu("UIDataBind/TMP - String", 1)]
     [RequireComponent(typeof(TextMeshProUGUI))]
     // ReSharper disable once InconsistentNaming

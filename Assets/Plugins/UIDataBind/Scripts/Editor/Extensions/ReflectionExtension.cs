@@ -14,8 +14,13 @@ namespace Plugins.UIDataBind.Editor.Extensions
 {
     public static class ReflectionExtension
     {
-        public static bool HasHideBinderValueAttribute(this SerializedObject serializedObject) =>
-           Attribute.IsDefined(serializedObject.targetObject.GetType(), typeof(HideBinderValueAttribute));
+        public static HideBinderValueAttribute GetHideBinderValueAttribute(this SerializedObject serializedObject)
+        {
+            var type = serializedObject.targetObject.GetType();
+            if(Attribute.IsDefined(type, typeof(HideBinderValueAttribute)))
+                return (HideBinderValueAttribute) Attribute.GetCustomAttribute(type, typeof(HideBinderValueAttribute), true);
+            return null;
+        }
 
         [NotNull]
         public static Action GetPropertyBindingResetMethod(this SerializedObject serializedObject)

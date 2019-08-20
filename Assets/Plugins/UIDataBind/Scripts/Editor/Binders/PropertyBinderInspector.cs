@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Plugins.UIDataBind.Attributes;
 using Plugins.UIDataBind.Binders;
 using Plugins.UIDataBind.Editor.Extensions;
 using UIDataBindCore;
@@ -18,7 +19,7 @@ namespace Plugins.UIDataBind.Editor.Binders
         private SerializedProperty _value;
         private PropertyInfo _valueProperty;
         private Action _resetMethod;
-        private bool _hideValue;
+        private HideBinderValueAttribute _hideValue;
 
         protected override void OnEnable()
         {
@@ -26,7 +27,7 @@ namespace Plugins.UIDataBind.Editor.Binders
                 UnityConverters.Register();
 
             _value = serializedObject.FindProperty("_value");
-            _hideValue = serializedObject.HasHideBinderValueAttribute();
+            _hideValue = serializedObject.GetHideBinderValueAttribute();
             AddExcludedProperties(_value);
             base.OnEnable();
 
@@ -58,7 +59,7 @@ namespace Plugins.UIDataBind.Editor.Binders
 
         protected override void OnGUI()
         {
-            if(_hideValue && BindingType == BindingType.Context)
+            if(_hideValue?.Contains(BindingType)??false)
                 return;
 
             EditorGUI.BeginChangeCheck();
