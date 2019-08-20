@@ -13,9 +13,6 @@ namespace Plugins.UIDataBind.Examples
 #pragma warning restore 0649
 
 
-        protected override void Configure()
-        {
-            Context.Configure(_firstColor, _secondColor);
-        }
+        protected override void Configure() => Context.Configure(_firstColor, _secondColor);
     }
 }
