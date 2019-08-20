@@ -12,7 +12,7 @@ namespace UIDataBindCore
     /// </summary>
     public class BindingKernel : IDisposable
     {
-        private readonly Dictionary<Guid, DataContextScope> _contextScopes;
+        private readonly Dictionary<int, DataContextScope> _contextScopes;
 
         #region Singleton Access
 
@@ -21,7 +21,7 @@ namespace UIDataBindCore
 
         private BindingKernel()
         {
-            _contextScopes = new Dictionary<Guid, DataContextScope>();
+            _contextScopes = new Dictionary<int, DataContextScope>();
             ConversionMethods = new ConversionMethods().RegisterBuildIn();
         }
 
@@ -118,19 +118,19 @@ namespace UIDataBindCore
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool HasScopeOf(Type contextType) =>
-            _contextScopes.ContainsKey(contextType.GUID);
+            _contextScopes.ContainsKey(contextType.GetHashCode());
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private DataContextScope GetScopeOf(Type contextType) =>
-            _contextScopes[contextType.GUID];
+            _contextScopes[contextType.GetHashCode()];
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void RegisterScopeOf(Type contextType) =>
-            _contextScopes.Add(contextType.GUID, new DataContextScope(contextType.GetDataContextType()));
+            _contextScopes.Add(contextType.GetHashCode(), new DataContextScope(contextType.GetDataContextType()));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void UnregisterScopeOf(Type contextType) =>
-            _contextScopes.Remove(contextType.GUID);
+            _contextScopes.Remove(contextType.GetHashCode());
 
         #endregion
     }
