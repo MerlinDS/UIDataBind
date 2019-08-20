@@ -80,5 +80,10 @@ namespace Plugins.UIDataBind.Examples
                 IconVisible = true;
             }
         }
+
+        [Bind]
+        private readonly BooleanProperty _textChangeableProperty = new BooleanProperty();
+        [Bind]
+        private readonly StringProperty _textProperty = new StringProperty();
     }
 }

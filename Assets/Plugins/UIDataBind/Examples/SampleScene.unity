@@ -1232,8 +1232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7691a51b4504abcb5e99dda2f061636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bindingType: 0
-  _path: 
+  _bindingType: 1
+  _path: _textProperty
   _value: Some text
   _format: 'Unchangeable: {0}'
 --- !u!114 &532252698
@@ -1248,10 +1248,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5942b827c6f74754823bc143d35a720e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bindingType: 0
-  _path: 
+  _bindingType: 1
+  _path: _textChangeableProperty
   _value: 1
-  _inverted: 0
+  _inverted: 1
 --- !u!1 &539375289
 GameObject:
   m_ObjectHideFlags: 0
@@ -3859,8 +3859,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bindingType: 0
-  _path: 
-  _value: Some text
+  _path: _textProperty
+  _value: Enter your text
   _format: '{0}'
 --- !u!1 &1267657182
 GameObject:
@@ -4105,8 +4105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1c2298819448058d948563e870b1f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bindingType: 0
-  _path: 
+  _bindingType: 1
+  _path: _textChangeableProperty
   _value: 1
 --- !u!1 &1581696363
 GameObject:
@@ -4419,6 +4419,7 @@ GameObject:
   - component: {fileID: 1720131332}
   - component: {fileID: 1720131331}
   - component: {fileID: 1720131334}
+  - component: {fileID: 1720131335}
   m_Layer: 5
   m_Name: '[I]TextBox'
   m_TagString: Untagged
@@ -4608,10 +4609,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5942b827c6f74754823bc143d35a720e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bindingType: 0
-  _path: 
+  _bindingType: 1
+  _path: _textChangeableProperty
   _value: 1
-  _inverted: 1
+  _inverted: 0
+--- !u!114 &1720131335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720131329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364f2bfd49c64f329be0e8cbb1323163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bindingType: 1
+  _path: _textProperty
+  _value: 
+  _format: '{0}'
 --- !u!1 &1764516816
 GameObject:
   m_ObjectHideFlags: 0
