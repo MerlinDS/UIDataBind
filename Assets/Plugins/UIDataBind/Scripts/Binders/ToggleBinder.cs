@@ -5,10 +5,11 @@ using UnityEngine.UI;
 namespace Plugins.UIDataBind.Binders
 {
     [HideBinderValue(BindingType.Context)]
-    [RequireComponent(typeof(Slider))]
-    [AddComponentMenu("UIDataBind/Slider", 1)]
-    public sealed class SliderBinder : PropertyBinderWithComponent<Slider, float>
+    [RequireComponent(typeof(Toggle))]
+    [AddComponentMenu("UIDataBind/Toggle", 1)]
+    public sealed class ToggleBinder : PropertyBinderWithComponent<Toggle, bool>
     {
+
         public override void Bind()
         {
             base.Bind();
@@ -21,10 +22,10 @@ namespace Plugins.UIDataBind.Binders
             base.Unbind();
         }
 
-        private void ComponentHandler(float value) =>
+        private void ComponentHandler(bool value) =>
             Value = value;
 
-        protected override void UpdateValueHandler(float value) =>
-            Component.value = value;
+        protected override void UpdateValueHandler(bool value) =>
+            Component.isOn = value;
     }
 }
