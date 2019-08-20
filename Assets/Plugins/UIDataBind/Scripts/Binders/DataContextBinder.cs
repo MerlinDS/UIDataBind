@@ -1,3 +1,4 @@
+using System;
 using UIDataBindCore;
 using UIDataBindCore.Extensions;
 using UnityEngine;
@@ -25,7 +26,9 @@ namespace Plugins.UIDataBind.Binders
                 if (_context == null)
                 {
                     _context = GetContextInstance();
-                    if (Application.isPlaying)
+                    Configure();
+
+                    if (!_bound && Application.isPlaying)
                         Bind();
                 }
 
@@ -33,12 +36,24 @@ namespace Plugins.UIDataBind.Binders
             }
         }
 
+        /// <summary>
+        /// Get type of a concrete <see cref="IDataContext"/>
+        /// </summary>
+        public Type ContextType => GetContextInstance()?.GetType();
+        /// <summary>
+        /// Get instance of a concrete <see cref="IDataContext"/>
+        /// </summary>
+        /// <returns>Instance of a concrete <see cref="IDataContext"/></returns>
         protected abstract IDataContext GetContextInstance();
+        /// <summary>
+        /// Configure <see cref="IDataContext"/> before it's initialization
+        /// </summary>
+        protected virtual void Configure(){}
 
         #region Bindings
 
         /// <inheritdoc/>
-        public override void Bind()
+        public sealed override void Bind()
         {
             if (_bound)
                 return;
@@ -48,12 +63,13 @@ namespace Plugins.UIDataBind.Binders
         }
 
         /// <inheritdoc/>
-        public override void Unbind()
+        public sealed override void Unbind()
         {
-            if (!_bound || _context == null)
+            if (!_bound)
                 return;
 
             _context?.Unregister();
+            _context = null;
             _bound = false;
         }
 

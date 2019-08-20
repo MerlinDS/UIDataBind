@@ -31,18 +31,18 @@ namespace Plugins.UIDataBind.Editor.Extensions
                 return action;
             return () => { };
         }
-        public static IEnumerable<BindAttribute> GetPropertyAttributesFrom(this SerializedObject serializedObject, IDataContext context)
+        public static IEnumerable<BindAttribute> GetPropertyAttributesFrom(this SerializedObject serializedObject, Type contextType)
         {
             var binderType = serializedObject.targetObject.GetType().GetPropertyValueType();
-            var members = context.GetType().GetDataContextType().Members;
+            var members = contextType.GetDataContextType().Members;
 
             return members.Where(member => member.MemberType == MemberTypes.Field && member.CanBeUsedFor(binderType))
                 .Select(GetBindAttribute);
         }
 
-        public static IEnumerable<BindAttribute> GetMethodAttributesFrom(this SerializedObject serializedObject, IDataContext context)
+        public static IEnumerable<BindAttribute> GetMethodAttributesFrom(Type contextType)
         {
-            var members = context.GetType().GetDataContextType().Members;
+            var members = contextType.GetDataContextType().Members;
             return members.Where(member => member.MemberType == MemberTypes.Method)
                 .Select(GetBindAttribute);
         }

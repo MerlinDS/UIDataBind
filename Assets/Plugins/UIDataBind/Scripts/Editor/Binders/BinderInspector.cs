@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Plugins.UIDataBind.Binders;
@@ -12,8 +13,7 @@ namespace Plugins.UIDataBind.Editor.Binders
     {
         private SerializedProperty _bindingType;
         private SerializedProperty _path;
-
-        protected IDataContext Context { get; private set; }
+        protected Type ContextType { get; private set; }
         protected BindingType BindingType { get; private set; }
 
         private readonly HashSet<SerializedProperty> _excludedProperties = new HashSet<SerializedProperty>();
@@ -27,13 +27,15 @@ namespace Plugins.UIDataBind.Editor.Binders
             FindBoundContext();
         }
 
-        private void FindBoundContext() =>
-            Context = ((target as Component)?.GetComponent<IDataContextBinder>()
-                       ?? (target as Component)?.GetComponentInParent<IDataContextBinder>())?.Context;
+        private void FindBoundContext()
+        {
+            var contextBinder = (target as Component)?.GetComponentsInParent<IDataContextBinder>(true);
+            ContextType = contextBinder?.FirstOrDefault()?.ContextType;
+        }
 
         private void OnDisable()
         {
-            Context = null;
+            ContextType = null;
             _bindingType.Dispose();
             _path.Dispose();
         }
@@ -47,7 +49,7 @@ namespace Plugins.UIDataBind.Editor.Binders
             EditorGUILayout.PropertyField(_bindingType);
             if (BindingType == BindingType.Context)
             {
-                if (Context == null)
+                if (ContextType == null)
                 {
                     EditorGUILayout.HelpBox("Can't find data context.\n" +
                                             "Add DataContextBinder to this game object, or to a parent game object.",

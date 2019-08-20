@@ -17,13 +17,13 @@ namespace Plugins.UIDataBind.Editor.Binders
         protected override void OnEnable()
         {
             base.OnEnable();
-            if(Context != null)
+            if(ContextType != null)
                 CollectMethods();
         }
 
         private void CollectMethods()
         {
-            var attributes = serializedObject.GetMethodAttributesFrom(Context).ToList();
+            var attributes = ReflectionExtension.GetMethodAttributesFrom(ContextType).ToList();
             _pathOptions = attributes.Select(a => new GUIContent(a.Alias, a.Help)).ToArray();
             _methods = attributes.Select(a => a.Name).ToArray();
         }

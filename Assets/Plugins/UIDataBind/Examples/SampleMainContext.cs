@@ -15,6 +15,7 @@ namespace Plugins.UIDataBind.Examples
         private Color _secondColor;
         public void Configure(Color firstColor, Color secondColor)
         {
+            Debug.Log("Configure");
             _firstColor = firstColor;
             _secondColor = secondColor;
         }

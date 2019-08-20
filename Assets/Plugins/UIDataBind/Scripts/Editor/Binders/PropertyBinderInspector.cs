@@ -32,13 +32,13 @@ namespace Plugins.UIDataBind.Editor.Binders
             base.OnEnable();
 
             _resetMethod = serializedObject.GetPropertyBindingResetMethod();
-            if(Context != null)
+            if(ContextType != null)
                 CollectProperties();
         }
 
         private void CollectProperties()
         {
-            var attributes = serializedObject.GetPropertyAttributesFrom(Context).ToList();
+            var attributes = serializedObject.GetPropertyAttributesFrom(ContextType).ToList();
             _pathOptions = attributes.Select(a => new GUIContent(a.Alias, a.Help)).ToArray();
             _properties = attributes.Select(a => a.Name).ToArray();
         }
