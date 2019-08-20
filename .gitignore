@@ -141,3 +141,5 @@ sysinfo.txt
 /.idea/
 /ProjectSettings/
 /[Pp]ackages/
+
+*.csproj.DotSettings
