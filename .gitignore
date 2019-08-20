@@ -137,3 +137,7 @@ sysinfo.txt
 # Crashlytics generated file
 
 /Assets/ConsolePro.meta
+/Assets/TextMesh Pro.meta
+/.idea/
+/ProjectSettings/
+/[Pp]ackages/
