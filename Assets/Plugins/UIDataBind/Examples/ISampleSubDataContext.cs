@@ -2,8 +2,9 @@ using UIDataBindCore;
 
 namespace Plugins.UIDataBind.Examples
 {
-    public interface IVisibleDataContext : IDataContext
+    public interface ISampleSubDataContext : IDataContext
     {
         bool Visible { get; set; }
+        string Label { get; }
     }
 }

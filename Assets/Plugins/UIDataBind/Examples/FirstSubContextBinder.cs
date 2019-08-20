@@ -9,8 +9,9 @@ namespace Plugins.UIDataBind.Examples
 {
     public class FirstSubContextBinder : DataContextBinder<FirstSubContext>{}
 
-    public class FirstSubContext: IVisibleDataContext, IInitializable
+    public class FirstSubContext: ISampleSubDataContext, IInitializable
     {
+        public string Label => "Binders for base unity UI controls";
 
         public void Init()
         {
@@ -84,6 +85,6 @@ namespace Plugins.UIDataBind.Examples
         [Bind]
         private readonly BooleanProperty _textChangeableProperty = new BooleanProperty();
         [Bind]
-        private readonly StringProperty _textProperty = new StringProperty();
+        private readonly StringProperty _textProperty = new StringProperty("Initial text provided by context");
     }
 }

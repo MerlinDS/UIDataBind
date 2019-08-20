@@ -8,8 +8,9 @@ namespace Plugins.UIDataBind.Examples
 {
     public class SecondSubContextBinder : DataContextBinder<SecondSubContext>{}
 
-    public class SecondSubContext: IVisibleDataContext, IInitializable
+    public class SecondSubContext: ISampleSubDataContext, IInitializable
     {
+        public string Label => "Collection binders";
         public void Init()
         {
             Debug.Log($"Init {nameof(SecondSubContext)}");

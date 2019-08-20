@@ -8,8 +8,9 @@ namespace Plugins.UIDataBind.Examples
 {
     public class ThirdSubContextBinder : DataContextBinder<ThirdSubContext>{}
 
-    public class ThirdSubContext: IVisibleDataContext, IInitializable
+    public class ThirdSubContext: ISampleSubDataContext, IInitializable
     {
+        public string Label => "Other stuffs (DOTS integration)";
         public void Init()
         {
             Debug.Log($"Init {nameof(ThirdSubContext)}");

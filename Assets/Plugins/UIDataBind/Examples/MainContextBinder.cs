@@ -13,15 +13,17 @@ namespace Plugins.UIDataBind.Examples
         //TODO: Remove this after implementation of contexts binding
         protected override void Configure() =>
             Context.Configure(GetComponentsInChildren<IDataContextBinder>()
-                                  .Select(x=>x.Context as IVisibleDataContext).Where(x=>x!=null));
+                                  .Select(x=>x.Context as ISampleSubDataContext).Where(x=>x!=null));
     }
-    public class MainContext : IDataContext
+    public class MainContext : IDataContext, IInitializable
     {
 
-        private IVisibleDataContext[] _tabs;
+        private ISampleSubDataContext[] _tabs;
 
-        public void Configure(IEnumerable<IVisibleDataContext> tabs) =>
+        public void Configure(IEnumerable<ISampleSubDataContext> tabs) =>
             _tabs = tabs.ToArray();
+
+        public void Init() => TabIndex = -1;
 
         #region Binding Methods
 
@@ -37,17 +39,33 @@ namespace Plugins.UIDataBind.Examples
         #endregion
 
         [Bind]
-        private readonly IntProperty _tabLabelProperty = new IntProperty();
+        private readonly IntProperty _tabLabelProperty = new IntProperty(0);
 
         private int TabIndex
         {
             get => _tabLabelProperty.Value;
             set
             {
+                if (_tabLabelProperty.Value == value)
+                    value = -1;
+
                 _tabLabelProperty.Value = value;
                 for (var index = 0; index < _tabs.Length; index++)
-                    _tabs[index].Visible = index == value;
+                {
+                    var tab = _tabs[index];
+                    tab.Visible = index == value;
+                    if(tab.Visible)
+                        _descriptionProperty.Value = tab.Label;
+
+                }
+                _logoVisibleProperty.Value = value < 0;
             }
         }
+
+        [Bind]
+        private readonly BooleanProperty _logoVisibleProperty = new BooleanProperty(true);
+
+        [Bind]
+        private readonly StringProperty _descriptionProperty = new StringProperty();
     }
 }
