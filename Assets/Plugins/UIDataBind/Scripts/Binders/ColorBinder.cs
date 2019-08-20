@@ -1,8 +1,10 @@
+using Plugins.UIDataBind.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Plugins.UIDataBind.Binders
 {
+    [HideBinderValue]
     [AddComponentMenu("UIDataBind/Color", 1)]
     public class ColorBinder : PropertyBinderWithComponent<Graphic, Color>
     {

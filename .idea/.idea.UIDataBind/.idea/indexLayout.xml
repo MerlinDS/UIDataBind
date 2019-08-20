@@ -3,7 +3,11 @@
   <component name="ContentModelUserStore">
     <attachedFolders />
     <explicitIncludes>
-      <Path>Library/PackageCache/com.unity.textmeshpro@1.3.0</Path>
+      <Path>Library/PackageCache/com.unity.ext.nunit@1.0.0</Path>
+      <Path>Library/PackageCache/com.unity.ide.rider@1.0.8</Path>
+      <Path>Library/PackageCache/com.unity.ide.visualstudio@1.0.11</Path>
+      <Path>Library/PackageCache/com.unity.ide.vscode@1.0.7</Path>
+      <Path>Library/PackageCache/com.unity.textmeshpro@2.0.1</Path>
       <Path>ProjectSettings</Path>
       <Path>packages</Path>
     </explicitIncludes>
@@ -11,6 +15,7 @@
       <Path>.git</Path>
       <Path>.idea</Path>
       <Path>Library</Path>
+      <Path>Logs</Path>
       <Path>Temp</Path>
       <Path>obj</Path>
     </explicitExcludes>

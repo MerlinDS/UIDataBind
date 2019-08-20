@@ -58,7 +58,7 @@ namespace Plugins.UIDataBind.Editor.Binders
 
         protected override void OnGUI()
         {
-            if(_hideValue)
+            if(_hideValue && BindingType == BindingType.Context)
                 return;
 
             EditorGUI.BeginChangeCheck();

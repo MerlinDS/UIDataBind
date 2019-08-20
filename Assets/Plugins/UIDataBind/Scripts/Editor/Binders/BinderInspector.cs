@@ -14,6 +14,8 @@ namespace Plugins.UIDataBind.Editor.Binders
         private SerializedProperty _path;
 
         protected IDataContext Context { get; private set; }
+        protected BindingType BindingType { get; private set; }
+
         private readonly HashSet<SerializedProperty> _excludedProperties = new HashSet<SerializedProperty>();
 
         protected virtual void OnEnable()
@@ -41,9 +43,9 @@ namespace Plugins.UIDataBind.Editor.Binders
             serializedObject.UpdateIfRequiredOrScript();
             EditorGUI.BeginChangeCheck();
 
-            var previousType = _bindingType.enumValueIndex;
+            BindingType = (BindingType)_bindingType.enumValueIndex;
             EditorGUILayout.PropertyField(_bindingType);
-            if (_bindingType.enumValueIndex == (int) BindingType.Context)
+            if (BindingType == BindingType.Context)
             {
                 if (Context == null)
                 {
@@ -59,9 +61,10 @@ namespace Plugins.UIDataBind.Editor.Binders
             if (EditorGUI.EndChangeCheck())
                 serializedObject.ApplyModifiedProperties();
 
-            if (previousType != _bindingType.enumValueIndex && Application.isPlaying)
+            if (BindingType != (BindingType)_bindingType.enumValueIndex && Application.isPlaying)
                 (serializedObject.targetObject as IBinder)?.Bind();
 
+            BindingType = (BindingType)_bindingType.enumValueIndex;
             OnGUI();
             serializedObject.DrawDefaultInspector(_excludedProperties.ToArray());
         }

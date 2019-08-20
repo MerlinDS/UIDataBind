@@ -29,6 +29,8 @@ namespace Plugins.UIDataBind.Examples
         {
             SpritePath = SpritePath == UIBoundIcon ? UIDataBindIcon : UIBoundIcon;
             NextSpritePath = SpritePath == UIBoundIcon ? UIDataBindIcon : UIBoundIcon;
+            Resources.UnloadAsset(Sprite);
+            Sprite = Resources.Load<Sprite>(SpritePath);
             Color = Color == _firstColor ? _secondColor : _firstColor;
         }
 
