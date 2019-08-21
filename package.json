@@ -3,6 +3,7 @@
   "displayName": "UIDataBind",
   "version": "0.0.1",
   "unity": "2019.3",
+  "unityRelease": "0a8",
   "description": "The simple and lightweight UI data binding for Unity.\n\n\nSpecial Notes:\n==========\nThis release requires .Net 4.x Scripting Runtime\n==========\n This is a preview version of package",
   "type": "tool",
   "keywords": [
@@ -21,5 +22,9 @@
     "url": "https://github.com/MerlinDS/UIDataBind",
     "revision": "c1c21df"
   },
-  "unityRelease": "0a8"
+  "author": {
+    "name": "Andrew Salomatin (MerlinDS)",
+    "email": "merlinkolv@gmail.com",
+    "url": "https://merlinds.me"
+  }
 }

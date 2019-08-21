@@ -1,9 +1,8 @@
 {
-    "name": "UIDataBindAssembly",
+    "name": "Unity.UIDataBind",
     "references": [
         "Unity.TextMeshPro"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

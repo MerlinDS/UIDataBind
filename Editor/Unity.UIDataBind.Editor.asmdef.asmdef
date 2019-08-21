@@ -1,12 +1,11 @@
 {
-    "name": "Tests",
+    "name": "Unity.UIDataBind.Editor",
     "references": [
-        "UIDataBindAssembly"
+        "GUID:0de2ba329ce50a942af50cf43014f44c"
     ],
-    "optionalUnityReferences": [
-        "TestAssemblies"
+    "includePlatforms": [
+        "Editor"
     ],
-    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
