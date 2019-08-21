@@ -19,10 +19,11 @@ namespace Plugins.UIDataBind.Editor
         private static string GetPackageFullPath()
         {
             // Check for potential UPM package
-            var packagePath = Path.GetFullPath(@"Packages/");
-            if (!Directory.Exists(packagePath))
-                return null;
-            
+            var packagePath = Path.GetFullPath(@"Packages/me.merlinds.uidatabind");
+            if (Directory.Exists(packagePath))
+                return packagePath;
+
+            packagePath = Path.GetFullPath("Assets/..");
             packagePath = Directory.GetDirectories(packagePath, "UIDataBind*", SearchOption.TopDirectoryOnly)
                 .FirstOrDefault(p=>Directory.Exists(p + "/Editor Resources"));
 
