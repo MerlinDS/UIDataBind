@@ -5,7 +5,7 @@ using UIDataBindCore.Attributes;
 using UIDataBindCore.Properties;
 using UnityEngine;
 
-namespace Plugins.UIDataBind.Examples
+namespace UIDataBind.Examples
 {
     public class FirstSubContextBinder : DataContextBinder<FirstSubContext>{}
 

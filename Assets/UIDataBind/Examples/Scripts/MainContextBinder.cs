@@ -6,7 +6,7 @@ using UIDataBindCore;
 using UIDataBindCore.Attributes;
 using UIDataBindCore.Properties;
 
-namespace Plugins.UIDataBind.Examples
+namespace UIDataBind.Examples
 {
     public class MainContextBinder : DataContextBinder<MainContext>
     {

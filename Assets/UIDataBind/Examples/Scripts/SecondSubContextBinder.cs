@@ -4,16 +4,16 @@ using UIDataBindCore.Attributes;
 using UIDataBindCore.Properties;
 using UnityEngine;
 
-namespace Plugins.UIDataBind.Examples
+namespace UIDataBind.Examples
 {
-    public class ThirdSubContextBinder : DataContextBinder<ThirdSubContext>{}
+    public class SecondSubContextBinder : DataContextBinder<SecondSubContext>{}
 
-    public class ThirdSubContext: ISampleSubDataContext, IInitializable
+    public class SecondSubContext: ISampleSubDataContext, IInitializable
     {
-        public string Label => "Other stuffs (DOTS integration)";
+        public string Label => "Collection binders";
         public void Init()
         {
-            Debug.Log($"Init {nameof(ThirdSubContext)}");
+            Debug.Log($"Init {nameof(SecondSubContext)}");
         }
 
         [Bind]

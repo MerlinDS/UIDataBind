@@ -1,6 +1,6 @@
 using UIDataBindCore;
 
-namespace Plugins.UIDataBind.Examples
+namespace UIDataBind.Examples
 {
     public interface ISampleSubDataContext : IDataContext
     {
