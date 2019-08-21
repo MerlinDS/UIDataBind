@@ -138,8 +138,13 @@ sysinfo.txt
 
 /Assets/ConsolePro.meta
 /Assets/TextMesh Pro.meta
+*.csproj.DotSettings
 /.idea/
 /ProjectSettings/
-/[Pp]ackages/
-
-*.csproj.DotSettings
+# Never ignoire UIDataBind package
+!/packages/UIDataBind.*/
+# Ignore other packages
+/packages/Castle.Core.*/
+/packages/NSubstitute.*/
+/packages/NUnit.*/
+/packages/System.Threading.Tasks.Extensions.*/

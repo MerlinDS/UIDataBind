@@ -1,0 +1,8 @@
+{
+  "name": "me.merlinds.uidatabind",
+  "displayName": "UIDataBind",
+  "version": "0.0.1",
+  "unity": "2019.3",
+  "description": "The simple and lightweight UI data binding for Unity",
+  "type": "tool"
+}
