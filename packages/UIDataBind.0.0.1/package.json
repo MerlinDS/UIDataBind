@@ -3,6 +3,23 @@
   "displayName": "UIDataBind",
   "version": "0.0.1",
   "unity": "2019.3",
-  "description": "The simple and lightweight UI data binding for Unity",
-  "type": "tool"
+  "description": "The simple and lightweight UI data binding for Unity.\n\n\nSpecial Notes:\n==========\nThis release requires .Net 4.x Scripting Runtime\n==========\n This is a preview version of package",
+  "type": "tool",
+  "keywords": [
+    "UIDataBind",
+    "UI Data Bind",
+    "Data Binding",
+    "Binding"
+  ],
+  "category": "Data binding",
+  "dependencies": {
+    "com.unity.textmeshpro": "2.0.1",
+    "com.unity.ugui": "1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MerlinDS/UIDataBind",
+    "revision": "c1c21df"
+  },
+  "unityRelease": "0a8"
 }

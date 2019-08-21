@@ -141,6 +141,7 @@ sysinfo.txt
 *.csproj.DotSettings
 /.idea/
 /ProjectSettings/
+/packages/manifest.json
 # Never ignoire UIDataBind package
 !/packages/UIDataBind.*/
 # Ignore other packages
