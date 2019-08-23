@@ -76,6 +76,7 @@
     <Compile Include="UIDataBindCore\SampleDataContext.cs" />
     <Compile Include="UIDataBindCore\SampleMethodBinder.cs" />
     <Compile Include="UIDataBindCore\SamplePropertyBinder.cs" />
+    <Compile Include="UIDataBindCore\SubContextBindingTestFixture.cs" />
     <Compile Include="UIDataBindCore\Utils\TestDataContext.cs" />
   </ItemGroup>
   <ItemGroup>

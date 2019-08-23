@@ -41,5 +41,11 @@ namespace UIDataBindCore.Base
             var references = _references[instance.GetHashCode()];
             return references.Methods.ContainsKey(memberName) ? references.Methods[memberName] : default;
         }
+
+        public IDataContext FindSubContext(IDataContext instance, string memberName)
+        {
+            var references = _references[instance.GetHashCode()];
+            return references.SubContexts.ContainsKey(memberName) ? references.SubContexts[memberName] : default;
+        }
     }
 }

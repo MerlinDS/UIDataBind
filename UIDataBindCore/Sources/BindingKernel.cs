@@ -56,6 +56,11 @@ namespace UIDataBindCore
             return FindScopeOf(context, out scope) ? scope.FindMethod(context, memberName) : default;
         }
 
+        public IDataContext FindSubContext(IDataContext context, string memberName)
+        {
+            DataContextScope scope;
+            return FindScopeOf(context, out scope) ? scope.FindSubContext(context, memberName) : default;
+        }
 
         /// <summary></summary>
         /// <param name="context"></param>

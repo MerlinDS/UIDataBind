@@ -17,6 +17,7 @@ namespace UIDataBindCore.Extensions
         private static readonly Type BindAttributeType = typeof(BindAttribute);
         private static readonly Type InitializableType = typeof(IInitializable);
         private static readonly Type BindingPropertyType = typeof(IBindProperty);
+        private static readonly Type DataContextType = typeof(IDataContext);
 
         public static DataContextInfo GetDataContextType(this Type contextType)
         {
@@ -46,7 +47,9 @@ namespace UIDataBindCore.Extensions
             switch (member.MemberType)
             {
                 case MemberTypes.Field:
-                    return BindingPropertyType.IsAssignableFrom((member as FieldInfo)?.FieldType);
+                    var fieldInfo = member as FieldInfo;
+                    return BindingPropertyType.IsAssignableFrom(fieldInfo?.FieldType)
+                           || DataContextType.IsAssignableFrom(fieldInfo?.FieldType);
                 case MemberTypes.Method:
                     var methodInfo = (member as MethodInfo);
                     return methodInfo?.ReturnType == typeof(void) && methodInfo.GetParameters().Length == 0;
@@ -77,8 +80,11 @@ namespace UIDataBindCore.Extensions
             {
                 case MemberTypes.Field:
                 {
-                    if ((member as FieldInfo)?.GetValue(context) is IBindProperty property)
+                    var value = (member as FieldInfo)?.GetValue(context);
+                    if (value is IBindProperty property)
                         references.Properties.Add(member.Name, property);
+                    else if (value is IDataContext subContext)
+                        references.SubContexts.Add(member.Name, subContext);
                     return;
                 }
                 case MemberTypes.Method:
