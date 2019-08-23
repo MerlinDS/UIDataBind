@@ -27,11 +27,12 @@ namespace UIDataBindCore.Extensions
             if (!typeof(IDataContext).IsAssignableFrom(contextType))
                 throw new ArgumentException("Context type must be assignable from IDataContext", nameof(contextType));
 
+            var members = contextType.GetBindMembers();
             return new DataContextInfo
             {
                 Name = contextType.Name,
                 IsInitializable = InitializableType.IsAssignableFrom(contextType),
-                Members = contextType.GetBindMembers()
+                Members = members
             };
         }
 

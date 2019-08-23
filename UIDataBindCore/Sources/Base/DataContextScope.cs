@@ -20,8 +20,8 @@ namespace UIDataBindCore.Base
         public bool Has(IDataContext instance) =>
             _references.ContainsKey(instance.GetHashCode());
 
-        public void Add(IDataContext instance) =>
-            _references.Add(instance.GetHashCode(), instance.GetReferences(Info));
+        public void Add(IDataContext instance, DataContextReferences references) =>
+            _references.Add(instance.GetHashCode(), references);
 
 
         public void Remove(IDataContext instance) =>
@@ -47,5 +47,8 @@ namespace UIDataBindCore.Base
             var references = _references[instance.GetHashCode()];
             return references.SubContexts.ContainsKey(memberName) ? references.SubContexts[memberName] : default;
         }
+
+        public IEnumerable<IDataContext> GetSubContextsOf(IDataContext instance) =>
+            _references[instance.GetHashCode()].SubContexts.Values;
     }
 }

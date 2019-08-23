@@ -74,6 +74,9 @@ namespace UIDataBindCore
             if (!scope.Has(context))
                 throw new ArgumentException($"{context} was not registered ins Scope yet!");
 
+            foreach (var subContext in scope.GetSubContextsOf(context))
+                subContext.Unregister();
+
             scope.Remove(context);
             if (scope.Count > 0)
                 return;
@@ -100,9 +103,14 @@ namespace UIDataBindCore
             if (scope.Has(context))
                 return;
 
-            scope.Add(context);
+            var references = context.GetReferences(scope.Info);
+            scope.Add(context, references);
+
             if (scope.Info.IsInitializable)
                 (context as IInitializable)?.Init();
+
+            foreach (var subContext in references.SubContexts)
+                subContext.Value.Register();
         }
 
         #region Scopes
