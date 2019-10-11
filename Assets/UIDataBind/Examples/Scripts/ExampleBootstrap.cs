@@ -1,8 +1,10 @@
-﻿using UIDataBind.Examples.Game;
+﻿using UIDataBind.Entitas.Features;
+using UIDataBind.Examples.Game;
+using UIDataBind.Examples.Scripts;
 using UIDataBind.Examples.Utils.Entitas;
 using UnityEngine;
 
-namespace UIDataBind.Examples.Scripts
+namespace UIDataBind.Examples
 {
     public static class ExampleBootstrap
     {
@@ -16,6 +18,7 @@ namespace UIDataBind.Examples.Scripts
         }
 
         private static SystemsModule SystemsModule => new SystemsModule()
+            .Bind<UIDataBindingSystems>()
             .Bind<GameSystems>();
     }
 }

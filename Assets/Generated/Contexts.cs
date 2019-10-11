@@ -58,21 +58,21 @@ public partial class Contexts : Entitas.IContexts {
 //------------------------------------------------------------------------------
 public partial class Contexts {
 
-    public const string ViewModel = "ViewModel";
+    public const string Path = "Path";
 
     [Entitas.CodeGeneration.Attributes.PostConstructor]
     public void InitializeEntityIndices() {
-        uiBind.AddEntityIndex(new Entitas.PrimaryEntityIndex<UiBindEntity, System.Guid>(
-            ViewModel,
-            uiBind.GetGroup(UiBindMatcher.ViewModel),
-            (e, c) => ((UIDataBind.Entitas.Components.ViewModelComponent)c).Id));
+        uiBind.AddEntityIndex(new Entitas.PrimaryEntityIndex<UiBindEntity, string>(
+            Path,
+            uiBind.GetGroup(UiBindMatcher.Path),
+            (e, c) => ((UIDataBind.Entitas.Components.PathComponent)c).Value));
     }
 }
 
 public static class ContextsExtensions {
 
-    public static UiBindEntity GetEntityWithViewModel(this UiBindContext context, System.Guid Id) {
-        return ((Entitas.PrimaryEntityIndex<UiBindEntity, System.Guid>)context.GetEntityIndex(Contexts.ViewModel)).GetEntity(Id);
+    public static UiBindEntity GetEntityWithPath(this UiBindContext context, string Value) {
+        return ((Entitas.PrimaryEntityIndex<UiBindEntity, string>)context.GetEntityIndex(Contexts.Path)).GetEntity(Value);
     }
 }
 //------------------------------------------------------------------------------

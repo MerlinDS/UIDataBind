@@ -1,15 +1,14 @@
-using System;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
 
 namespace UIDataBind.Entitas.Components
 {
     [UiBind]
-    public struct ViewModelComponent : IComponent
+    public struct PathComponent : IComponent
     {
         [PrimaryEntityIndex]
-        public Guid Id;
+        public string Value;
 
-        public override string ToString() => $"ViewModel({Id})";
+        public override string ToString() => $"Path({Value})";
     }
 }

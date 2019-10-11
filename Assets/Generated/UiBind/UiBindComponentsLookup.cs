@@ -11,21 +11,27 @@ public static class UiBindComponentsLookup {
     public const int BooleanProperty = 0;
     public const int Dirty = 1;
     public const int IntegerProperty = 2;
-    public const int ViewModel = 3;
+    public const int Model = 3;
+    public const int Path = 4;
+    public const int Property = 5;
 
-    public const int TotalComponents = 4;
+    public const int TotalComponents = 6;
 
     public static readonly string[] componentNames = {
         "BooleanProperty",
         "Dirty",
         "IntegerProperty",
-        "ViewModel"
+        "Model",
+        "Path",
+        "Property"
     };
 
     public static readonly System.Type[] componentTypes = {
         typeof(UIDataBind.Entitas.Components.BooleanPropertyComponent),
         typeof(UIDataBind.Entitas.Components.DirtyComponent),
         typeof(UIDataBind.Entitas.Components.IntegerPropertyComponent),
-        typeof(UIDataBind.Entitas.Components.ViewModelComponent)
+        typeof(UIDataBind.Entitas.Components.ModelComponent),
+        typeof(UIDataBind.Entitas.Components.PathComponent),
+        typeof(UIDataBind.Entitas.Components.PropertyComponent)
     };
 }
