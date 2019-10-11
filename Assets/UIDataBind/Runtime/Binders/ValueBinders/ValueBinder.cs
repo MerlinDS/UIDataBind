@@ -1,6 +1,9 @@
+using UIDataBind.Base;
+using UIDataBind.Entitas.Extensions;
+using UIDataBind.Entitas.Wrappers;
 using UnityEngine;
 
-namespace UIDataBind.Binders
+namespace UIDataBind.Binders.ValueBinders
 {
     public abstract class ValueBinder<TValue> : BaseBinder, IValueBinder
     {
@@ -16,10 +19,5 @@ namespace UIDataBind.Binders
 
         public void Refresh() =>
             _value = Engine.GetPropertyValue<TValue>();
-    }
-
-    public interface IValueBinder
-    {
-        void Refresh();
     }
 }

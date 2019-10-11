@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Entitas;
 using UIDataBind.Base;
 using UIDataBind.Binders;
+using UIDataBind.Binders.ValueBinders;
 
 namespace UIDataBind.Entitas.Features.PostProcessing
 {

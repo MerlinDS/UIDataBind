@@ -1,20 +1,9 @@
-using Entitas;
 using UIDataBind.Base;
 using UIDataBind.Base.Components;
-using UIDataBind.Entitas.Extensions;
+using UIDataBind.Entitas.Wrappers;
 
-namespace UIDataBind.Binders
+namespace UIDataBind.Entitas.Extensions
 {
-    public class EntitasProvider : IEntityProvider
-    {
-        public IEntity Entity;
-        public int PropertyComponentIndex;
-    }
-
-    public interface IEntityProvider
-    {
-    }
-
     public static class EntityProviderExtension
     {
 

@@ -579,7 +579,8 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: ECS_ENTITAS
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}
