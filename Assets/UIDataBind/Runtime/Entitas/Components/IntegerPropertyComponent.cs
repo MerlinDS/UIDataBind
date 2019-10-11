@@ -4,7 +4,7 @@ using UIDataBind.Base.Components;
 namespace UIDataBind.Entitas.Components
 {
     [UiBind]
-    public struct IntegerPropertyComponent : IPropertyComponents<int>, IComponent
+    public struct IntegerPropertyComponent : IPropertyComponent<int>, IComponent
     {
         public int Value { get; set; }
 

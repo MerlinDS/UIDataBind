@@ -4,7 +4,7 @@ using UIDataBind.Base.Components;
 namespace UIDataBind.Entitas.Components
 {
     [UiBind]
-    public struct BooleanPropertyComponent : IPropertyComponents<bool>, IComponent
+    public struct BooleanPropertyComponent : IPropertyComponent<bool>, IComponent
     {
         public bool Value { get; set; }
 

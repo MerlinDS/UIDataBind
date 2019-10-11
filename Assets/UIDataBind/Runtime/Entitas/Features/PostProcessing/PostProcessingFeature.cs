@@ -4,6 +4,7 @@ namespace UIDataBind.Entitas.Features.PostProcessing
     {
         public PostProcessingFeature(UiBindContext context)
         {
+            Add(new BindersValueUpdateSystem(context));
             Add(new CleanupDirtyEntitiesSystems(context));
         }
     }

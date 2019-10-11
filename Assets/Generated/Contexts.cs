@@ -58,10 +58,16 @@ public partial class Contexts : Entitas.IContexts {
 //------------------------------------------------------------------------------
 public partial class Contexts {
 
+    public const string BindingPath = "BindingPath";
     public const string Path = "Path";
 
     [Entitas.CodeGeneration.Attributes.PostConstructor]
     public void InitializeEntityIndices() {
+        uiBind.AddEntityIndex(new Entitas.EntityIndex<UiBindEntity, string>(
+            BindingPath,
+            uiBind.GetGroup(UiBindMatcher.BindingPath),
+            (e, c) => ((UIDataBind.Entitas.Components.BindingPathComponent)c).Value));
+
         uiBind.AddEntityIndex(new Entitas.PrimaryEntityIndex<UiBindEntity, string>(
             Path,
             uiBind.GetGroup(UiBindMatcher.Path),
@@ -70,6 +76,10 @@ public partial class Contexts {
 }
 
 public static class ContextsExtensions {
+
+    public static System.Collections.Generic.HashSet<UiBindEntity> GetEntitiesWithBindingPath(this UiBindContext context, string Value) {
+        return ((Entitas.EntityIndex<UiBindEntity, string>)context.GetEntityIndex(Contexts.BindingPath)).GetEntities(Value);
+    }
 
     public static UiBindEntity GetEntityWithPath(this UiBindContext context, string Value) {
         return ((Entitas.PrimaryEntityIndex<UiBindEntity, string>)context.GetEntityIndex(Contexts.Path)).GetEntity(Value);
