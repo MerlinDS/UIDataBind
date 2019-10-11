@@ -1,3 +1,4 @@
+using Entitas;
 using UIDataBind.Base;
 using UIDataBind.Entitas.Wrappers;
 
@@ -31,29 +32,39 @@ namespace UIDataBind.Entitas.Extensions
         public static void Fetch<TViewModel>(this IProperties properties, TViewModel model)
             where TViewModel : IViewModel => model.Fetch(properties);
 
-        public static void ReadProperty(this IProperties properties, string propertyName, ref bool value)
+
+        public static void ReadProperty<TValue>(this IProperties properties, string propertyName, ref TValue value)
         {
-            var entity = properties.GetPropertyEntity<UiBindEntity>(propertyName);
-            if (entity?.hasBooleanProperty ?? false)
-                value = entity.booleanProperty.Value;
+            var context = Contexts.sharedInstance.uiBind;
+            var entity = properties.GetPropertyEntity<IEntity>(propertyName);
+            if (entity == null || context.HasPropertyComponent<TValue>(entity))
+                return;
+
+            value = context.GetPropertyComponent<TValue>(entity);
         }
 
-        public static void WriteProperty(this IProperties properties, string propertyName, bool value)
+        #region Write
+
+        public static void WriteProperty<TValue>(this IProperties properties, string propertyName, TValue value)
         {
+            var context = Contexts.sharedInstance.uiBind;
             var entity = properties.GetPropertyEntity<UiBindEntity>(propertyName, true);
-            if (!entity.hasBooleanProperty)
+
+            if (context.HasPropertyComponent<TValue>(entity))
             {
-                entity.AddBooleanProperty(value);
+                context.AddPropertyComponent(entity, value);
                 entity.isProperty = true;
                 entity.isDirty = true;
                 return;
             }
 
-            if (entity.booleanProperty.Value == value)
+            var previousValue = context.GetPropertyComponent<TValue>(entity);
+            if(Equals(previousValue, value))
                 return;
 
-            entity.ReplaceBooleanProperty(value);
+            context.ReplacePropertyComponent(entity, value);
             entity.isDirty = true;
         }
+        #endregion
     }
 }

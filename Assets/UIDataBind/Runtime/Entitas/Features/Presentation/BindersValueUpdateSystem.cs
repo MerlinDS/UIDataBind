@@ -1,10 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Entitas;
 using UIDataBind.Base;
-using UIDataBind.Binders;
-using UIDataBind.Binders.ValueBinders;
 
-namespace UIDataBind.Entitas.Features.PostProcessing
+namespace UIDataBind.Entitas.Features.Presentation
 {
     internal sealed class BindersValueUpdateSystem : IInitializeSystem, ICleanupSystem
     {
@@ -35,30 +35,43 @@ namespace UIDataBind.Entitas.Features.PostProcessing
 
         private void Execute(UiBindEntity propertyEntity)
         {
-            var bindersEntities = _context.GetEntitiesWithBindingPath(propertyEntity.path.Value);
+            var bindersEntities = _context.GetEntitiesWithBindingPath(propertyEntity.path.Value)
+                .Where(e => TryUpdateBooleanValue(propertyEntity, e)
+                            || TryUpdateIntValue(propertyEntity, e));
+
             foreach (var binderEntity in bindersEntities)
+                (binderEntity.binder.Value as IValueBinder)?.Refresh();
+        }
+
+        private static bool TryUpdateIntValue(UiBindEntity source, UiBindEntity target)
+        {
+            if (!source.hasIntegerProperty)
+                return false;
+
+            var value = source.integerProperty.Value;
+            if (target.hasIntegerProperty)
+                target.ReplaceIntegerProperty(value);
+            else
             {
-                if (TryUpdateBooleanValue(propertyEntity, binderEntity))
-                {
-                    // ReSharper disable once PossibleNullReferenceException
-                    (binderEntity.binder.Value as IValueBinder).Refresh();
-                    continue;
-                }
+                if (target.hasBooleanProperty)
+                    target.ReplaceBooleanProperty(Convert.ToBoolean(value));
             }
+
+            return true;
         }
 
         private static bool TryUpdateBooleanValue(UiBindEntity source, UiBindEntity target)
         {
-            if(!source.hasBooleanProperty)
+            if (!source.hasBooleanProperty)
                 return false;
 
             var value = source.booleanProperty.Value;
-            if(target.hasBooleanProperty)
+            if (target.hasBooleanProperty)
                 target.ReplaceBooleanProperty(value);
             else
             {
-                if(target.hasIntegerProperty)
-                    target.ReplaceIntegerProperty(value?1:0);
+                if (target.hasIntegerProperty)
+                    target.ReplaceIntegerProperty(value ? 1 : 0);
             }
 
             return true;

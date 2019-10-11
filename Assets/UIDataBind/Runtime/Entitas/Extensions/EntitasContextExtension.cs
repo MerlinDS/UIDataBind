@@ -38,12 +38,41 @@ namespace UIDataBind.Entitas.Extensions
             entity.AddComponent(componentIndex, component as IComponent);
         }
 
-        public static int GetPropertyComponentIndex<TValue>(this IContext context)
+        public static void ReplacePropertyComponent<TValue>(this IContext context, IEntity entity, TValue defaultValue)
+        {
+            var componentIndex = context.GetPropertyComponentIndex<TValue>();
+            var componentType = context.contextInfo.componentTypes[componentIndex];
+            var component = (IPropertyComponent<TValue>) entity.CreateComponent(componentIndex, componentType);
+            component.Value = defaultValue;
+            entity.ReplaceComponent(componentIndex, component as IComponent);
+        }
+
+        public static bool HasPropertyComponent<TValue>(this IContext context, IEntity entity)
+        {
+            var componentIndex = context.GetPropertyComponentIndex<TValue>();
+            return entity.HasComponent(componentIndex);
+        }
+
+        public static TValue GetPropertyComponent<TValue>(this IContext context, IEntity entity)
+        {
+            var componentIndex = context.GetPropertyComponentIndex<TValue>();
+            if (entity.HasComponent(componentIndex))
+                return default;
+
+            var componentType = context.contextInfo.componentTypes[componentIndex];
+            var component = (IPropertyComponent<TValue>) entity.CreateComponent(componentIndex, componentType);
+            return component.Value;
+        }
+
+        public static int GetPropertyComponentIndex<TValue>(this IContext context) =>
+            context.GetPropertyComponentIndex(typeof(TValue));
+
+        public static int GetPropertyComponentIndex(this IContext context, Type propertyType)
         {
             context.UpdateTypeToIndexMap();
             int componentIndex;
-            if(!TypeToIndexMap.TryGetValue(typeof(TValue), out componentIndex))
-                throw new ArgumentException($"Cannot add PropertyComponent<{typeof(TValue)}>. Such a component was not generated!");
+            if(!TypeToIndexMap.TryGetValue(propertyType, out componentIndex))
+                throw new ArgumentException($"Cannot add PropertyComponent<{propertyType}>. Such a component was not generated!");
             return componentIndex;
         }
     }

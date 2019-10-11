@@ -21,6 +21,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
         {
             _properties.UpdateModel(ref _viewModel);
             _viewModel.Visible = true;
+            _viewModel.Index = 10;
             _properties.Fetch(_viewModel);
 
         }
