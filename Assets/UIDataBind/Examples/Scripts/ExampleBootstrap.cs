@@ -1,4 +1,4 @@
-﻿using UIDataBind.Examples.Scripts.Game;
+﻿using UIDataBind.Examples.Game;
 using UIDataBind.Examples.Utils.Entitas;
 using UnityEngine;
 

@@ -8,15 +8,24 @@
 //------------------------------------------------------------------------------
 public static class UiBindComponentsLookup {
 
+    public const int BooleanProperty = 0;
+    public const int Dirty = 1;
+    public const int IntegerProperty = 2;
+    public const int ViewModel = 3;
 
-
-    public const int TotalComponents = 0;
+    public const int TotalComponents = 4;
 
     public static readonly string[] componentNames = {
-
+        "BooleanProperty",
+        "Dirty",
+        "IntegerProperty",
+        "ViewModel"
     };
 
     public static readonly System.Type[] componentTypes = {
-
+        typeof(UIDataBind.Entitas.Components.BooleanPropertyComponent),
+        typeof(UIDataBind.Entitas.Components.DirtyComponent),
+        typeof(UIDataBind.Entitas.Components.IntegerPropertyComponent),
+        typeof(UIDataBind.Entitas.Components.ViewModelComponent)
     };
 }
