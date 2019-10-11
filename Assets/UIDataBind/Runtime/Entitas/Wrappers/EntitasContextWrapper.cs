@@ -1,6 +1,7 @@
 using Entitas;
 using UIDataBind.Base;
 using UIDataBind.Entitas.Extensions;
+using UIDataBind.Utils.Extensions;
 
 namespace UIDataBind.Entitas.Wrappers
 {
@@ -17,6 +18,6 @@ namespace UIDataBind.Entitas.Wrappers
 
 
         public TEntity GetPropertyEntity<TEntity>(string propertyName, bool createIfNull = false)
-            where TEntity : class => _context.GetEntity<TEntity>($"{ModelPath}.{propertyName}", createIfNull);
+            where TEntity : class => _context.GetEntity<TEntity>(ModelPath.BuildPath(propertyName), createIfNull);
     }
 }
