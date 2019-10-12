@@ -5,6 +5,6 @@ namespace UIDataBind.Entitas.Components
     [UiBind]
     public struct ModelComponent : IComponent
     {
-        public override string ToString() => "Property";
+        public override string ToString() => "Model";
     }
 }

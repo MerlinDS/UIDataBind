@@ -1,4 +1,3 @@
-using Entitas;
 using UIDataBind.Base;
 using UIDataBind.Entitas.Wrappers;
 
@@ -35,35 +34,33 @@ namespace UIDataBind.Entitas.Extensions
 
         public static void ReadProperty<TValue>(this IProperties properties, string propertyName, ref TValue value)
         {
-            var context = Contexts.sharedInstance.uiBind;
-            var entity = properties.GetPropertyEntity<IEntity>(propertyName);
-            if (entity == null || context.HasPropertyComponent<TValue>(entity))
+            var entity = properties.GetPropertyEntity<IUiBindEntity>(propertyName);
+            if (entity == null || !properties.EntityManager.HasComponent<TValue>(entity))
                 return;
 
-            value = context.GetPropertyComponent<TValue>(entity);
+            value = properties.EntityManager.GetComponentData<TValue>(entity);
         }
 
         #region Write
 
         public static void WriteProperty<TValue>(this IProperties properties, string propertyName, TValue value)
         {
-            var context = Contexts.sharedInstance.uiBind;
-            var entity = properties.GetPropertyEntity<UiBindEntity>(propertyName, true);
+            var entity = properties.GetPropertyEntity<IUiBindEntity>(propertyName, true);
 
-            if (context.HasPropertyComponent<TValue>(entity))
+            if (!properties.EntityManager.HasComponent<TValue>(entity))
             {
-                context.AddPropertyComponent(entity, value);
-                entity.isProperty = true;
-                entity.isDirty = true;
+                properties.EntityManager.AddComponent(entity, value);
+                ((UiBindEntity)entity).isProperty = true;
+                ((UiBindEntity)entity).isDirty = true;
                 return;
             }
 
-            var previousValue = context.GetPropertyComponent<TValue>(entity);
+            var previousValue = properties.EntityManager.GetComponentData<TValue>(entity);
             if(Equals(previousValue, value))
                 return;
 
-            context.ReplacePropertyComponent(entity, value);
-            entity.isDirty = true;
+            properties.EntityManager.SetComponentData(entity, value);
+            ((UiBindEntity)entity).isDirty = true;
         }
         #endregion
     }

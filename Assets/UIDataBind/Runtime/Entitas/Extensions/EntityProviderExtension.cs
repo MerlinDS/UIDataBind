@@ -1,5 +1,4 @@
 using UIDataBind.Base;
-using UIDataBind.Base.Components;
 using UIDataBind.Entitas.Wrappers;
 
 namespace UIDataBind.Entitas.Extensions
@@ -10,40 +9,26 @@ namespace UIDataBind.Entitas.Extensions
         private static UiBindContext Context => Contexts.sharedInstance.uiBind;
 
         public static void Destroy(this IEntityProvider provider) =>
-            ((EntitasProvider) provider).Entity.Destroy();
+            provider.EntityManager.DestroyEntity(provider.Entity);
 
 
         public static IEntityProvider GetEngineProvider(this IBinder binder, string path)
         {
-            var entity = Context.CreateEntity();
+            var manger = new EntitasEntityManager(Context);//TODO: Get existing one
+            var entity = (UiBindEntity)manger.CreateEntity();
             entity.AddBinder(binder);
             entity.AddBindingPath(path);
             entity.isView = binder is IView;
             entity.isDirty = true;
 
-
-            return new EntitasProvider(){Entity = entity};
+            return new EntitasProvider(entity, manger);
         }
 
         public static void AddPropertyComponent<TValue>(this IEntityProvider provider, TValue defaultValue) =>
-            ((EntitasProvider) provider).AddPropertyComponent(defaultValue);
-
-        private static void AddPropertyComponent<TValue>(this EntitasProvider provider, TValue defaultValue)
-        {
-            Context.AddPropertyComponent(provider.Entity, defaultValue);
-            provider.PropertyComponentIndex = Context.GetPropertyComponentIndex<TValue>();
-        }
+            provider.EntityManager.AddComponent(provider.Entity, defaultValue);
 
         public static TValue GetPropertyValue<TValue>(this IEntityProvider provider) =>
-            ((EntitasProvider) provider).GetPropertyValue<TValue>();
+            provider.EntityManager.GetComponentData<TValue>(provider.Entity);
 
-        private static TValue GetPropertyValue<TValue>(this EntitasProvider provider)
-        {
-            if (provider.PropertyComponentIndex < 0)
-                return default;
-
-            var component = (IPropertyComponent<TValue>) provider.Entity.GetComponent(provider.PropertyComponentIndex);
-            return component.Value;
-        }
     }
 }

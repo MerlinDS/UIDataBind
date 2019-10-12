@@ -3,20 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using Entitas;
 using UIDataBind.Base;
+using UIDataBind.Entitas.Extensions;
 
 namespace UIDataBind.Entitas.Features.Presentation
 {
     internal sealed class BindersValueUpdateSystem : IInitializeSystem, ICleanupSystem
     {
         private readonly UiBindContext _context;
+        private readonly IEntityManager _entityManager;
         private readonly List<UiBindEntity> _propertyEntities;
 
         private IGroup<UiBindEntity> _propertiesGroup;
+        private readonly Func<IUiBindEntity, IUiBindEntity, bool>[] _updateActions;
 
         public BindersValueUpdateSystem(UiBindContext context)
         {
             _context = context;
             _propertyEntities = new List<UiBindEntity>();
+
+            //TODO: Move to converters
+            _updateActions = new Func<IUiBindEntity, IUiBindEntity, bool>[]
+            {
+                TryUpdateValue<bool>,
+                TryUpdateValue<int>,
+                TryUpdateValue<float>,
+                TryUpdateValue<string>,
+            };
         }
 
         public void Initialize() =>
@@ -33,45 +45,45 @@ namespace UIDataBind.Entitas.Features.Presentation
             _propertyEntities.Clear();
         }
 
-        private void Execute(UiBindEntity propertyEntity)
+        private void Execute(IUiBindEntity propertyEntity)
         {
-            var bindersEntities = _context.GetEntitiesWithBindingPath(propertyEntity.path.Value)
-                .Where(e => TryUpdateBooleanValue(propertyEntity, e)
-                            || TryUpdateIntValue(propertyEntity, e));
-
-            foreach (var binderEntity in bindersEntities)
-                (binderEntity.binder.Value as IValueBinder)?.Refresh();
-        }
-
-        private static bool TryUpdateIntValue(UiBindEntity source, UiBindEntity target)
-        {
-            if (!source.hasIntegerProperty)
-                return false;
-
-            var value = source.integerProperty.Value;
-            if (target.hasIntegerProperty)
-                target.ReplaceIntegerProperty(value);
-            else
+            var boundedEntities = _context.EntityManager.GetBoundedEntities(propertyEntity);
+            foreach (var boundedEntity in boundedEntities)
             {
-                if (target.hasBooleanProperty)
-                    target.ReplaceBooleanProperty(Convert.ToBoolean(value));
+                var needRefresh = _updateActions.Any(action => action.Invoke(propertyEntity, boundedEntity));
+                if (!needRefresh)
+                    continue;
+
+                //TODO:
+                (((UiBindEntity) boundedEntity).binder.Value as IValueBinder)?.Refresh();
             }
-
-            return true;
         }
 
-        private static bool TryUpdateBooleanValue(UiBindEntity source, UiBindEntity target)
+        //TODO: Move to converters
+        private bool TryUpdateValue<TValue>(IUiBindEntity source, IUiBindEntity target)
         {
-            if (!source.hasBooleanProperty)
+            var manager = _context.EntityManager;
+            if (!manager.HasComponent<TValue>(source))
                 return false;
 
-            var value = source.booleanProperty.Value;
-            if (target.hasBooleanProperty)
-                target.ReplaceBooleanProperty(value);
+            var value = manager.GetComponentData<TValue>(source);
+            if (manager.HasComponent<TValue>(target))
+                manager.SetComponentData(target, value);
             else
             {
-                if (target.hasIntegerProperty)
-                    target.ReplaceIntegerProperty(value ? 1 : 0);
+                var targetType = manager.GetComponentDataType(target);
+                if (targetType == typeof(bool))
+                    manager.SetComponentData(target, Convert.ToBoolean(value));
+                else if (targetType == typeof(int))
+                    manager.SetComponentData(target, Convert.ToInt32(value));
+                else if (targetType == typeof(float))
+                    manager.SetComponentData(target, Convert.ToSingle(value));
+                else if (targetType == typeof(string))
+                    manager.SetComponentData(target, Convert.ToString(value));
+                else
+                {
+                    throw new NotImplementedException();
+                }
             }
 
             return true;

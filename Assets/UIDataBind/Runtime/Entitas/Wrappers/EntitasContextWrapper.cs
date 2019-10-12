@@ -16,6 +16,7 @@ namespace UIDataBind.Entitas.Wrappers
             ModelPath = modelPath;
         }
 
+        public IEntityManager EntityManager => _context.EntityManager;
 
         public TEntity GetPropertyEntity<TEntity>(string propertyName, bool createIfNull = false)
             where TEntity : class => _context.GetEntity<TEntity>(ModelPath.BuildPath(propertyName), createIfNull);

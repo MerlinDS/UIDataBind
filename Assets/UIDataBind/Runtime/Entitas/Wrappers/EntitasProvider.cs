@@ -1,11 +1,16 @@
-using Entitas;
 using UIDataBind.Base;
 
 namespace UIDataBind.Entitas.Wrappers
 {
     public class EntitasProvider : IEntityProvider
     {
-        public IEntity Entity;
-        public int PropertyComponentIndex;
+        public IUiBindEntity Entity { get; }
+        public IEntityManager EntityManager { get; }
+
+        public EntitasProvider(IUiBindEntity entity, IEntityManager entityManager)
+        {
+            Entity = entity;
+            EntityManager = entityManager;
+        }
     }
 }
