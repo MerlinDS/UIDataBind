@@ -16,9 +16,10 @@ public static class UiBindComponentsLookup {
     public const int Model = 5;
     public const int Path = 6;
     public const int Property = 7;
-    public const int View = 8;
+    public const int StringProperty = 8;
+    public const int View = 9;
 
-    public const int TotalComponents = 9;
+    public const int TotalComponents = 10;
 
     public static readonly string[] componentNames = {
         "Binder",
@@ -29,6 +30,7 @@ public static class UiBindComponentsLookup {
         "Model",
         "Path",
         "Property",
+        "StringProperty",
         "View"
     };
 
@@ -41,6 +43,7 @@ public static class UiBindComponentsLookup {
         typeof(UIDataBind.Entitas.Components.ModelComponent),
         typeof(UIDataBind.Entitas.Components.PathComponent),
         typeof(UIDataBind.Entitas.Components.PropertyComponent),
+        typeof(UIDataBind.Entitas.Components.StringPropertyComponent),
         typeof(UIDataBind.Entitas.Components.ViewComponent)
     };
 }

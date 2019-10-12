@@ -1,6 +1,5 @@
 using UIDataBind.Base;
 using UIDataBind.Entitas.Extensions;
-using UIDataBind.Entitas.Wrappers;
 using UnityEngine;
 
 namespace UIDataBind.Binders.ValueBinders
@@ -10,6 +9,12 @@ namespace UIDataBind.Binders.ValueBinders
         [SerializeField]
         private TValue _value;
 
+        protected TValue Value
+        {
+            get => _value;
+            set => _value = value;
+        }
+
         public override void Bind() =>
             Engine.AddPropertyComponent(_value);
 
@@ -17,7 +22,12 @@ namespace UIDataBind.Binders.ValueBinders
         {
         }
 
-        public void Refresh() =>
+        public void Refresh()
+        {
             _value = Engine.GetPropertyValue<TValue>();
+            UpdateValueHandler(_value);
+        }
+
+        protected abstract void UpdateValueHandler(TValue value);
     }
 }
