@@ -1,4 +1,6 @@
 using UIDataBind.Base;
+using UIDataBind.Binders;
+using UIDataBind.Entitas.Components;
 using UIDataBind.Entitas.Wrappers;
 
 namespace UIDataBind.Entitas.Extensions
@@ -12,16 +14,24 @@ namespace UIDataBind.Entitas.Extensions
             provider.EntityManager.DestroyEntity(provider.Entity);
 
 
-        public static IEntityProvider GetEngineProvider(this IBinder binder, string path)
+        public static IEntityProvider GetEngineProvider(this IBinder binder)
         {
             var manger = new EntitasEntityManager(Context);//TODO: Get existing one
             var entity = (UiBindEntity)manger.CreateEntity();
             entity.AddBinder(binder);
-            entity.AddBindingPath(path);
+            entity.AddBindingPath(binder.Path);
             entity.isView = binder is IView;
             entity.isDirty = true;
 
             return new EntitasProvider(entity, manger);
+        }
+
+        public static void CreateAction(this IBinder binder, ActionType type)
+        {
+            var actionEntity = (UiBindEntity)binder.Engine.EntityManager.CreateEntity();
+            actionEntity.AddBindingPath(binder.Path);
+            actionEntity.AddAction(type);
+            actionEntity.isDirty = true;
         }
 
         public static void AddPropertyComponent<TValue>(this IEntityProvider provider, TValue defaultValue) =>

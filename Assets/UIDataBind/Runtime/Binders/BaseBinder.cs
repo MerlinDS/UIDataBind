@@ -10,7 +10,7 @@ namespace UIDataBind.Binders
         [SerializeField]
         private string _path;
 
-        protected IEntityProvider Engine;
+        public IEntityProvider Engine { get; set; }
 
 
         public string Path => !(this is IView)
@@ -22,7 +22,7 @@ namespace UIDataBind.Binders
 
         private void OnEnable()
         {
-            Engine = this.GetEngineProvider(Path);
+            Engine = this.GetEngineProvider();
             Bind();
         }
 

@@ -8,24 +8,28 @@
 //------------------------------------------------------------------------------
 public static class UiBindComponentsLookup {
 
-    public const int Binder = 0;
-    public const int BindingPath = 1;
-    public const int BooleanProperty = 2;
-    public const int Dirty = 3;
-    public const int IntegerProperty = 4;
-    public const int Model = 5;
-    public const int Path = 6;
-    public const int Property = 7;
-    public const int StringProperty = 8;
-    public const int View = 9;
+    public const int Action = 0;
+    public const int Binder = 1;
+    public const int BindingPath = 2;
+    public const int BooleanProperty = 3;
+    public const int Dirty = 4;
+    public const int FloatProperty = 5;
+    public const int IntegerProperty = 6;
+    public const int Model = 7;
+    public const int Path = 8;
+    public const int Property = 9;
+    public const int StringProperty = 10;
+    public const int View = 11;
 
-    public const int TotalComponents = 10;
+    public const int TotalComponents = 12;
 
     public static readonly string[] componentNames = {
+        "Action",
         "Binder",
         "BindingPath",
         "BooleanProperty",
         "Dirty",
+        "FloatProperty",
         "IntegerProperty",
         "Model",
         "Path",
@@ -35,10 +39,12 @@ public static class UiBindComponentsLookup {
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(UIDataBind.Entitas.Components.ActionComponent),
         typeof(UIDataBind.Entitas.Components.BinderComponent),
         typeof(UIDataBind.Entitas.Components.BindingPathComponent),
         typeof(UIDataBind.Entitas.Components.BooleanPropertyComponent),
         typeof(UIDataBind.Entitas.Components.DirtyComponent),
+        typeof(UIDataBind.Entitas.Components.FloatPropertyComponent),
         typeof(UIDataBind.Entitas.Components.IntegerPropertyComponent),
         typeof(UIDataBind.Entitas.Components.ModelComponent),
         typeof(UIDataBind.Entitas.Components.PathComponent),
