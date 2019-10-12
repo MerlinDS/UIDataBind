@@ -13,5 +13,13 @@ namespace UIDataBind.Entitas.Extensions
             return ((EntityIndex<UiBindEntity, string>) ((EntitasEntityManager) manager).Context.GetEntityIndex(
                 "BindingPath")).GetEntities(pathComponent.Value);
         }
+
+        public static IUiBindEntity GetPropertyEntity(this IEntityManager manager,
+            IUiBindEntity boundedEntity)
+        {
+            var pathComponent = (BindingPathComponent)((IEntity) boundedEntity).GetComponent(UiBindComponentsLookup.BindingPath);
+            return ((PrimaryEntityIndex<UiBindEntity, string>) ((EntitasEntityManager) manager).Context.GetEntityIndex(
+                "Path")).GetEntity(pathComponent.Value);
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace UIDataBind.Entitas.Features.Presentation
     {
         public PresentationFeature(UiBindContext context)
         {
+            Add(new UpdateModelFromBindersSystem(context));
             Add(new BindersValueUpdateSystem(context));
         }
     }

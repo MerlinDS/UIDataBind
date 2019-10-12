@@ -25,6 +25,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
             _viewModel.Visible = true;
             _viewModel.Label = "This is a text from model";
             _viewModel.ButtonLabel = "Button";
+            _viewModel.Toggle = true;
             _properties.Fetch(_viewModel);
         }
 

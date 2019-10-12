@@ -1,5 +1,4 @@
 using UIDataBind.Base;
-using UIDataBind.Binders;
 using UIDataBind.Entitas.Components;
 using UIDataBind.Entitas.Wrappers;
 
@@ -21,7 +20,6 @@ namespace UIDataBind.Entitas.Extensions
             entity.AddBinder(binder);
             entity.AddBindingPath(binder.Path);
             entity.isView = binder is IView;
-            entity.isDirty = true;
 
             return new EntitasProvider(entity, manger);
         }
@@ -29,9 +27,17 @@ namespace UIDataBind.Entitas.Extensions
         public static void CreateAction(this IBinder binder, ActionType type)
         {
             var actionEntity = (UiBindEntity)binder.Engine.EntityManager.CreateEntity();
-            actionEntity.AddBindingPath(binder.Path);
+//            actionEntity.AddBindingPath(binder.Path);
             actionEntity.AddAction(type);
             actionEntity.isDirty = true;
+        }
+
+        public static void UpdateValue<TValue>(this IBinder binder, TValue value, bool createChangeAction = false)
+        {
+            binder.Engine.EntityManager.SetComponentData(binder.Engine.Entity, value);
+            ((UiBindEntity) binder.Engine.Entity).isDirty = true;
+            if(createChangeAction)
+                binder.CreateAction(ActionType.Change);
         }
 
         public static void AddPropertyComponent<TValue>(this IEntityProvider provider, TValue defaultValue) =>

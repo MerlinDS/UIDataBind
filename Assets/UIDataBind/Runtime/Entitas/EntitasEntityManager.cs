@@ -80,6 +80,14 @@ namespace UIDataBind.Entitas
             return ((IEntity) entity).HasComponent(GetPropertyComponentIndex<T>());
         }
 
+        public bool HasComponent([NotNull] IUiBindEntity entity, Type valueType)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            return ((IEntity) entity).HasComponent(GetPropertyComponentIndex(valueType));
+        }
+
         public void AddComponent<T>([NotNull] IUiBindEntity entity, T value)
         {
             if (entity == null)
@@ -124,6 +132,19 @@ namespace UIDataBind.Entitas
             return component.Value;
         }
 
+        public IPropertyComponent GetComponentData([NotNull] IUiBindEntity entity, Type type)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            var componentIndex = GetPropertyComponentIndex(type);
+            if (!((IEntity) entity).HasComponent(componentIndex))
+                return default;
+
+            var component = (IPropertyComponent) ((IEntity) entity).GetComponent(componentIndex);
+            return component;
+        }
+
         public Type GetComponentDataType(IUiBindEntity entity)
         {
             var e = (IEntity) entity;
@@ -147,12 +168,16 @@ namespace UIDataBind.Entitas
         /// <returns>component index in UiBind <see cref="IContext"/></returns>
         /// <exception cref="ArgumentException">A component was not generated</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private int GetPropertyComponentIndex<TValue>()
+        private int GetPropertyComponentIndex<TValue>() =>
+            GetPropertyComponentIndex(typeof(TValue));
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public int GetPropertyComponentIndex(Type valueType)
         {
-            var index = Array.IndexOf(_types, typeof(TValue));
+            var index = Array.IndexOf(_types, valueType);
             if (index < 0)
                 throw new ArgumentException(
-                    $"Cannot add PropertyComponent<{typeof(TValue)}>. Such a component was not generated!");
+                    $"Cannot add PropertyComponent<{valueType}>. Such a component was not generated!");
             return _indices[index];
         }
 
