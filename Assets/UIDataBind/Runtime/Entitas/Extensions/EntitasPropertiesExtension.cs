@@ -1,28 +1,19 @@
+using System.Runtime.CompilerServices;
 using UIDataBind.Base;
+using UIDataBind.Base.Extensions;
 using UIDataBind.Entitas.Wrappers;
+using UIDataBind.Utils.Extensions;
 
 namespace UIDataBind.Entitas.Extensions
 {
     public static class EntitasPropertiesExtension
     {
-        public static IProperties GetProperties(this UiBindContext context, BindingPath modelPath)
+        // ReSharper disable once UnusedParameter.Global
+        public static IProperties GetProperties(this IECSEngine engine, BindingPath modelPath)
         {
-            var properties = new EntitasContextWrapper(context, modelPath);
-            var entity = context.GetEntity<UiBindEntity>(modelPath, true);
-            entity.isModel = true;
+            var properties = new EntitasProperties(modelPath);
+            engine.CreateModelEntity(modelPath);
             return properties;
-        }
-
-        public static TEntity GetEntity<TEntity>(this UiBindContext context, BindingPath path, bool createIfNull)
-            where TEntity : class
-        {
-            var entity = context.GetEntityWithModelPath(path);
-            if (!createIfNull || entity != null)
-                return entity as TEntity;
-
-            entity = context.CreateEntity();
-            entity.AddModelPath(path);
-            return entity as TEntity;
         }
 
         public static void UpdateModel<TViewModel>(this IProperties properties, ref TViewModel model)
@@ -31,37 +22,35 @@ namespace UIDataBind.Entitas.Extensions
         public static void Fetch<TViewModel>(this IProperties properties, TViewModel model)
             where TViewModel : IViewModel => model.Fetch(properties);
 
-
         public static void ReadProperty<TValue>(this IProperties properties, BindingPath propertyName, ref TValue value)
         {
-            var entity = properties.GetPropertyEntity<IUiBindEntity>(propertyName);
-            if (entity == null || !properties.EntityManager.HasComponent<TValue>(entity))
-                return;
+            propertyName = properties.BuildPath(propertyName);
+            var engine = properties.GetEngine();
 
-            value = properties.EntityManager.GetComponentData<TValue>(entity);
+            if (engine.HasProperty<TValue>(propertyName))
+                value = engine.GetPropertyValue<TValue>(propertyName);
         }
-
-        #region Write
 
         public static void WriteProperty<TValue>(this IProperties properties, BindingPath propertyName, TValue value)
         {
-            var entity = properties.GetPropertyEntity<IUiBindEntity>(propertyName, true);
+            propertyName = properties.BuildPath(propertyName);
+            var engine = properties.GetEngine();
 
-            if (!properties.EntityManager.HasComponent<TValue>(entity))
+            if (!engine.HasProperty<TValue>(propertyName))
             {
-                properties.EntityManager.AddComponent(entity, value);
-                ((UiBindEntity)entity).isProperty = true;
-                ((UiBindEntity)entity).isDirty = true;
+                engine.CreateProperty(propertyName);
+                engine.SetProperty(propertyName, value);
                 return;
             }
-
-            var previousValue = properties.EntityManager.GetComponentData<TValue>(entity);
-            if(Equals(previousValue, value))
+            var propertyValue = engine.GetPropertyValue<TValue>(propertyName);
+            if(Equals(propertyValue, value))
                 return;
 
-            properties.EntityManager.SetComponentData(entity, value);
-            ((UiBindEntity)entity).isDirty = true;
+            engine.SetProperty(propertyName, value);
         }
-        #endregion
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static BindingPath BuildPath(this IProperties properties, BindingPath propertyName)
+            => properties.ModelPath.BuildPath(propertyName);
     }
 }

@@ -19,12 +19,13 @@ namespace UIDataBind.Binders.ValueBinders
             base.Unbind();
         }
 
-        private void ComponentHandler(bool value) =>
+        private void ComponentHandler(bool value)
+        {
             Value = value;
+            SetDirty();
+        }
 
         protected override void UpdateValueHandler(bool value) =>
-            Component.isOn = value;
-
-
+            Component.SetIsOnWithoutNotify(value);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Entitas;
 using UIDataBind.Base;
+using UIDataBind.Base.Extensions;
 using UIDataBind.Entitas.Components;
 using UIDataBind.Entitas.Extensions;
 using UIDataBind.Examples.Game.UIFeature.Models;
@@ -16,7 +17,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
         public InitializeSampleViewSystem(Contexts contexts) : base(contexts.uiBind)
         {
             _viewModel = new SampleViewModel();
-            _properties = contexts.uiBind.GetProperties("SampleView");
+            _properties = contexts.uiBind.GetEngine().GetProperties("SampleView");
         }
 
         public void Initialize()

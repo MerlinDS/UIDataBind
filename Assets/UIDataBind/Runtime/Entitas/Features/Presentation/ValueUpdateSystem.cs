@@ -4,6 +4,7 @@ using System.Linq;
 using Entitas;
 using UIDataBind.Base;
 using UIDataBind.Base.Components;
+using UIDataBind.Base.Extensions;
 using UIDataBind.Entitas.Components;
 using UnityEngine;
 
@@ -21,23 +22,8 @@ namespace UIDataBind.Entitas.Features.Presentation
         protected ValueUpdateSystem(UiBindContext context) : base(context)
         {
             _context = context;
+            _matcher = UiBindMatcher.AllOf(_index = context.GetEngine().GetPropertyIndex<T>());
             _modelEntities = new List<UiBindEntity>();
-
-            var interfaceName = typeof(IPropertyComponent<>).Name;
-            var componentTypes = context.contextInfo.componentTypes;
-            for (var index = 0; index < componentTypes.Length; index++)
-            {
-                var componentType = componentTypes[index];
-                if (!typeof(IPropertyComponent).IsAssignableFrom(componentType))
-                    continue;
-
-                var type = componentType.GetInterface(interfaceName).GetGenericArguments().First();
-                if (type != typeof(T))
-                    continue;
-
-                _matcher = UiBindMatcher.AllOf(_index = index);
-                break;
-            }
         }
 
         public void Initialize() =>
@@ -54,7 +40,7 @@ namespace UIDataBind.Entitas.Features.Presentation
                 return false;
 
             var propertyEntity = _context.GetEntityWithModelPath(entity.bindingPath.Value);
-            return _matcher.Matches(propertyEntity);
+            return propertyEntity != null && _matcher.Matches(propertyEntity);
         }
 
         protected override void Execute(List<UiBindEntity> binderEntities)
@@ -75,6 +61,7 @@ namespace UIDataBind.Entitas.Features.Presentation
                         component.Value = value;
                 }
                 propertyEntity.ReplaceComponent(_index, component as IComponent);
+                propertyEntity.isDirty = true;
             }
         }
 

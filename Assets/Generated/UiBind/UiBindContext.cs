@@ -6,6 +6,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using UIDataBind.Base;
+
 public sealed partial class UiBindContext : Entitas.Context<UiBindEntity> {
 
     public UiBindContext()

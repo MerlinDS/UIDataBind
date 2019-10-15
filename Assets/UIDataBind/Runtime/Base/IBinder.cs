@@ -12,7 +12,7 @@ namespace UIDataBind.Base
         Type ValueType { get; }
         object Value { get; set; }
     }
-    public interface IBinder : IBindingPathProvider
+    public interface IBinder : IBindingPathProvider, IEngineProvider
     {
 
     }

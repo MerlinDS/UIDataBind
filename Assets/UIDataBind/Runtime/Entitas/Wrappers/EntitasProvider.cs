@@ -4,13 +4,15 @@ namespace UIDataBind.Entitas.Wrappers
 {
     public class EntitasProvider : IEntityProvider
     {
-        public IUiBindEntity Entity { get; }
-        public IEntityManager EntityManager { get; }
+        private readonly UiBindEntity _entity;
 
-        public EntitasProvider(IUiBindEntity entity, IEntityManager entityManager)
-        {
-            Entity = entity;
-            EntityManager = entityManager;
-        }
+        public EntitasProvider(UiBindEntity entity) =>
+            _entity = entity;
+
+        public void SetDirty() =>
+            _entity.isDirty = true;
+
+        public void Destroy() =>
+            _entity.Destroy();
     }
 }

@@ -1,4 +1,5 @@
 using UIDataBind.Base;
+using UIDataBind.Base.Extensions;
 using UIDataBind.Utils.Extensions;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace UIDataBind.Binders
         [SerializeField]
         private string _path;
 
-        private UiBindEntity _entity;
+        private IEntityProvider _entity;
 
         // ReSharper disable once SuspiciousTypeConversion.Global
         public BindingPath Path => !(this is IView)
@@ -20,9 +21,7 @@ namespace UIDataBind.Binders
 
         private void OnEnable()
         {
-            _entity = Contexts.sharedInstance.uiBind.CreateEntity();
-            _entity.AddBinder(this);
-            _entity.AddBindingPath(Path);
+            _entity = this.GetEngine().CreateBinderEntity(this);
             Bind();
         }
 
@@ -44,6 +43,7 @@ namespace UIDataBind.Binders
 
         #endregion
 
+        protected void SetDirty() => _entity.SetDirty();
         public override string ToString() => $"{name} ({GetType().Name})";
     }
 }
