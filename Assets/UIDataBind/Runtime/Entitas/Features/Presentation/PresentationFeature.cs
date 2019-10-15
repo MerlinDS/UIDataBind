@@ -6,6 +6,7 @@ namespace UIDataBind.Entitas.Features.Presentation
         {
             Add(new InitValueBindersSystem(context));
             Add(new BooleanValueUpdateSystem(context));
+            Add(new StringValueUpdateSystem(context));
 
         }
     }
