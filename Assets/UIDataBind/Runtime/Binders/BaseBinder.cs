@@ -1,5 +1,4 @@
 using UIDataBind.Base;
-using UIDataBind.Entitas.Extensions;
 using UIDataBind.Utils.Extensions;
 using UnityEngine;
 
@@ -10,40 +9,41 @@ namespace UIDataBind.Binders
         [SerializeField]
         private string _path;
 
-        public IEntityProvider Engine { get; set; }
+        private UiBindEntity _entity;
 
-
-        public string Path => !(this is IView)
-            ? GetComponentInParent<IView>()?.Path?.BuildPath(_path)
-            : _path;
-
+        // ReSharper disable once SuspiciousTypeConversion.Global
+        public BindingPath Path => !(this is IView)
+                ? GetComponentInParent<IView>()?.BuildPath(_path) ?? default
+                : (BindingPath) _path;
 
         #region Unity Events
 
         private void OnEnable()
         {
-            Engine = this.GetEngineProvider();
+            _entity = Contexts.sharedInstance.uiBind.CreateEntity();
+            _entity.AddBinder(this);
+            _entity.AddBindingPath(Path);
             Bind();
         }
 
         private void OnDisable()
         {
+            _entity.Destroy();
             Unbind();
-            Engine.Destroy();
         }
 
-        #endregion
-
-        #region Bindings
-
-        /// <inheritdoc/>
-        public abstract void Bind();
-
-        /// <inheritdoc/>
-        public abstract void Unbind();
+        private void OnDestroy() => Dispose();
 
         #endregion
 
-        public override string ToString() => name;
+        #region Abstractions
+
+        protected abstract void Bind();
+        protected abstract void Unbind();
+        protected abstract void Dispose();
+
+        #endregion
+
+        public override string ToString() => $"{name} ({GetType().Name})";
     }
 }

@@ -13,32 +13,32 @@ namespace UIDataBind.Entitas.Extensions
             provider.EntityManager.DestroyEntity(provider.Entity);
 
 
-        public static IEntityProvider GetEngineProvider(this IBinder binder)
+        /*public static IEntityProvider GetEngineProvider(this IOldBinder binder)
         {
             var manger = new EntitasEntityManager(Context);//TODO: Get existing one
             var entity = (UiBindEntity)manger.CreateEntity();
-            entity.AddBinder(binder);
+//            entity.AddBinder(binder);
             entity.AddBindingPath(binder.Path);
             entity.isView = binder is IView;
 
             return new EntitasProvider(entity, manger);
-        }
+        }*/
 
-        public static void CreateAction(this IBinder binder, ActionType type)
+        /*public static void CreateAction(this IOldBinder binder, ActionType type)
         {
             var actionEntity = (UiBindEntity)binder.Engine.EntityManager.CreateEntity();
 //            actionEntity.AddBindingPath(binder.Path);
             actionEntity.AddAction(type);
             actionEntity.isDirty = true;
-        }
+        }*/
 
-        public static void UpdateValue<TValue>(this IBinder binder, TValue value, bool createChangeAction = false)
+        /*public static void UpdateValue<TValue>(this IOldBinder binder, TValue value, bool createChangeAction = false)
         {
             binder.Engine.EntityManager.SetComponentData(binder.Engine.Entity, value);
             ((UiBindEntity) binder.Engine.Entity).isDirty = true;
             if(createChangeAction)
                 binder.CreateAction(ActionType.Change);
-        }
+        }*/
 
         public static void AddPropertyComponent<TValue>(this IEntityProvider provider, TValue defaultValue) =>
             provider.EntityManager.AddComponent(provider.Entity, defaultValue);

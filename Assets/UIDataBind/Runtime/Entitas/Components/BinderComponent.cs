@@ -8,6 +8,16 @@ namespace UIDataBind.Entitas.Components
     {
         public IBinder Value;
 
-        public override string ToString() => $"Binder({Value})";
+        public override string ToString() => $"{Value}";
+    }
+
+    public static class BinderComponentExtension
+    {
+        public static bool HasValueBinder(this UiBindEntity entity) =>
+            entity.hasBinder && entity.binder.Value is IValueBinder;
+        public static IValueBinder AsValueBinder(this UiBindEntity entity) =>
+            entity.hasBinder ? entity.binder.Value as IValueBinder : null;
+
+
     }
 }

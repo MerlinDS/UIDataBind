@@ -8,19 +8,19 @@
 //------------------------------------------------------------------------------
 public partial class UiBindEntity {
 
-    public UIDataBind.Entitas.Components.BooleanPropertyComponent booleanProperty { get { return (UIDataBind.Entitas.Components.BooleanPropertyComponent)GetComponent(UiBindComponentsLookup.BooleanProperty); } }
+    public UIDataBind.Entitas.Components.Properties.BooleanProperty booleanProperty { get { return (UIDataBind.Entitas.Components.Properties.BooleanProperty)GetComponent(UiBindComponentsLookup.BooleanProperty); } }
     public bool hasBooleanProperty { get { return HasComponent(UiBindComponentsLookup.BooleanProperty); } }
 
     public void AddBooleanProperty(bool newValue) {
         var index = UiBindComponentsLookup.BooleanProperty;
-        var component = (UIDataBind.Entitas.Components.BooleanPropertyComponent)CreateComponent(index, typeof(UIDataBind.Entitas.Components.BooleanPropertyComponent));
+        var component = (UIDataBind.Entitas.Components.Properties.BooleanProperty)CreateComponent(index, typeof(UIDataBind.Entitas.Components.Properties.BooleanProperty));
         component.Value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceBooleanProperty(bool newValue) {
         var index = UiBindComponentsLookup.BooleanProperty;
-        var component = (UIDataBind.Entitas.Components.BooleanPropertyComponent)CreateComponent(index, typeof(UIDataBind.Entitas.Components.BooleanPropertyComponent));
+        var component = (UIDataBind.Entitas.Components.Properties.BooleanProperty)CreateComponent(index, typeof(UIDataBind.Entitas.Components.Properties.BooleanProperty));
         component.Value = newValue;
         ReplaceComponent(index, component);
     }

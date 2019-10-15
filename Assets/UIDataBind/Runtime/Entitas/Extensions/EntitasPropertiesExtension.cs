@@ -5,7 +5,7 @@ namespace UIDataBind.Entitas.Extensions
 {
     public static class EntitasPropertiesExtension
     {
-        public static IProperties GetProperties(this UiBindContext context, string modelPath)
+        public static IProperties GetProperties(this UiBindContext context, BindingPath modelPath)
         {
             var properties = new EntitasContextWrapper(context, modelPath);
             var entity = context.GetEntity<UiBindEntity>(modelPath, true);
@@ -13,15 +13,15 @@ namespace UIDataBind.Entitas.Extensions
             return properties;
         }
 
-        public static TEntity GetEntity<TEntity>(this UiBindContext context, string path, bool createIfNull)
+        public static TEntity GetEntity<TEntity>(this UiBindContext context, BindingPath path, bool createIfNull)
             where TEntity : class
         {
-            var entity = context.GetEntityWithPath(path);
+            var entity = context.GetEntityWithModelPath(path);
             if (!createIfNull || entity != null)
                 return entity as TEntity;
 
             entity = context.CreateEntity();
-            entity.AddPath(path);
+            entity.AddModelPath(path);
             return entity as TEntity;
         }
 
@@ -32,7 +32,7 @@ namespace UIDataBind.Entitas.Extensions
             where TViewModel : IViewModel => model.Fetch(properties);
 
 
-        public static void ReadProperty<TValue>(this IProperties properties, string propertyName, ref TValue value)
+        public static void ReadProperty<TValue>(this IProperties properties, BindingPath propertyName, ref TValue value)
         {
             var entity = properties.GetPropertyEntity<IUiBindEntity>(propertyName);
             if (entity == null || !properties.EntityManager.HasComponent<TValue>(entity))
@@ -43,7 +43,7 @@ namespace UIDataBind.Entitas.Extensions
 
         #region Write
 
-        public static void WriteProperty<TValue>(this IProperties properties, string propertyName, TValue value)
+        public static void WriteProperty<TValue>(this IProperties properties, BindingPath propertyName, TValue value)
         {
             var entity = properties.GetPropertyEntity<IUiBindEntity>(propertyName, true);
 

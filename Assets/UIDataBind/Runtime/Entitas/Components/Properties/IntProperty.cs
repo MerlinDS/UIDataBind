@@ -1,10 +1,10 @@
 using Entitas;
 using UIDataBind.Base.Components;
 
-namespace UIDataBind.Entitas.Components
+namespace UIDataBind.Entitas.Components.Properties
 {
     [UiBind]
-    public struct IntegerPropertyComponent : IPropertyComponent<int>, IComponent
+    public struct IntProperty : IPropertyComponent<int>, IComponent
     {
         public int Value { get; set; }
 

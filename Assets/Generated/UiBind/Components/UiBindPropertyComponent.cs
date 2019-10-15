@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 public partial class UiBindEntity {
 
-    static readonly UIDataBind.Entitas.Components.PropertyComponent propertyComponent = new UIDataBind.Entitas.Components.PropertyComponent();
+    static readonly UIDataBind.Entitas.Components.Properties.PropertyComponent propertyComponent = new UIDataBind.Entitas.Components.Properties.PropertyComponent();
 
     public bool isProperty {
         get { return HasComponent(UiBindComponentsLookup.Property); }

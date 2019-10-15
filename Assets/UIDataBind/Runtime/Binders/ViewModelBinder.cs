@@ -4,12 +4,17 @@ namespace UIDataBind.Binders
 {
     public class ViewModelBinder : BaseBinder, IView
     {
-        public override void Bind()
+        protected override void Bind()
         {
 
         }
 
-        public override void Unbind()
+        protected override void Unbind()
+        {
+
+        }
+
+        protected override void Dispose()
         {
 
         }

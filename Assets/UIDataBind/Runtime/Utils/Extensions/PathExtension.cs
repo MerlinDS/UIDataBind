@@ -1,4 +1,5 @@
 using System.Text;
+using UIDataBind.Base;
 
 namespace UIDataBind.Utils.Extensions
 {
@@ -7,7 +8,10 @@ namespace UIDataBind.Utils.Extensions
         private const char PathSeparator = '.';
         private static readonly StringBuilder Sb = new StringBuilder(100);
 
-        public static string BuildPath(this string model, string propertyName) =>
-            Sb.Clear().Append(model).Append(PathSeparator).Append(propertyName).ToString();
+
+        public static BindingPath BuildPath(this IBindingPathProvider model, BindingPath path) =>
+            model.Path.BuildPath(path);
+        public static BindingPath BuildPath(this BindingPath model, BindingPath path) =>
+            Sb.Clear().Append(model).Append(PathSeparator).Append(path).ToString();
     }
 }

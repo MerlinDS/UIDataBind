@@ -1,33 +1,42 @@
+using System;
 using UIDataBind.Base;
-using UIDataBind.Entitas.Extensions;
 using UnityEngine;
 
 namespace UIDataBind.Binders.ValueBinders
 {
-    public abstract class ValueBinder<TValue> : BaseBinder, IValueBinder
+    public abstract class ValueBinder<T> : BaseBinder, IValueBinder<T>
     {
         [SerializeField]
-        private TValue _value;
+        private T _value;
 
-        protected TValue Value
+
+        public T Value
         {
             get => _value;
-            set => _value = value;
+            set => UpdateValueHandler(_value = value);
         }
 
-        public override void Bind() =>
-            Engine.AddPropertyComponent(_value);
+        object IValueBinder.Value
+        {
+            get => Value;
+            set => Value = (T) value;
+        }
 
-        public override void Unbind()
+        public Type ValueType => typeof(T);
+
+
+        protected override void Bind()
         {
         }
 
-        public void Refresh()
+        protected override void Unbind()
         {
-            _value = Engine.GetPropertyValue<TValue>();
-            UpdateValueHandler(_value);
         }
 
-        protected abstract void UpdateValueHandler(TValue value);
+        protected override void Dispose()
+        {
+        }
+
+        protected abstract void UpdateValueHandler(T value);
     }
 }

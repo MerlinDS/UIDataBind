@@ -1,6 +1,6 @@
 using Entitas;
 
-namespace UIDataBind.Entitas.Components
+namespace UIDataBind.Entitas.Components.Properties
 {
     [UiBind]
     public struct PropertyComponent : IComponent

@@ -2,8 +2,8 @@ namespace UIDataBind.Base
 {
     public interface IProperties
     {
-        string ModelPath { get; }
+        BindingPath ModelPath { get; }
         IEntityManager EntityManager { get; }
-        TEntity GetPropertyEntity<TEntity>(string propertyName, bool createIfNull = false) where TEntity : class;
+        TEntity GetPropertyEntity<TEntity>(BindingPath propertyName, bool createIfNull = false) where TEntity : class;
     }
 }

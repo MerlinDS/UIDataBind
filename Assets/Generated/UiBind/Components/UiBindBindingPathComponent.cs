@@ -11,14 +11,14 @@ public partial class UiBindEntity {
     public UIDataBind.Entitas.Components.BindingPathComponent bindingPath { get { return (UIDataBind.Entitas.Components.BindingPathComponent)GetComponent(UiBindComponentsLookup.BindingPath); } }
     public bool hasBindingPath { get { return HasComponent(UiBindComponentsLookup.BindingPath); } }
 
-    public void AddBindingPath(string newValue) {
+    public void AddBindingPath(UIDataBind.Base.BindingPath newValue) {
         var index = UiBindComponentsLookup.BindingPath;
         var component = (UIDataBind.Entitas.Components.BindingPathComponent)CreateComponent(index, typeof(UIDataBind.Entitas.Components.BindingPathComponent));
         component.Value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceBindingPath(string newValue) {
+    public void ReplaceBindingPath(UIDataBind.Base.BindingPath newValue) {
         var index = UiBindComponentsLookup.BindingPath;
         var component = (UIDataBind.Entitas.Components.BindingPathComponent)CreateComponent(index, typeof(UIDataBind.Entitas.Components.BindingPathComponent));
         component.Value = newValue;

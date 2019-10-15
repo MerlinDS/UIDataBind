@@ -1,10 +1,19 @@
+using System;
+
 namespace UIDataBind.Base
 {
-    public interface IBinder
+    public interface IValueBinder<T> : IValueBinder
     {
-        void Bind();
-        void Unbind();
-        IEntityProvider Engine { get; set; }
-        string Path { get; }
+        new T Value { get; set; }
+    }
+
+    public interface IValueBinder : IBinder
+    {
+        Type ValueType { get; }
+        object Value { get; set; }
+    }
+    public interface IBinder : IBindingPathProvider
+    {
+
     }
 }

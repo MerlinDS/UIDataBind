@@ -1,5 +1,3 @@
-using System;
-
 namespace UIDataBind.Base.Components
 {
     /// <summary>

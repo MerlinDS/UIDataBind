@@ -1,7 +1,7 @@
 namespace UIDataBind.Base
 {
-    public interface IView
+    public interface IView : IBindingPathProvider
     {
-        string Path { get; }
+
     }
 }

@@ -8,9 +8,9 @@ namespace UIDataBind.Entitas.Wrappers
     public struct EntitasContextWrapper : IProperties
     {
         private readonly UiBindContext _context;
-        public string ModelPath { get; }
+        public BindingPath ModelPath { get; }
 
-        public EntitasContextWrapper(IContext<UiBindEntity> context, string modelPath)
+        public EntitasContextWrapper(IContext<UiBindEntity> context, BindingPath modelPath)
         {
             _context = (UiBindContext) context;
             ModelPath = modelPath;
@@ -18,7 +18,7 @@ namespace UIDataBind.Entitas.Wrappers
 
         public IEntityManager EntityManager => _context.EntityManager;
 
-        public TEntity GetPropertyEntity<TEntity>(string propertyName, bool createIfNull = false)
+        public TEntity GetPropertyEntity<TEntity>(BindingPath propertyName, bool createIfNull = false)
             where TEntity : class => _context.GetEntity<TEntity>(ModelPath.BuildPath(propertyName), createIfNull);
     }
 }

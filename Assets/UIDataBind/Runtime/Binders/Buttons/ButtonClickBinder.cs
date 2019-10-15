@@ -1,5 +1,3 @@
-using UIDataBind.Entitas.Components;
-using UIDataBind.Entitas.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,15 +7,20 @@ namespace UIDataBind.Binders.Buttons
     [RequireComponent(typeof(Button))]
     public class ButtonClickBinder : BaseBinder
     {
-        public override void Bind() =>
+        protected override void Bind() =>
             GetComponent<Button>()?.onClick.AddListener(InvokeAction);
 
 
-        public override void Unbind() =>
+        protected override void Unbind() =>
             // ReSharper disable once Unity.NoNullPropagation
             GetComponent<Button>()?.onClick.RemoveListener(InvokeAction);
 
-        private void InvokeAction() => this.CreateAction(ActionType.Click);
+        protected override void Dispose()
+        {
+            
+        }
+
+        private void InvokeAction() => Debug.Log("Click");
     }
 
 

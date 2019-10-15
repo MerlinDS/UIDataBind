@@ -5,9 +5,9 @@ using UIDataBind.Base;
 namespace UIDataBind.Entitas.Components
 {
     [UiBind]
-    public class BindingPathComponent : IComponent
+    public struct ModelPathComponent : IComponent
     {
-        [EntityIndex]
+        [PrimaryEntityIndex]
         public BindingPath Value;
 
         public override string ToString() => Value;

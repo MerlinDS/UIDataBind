@@ -10,6 +10,7 @@ using UIDataBind.Entitas;
 
 namespace UIDataBind.Entitas
 {
+    [Obsolete]
     public sealed class EntitasEntityManager : IEntityManager
     {
         private static readonly Type InterfaceType = typeof(IPropertyComponent);
@@ -78,14 +79,6 @@ namespace UIDataBind.Entitas
                 throw new ArgumentNullException(nameof(entity));
 
             return ((IEntity) entity).HasComponent(GetPropertyComponentIndex<T>());
-        }
-
-        public bool HasComponent([NotNull] IUiBindEntity entity, Type valueType)
-        {
-            if (entity == null)
-                throw new ArgumentNullException(nameof(entity));
-
-            return ((IEntity) entity).HasComponent(GetPropertyComponentIndex(valueType));
         }
 
         public void AddComponent<T>([NotNull] IUiBindEntity entity, T value)

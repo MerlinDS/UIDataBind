@@ -11,12 +11,12 @@ public static class UiBindComponentsLookup {
     public const int Action = 0;
     public const int Binder = 1;
     public const int BindingPath = 2;
-    public const int BooleanProperty = 3;
-    public const int Dirty = 4;
-    public const int FloatProperty = 5;
-    public const int IntegerProperty = 6;
-    public const int Model = 7;
-    public const int Path = 8;
+    public const int Dirty = 3;
+    public const int Model = 4;
+    public const int ModelPath = 5;
+    public const int BooleanProperty = 6;
+    public const int FloatProperty = 7;
+    public const int IntProperty = 8;
     public const int Property = 9;
     public const int StringProperty = 10;
     public const int View = 11;
@@ -27,12 +27,12 @@ public static class UiBindComponentsLookup {
         "Action",
         "Binder",
         "BindingPath",
-        "BooleanProperty",
         "Dirty",
-        "FloatProperty",
-        "IntegerProperty",
         "Model",
-        "Path",
+        "ModelPath",
+        "BooleanProperty",
+        "FloatProperty",
+        "IntProperty",
         "Property",
         "StringProperty",
         "View"
@@ -42,14 +42,14 @@ public static class UiBindComponentsLookup {
         typeof(UIDataBind.Entitas.Components.ActionComponent),
         typeof(UIDataBind.Entitas.Components.BinderComponent),
         typeof(UIDataBind.Entitas.Components.BindingPathComponent),
-        typeof(UIDataBind.Entitas.Components.BooleanPropertyComponent),
         typeof(UIDataBind.Entitas.Components.DirtyComponent),
-        typeof(UIDataBind.Entitas.Components.FloatPropertyComponent),
-        typeof(UIDataBind.Entitas.Components.IntegerPropertyComponent),
         typeof(UIDataBind.Entitas.Components.ModelComponent),
-        typeof(UIDataBind.Entitas.Components.PathComponent),
-        typeof(UIDataBind.Entitas.Components.PropertyComponent),
-        typeof(UIDataBind.Entitas.Components.StringPropertyComponent),
+        typeof(UIDataBind.Entitas.Components.ModelPathComponent),
+        typeof(UIDataBind.Entitas.Components.Properties.BooleanProperty),
+        typeof(UIDataBind.Entitas.Components.Properties.FloatProperty),
+        typeof(UIDataBind.Entitas.Components.Properties.IntProperty),
+        typeof(UIDataBind.Entitas.Components.Properties.PropertyComponent),
+        typeof(UIDataBind.Entitas.Components.Properties.StringProperty),
         typeof(UIDataBind.Entitas.Components.ViewComponent)
     };
 }

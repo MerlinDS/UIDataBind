@@ -11,9 +11,9 @@ namespace UIDataBind.Binders.Buttons
     public sealed class ButtonPointerBinder : ButtonClickBinder, IPointerEnterHandler, IPointerExitHandler
     {
         public void OnPointerEnter(PointerEventData eventData) =>
-            this.CreateAction(ActionType.PointerEnter);
+            Debug.Log(ActionType.PointerEnter);
 
         public void OnPointerExit(PointerEventData eventData) =>
-            this.CreateAction(ActionType.PointerExit);
+            Debug.Log(ActionType.PointerExit);
     }
 }
