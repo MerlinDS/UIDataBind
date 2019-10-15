@@ -15,18 +15,18 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
         {
             properties.ReadProperty(nameof(Visible), ref Visible);
             properties.ReadProperty(nameof(Label), ref Label);
-            /*properties.ReadProperty(nameof(Toggle), ref Toggle);
+            properties.ReadProperty(nameof(Toggle), ref Toggle);
             properties.ReadProperty(nameof(Index), ref Index);
-            properties.ReadProperty(nameof(ButtonLabel), ref ButtonLabel);*/
+            properties.ReadProperty(nameof(ButtonLabel), ref ButtonLabel);
         }
 
         public void Fetch(IProperties properties)
         {
             properties.WriteProperty(nameof(Visible), Visible);
             properties.WriteProperty(nameof(Label), Label);
-            /*properties.WriteProperty(nameof(Toggle), Toggle);
+            properties.WriteProperty(nameof(Toggle), Toggle);
             properties.WriteProperty(nameof(Index), Index);
-            properties.WriteProperty(nameof(ButtonLabel), ButtonLabel);*/
+            properties.WriteProperty(nameof(ButtonLabel), ButtonLabel);
         }
     }
 }

@@ -1,13 +1,14 @@
 namespace UIDataBind.Entitas.Features.Presentation
 {
-    public sealed class PresentationFeature : Feature
+    public sealed class PropertiesFeature : Feature
     {
-        public PresentationFeature(UiBindContext context)
+        public PropertiesFeature(UiBindContext context)
         {
             Add(new InitValueBindersSystem(context));
             Add(new BooleanValueUpdateSystem(context));
+            Add(new IntValueUpdateSystem(context));
+            Add(new FloatValueUpdateSystem(context));
             Add(new StringValueUpdateSystem(context));
-
         }
     }
 }

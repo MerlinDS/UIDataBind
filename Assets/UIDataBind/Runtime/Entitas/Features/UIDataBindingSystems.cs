@@ -13,7 +13,7 @@ namespace UIDataBind.Entitas.Features
         public UIDataBindingSystems(IContexts contexts)
         {
             var context = (UiBindContext)contexts.allContexts.First(c => c.contextInfo.name == "UiBind");
-            Add(new PresentationFeature(context));
+            Add(new PropertiesFeature(context));
             Add(new PostProcessingFeature(context));
         }
     }
