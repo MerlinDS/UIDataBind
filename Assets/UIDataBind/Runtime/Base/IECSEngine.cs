@@ -14,5 +14,6 @@ namespace UIDataBind.Base
         TValue GetPropertyValue<TValue>(BindingPath propertyName);
 
         int GetPropertyIndex<TValue>();
+        int[] PropertyIndices { get; }
     }
 }

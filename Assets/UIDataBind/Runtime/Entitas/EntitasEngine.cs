@@ -41,6 +41,8 @@ namespace UIDataBind.Entitas
             _componentTypes = cTypes.ToArray();
         }
 
+        public int[] PropertyIndices => _propertyIndices;
+
         public int GetPropertyIndex<TValue>()
         {
             var index = GetPropertyTypeIndex<TValue>();

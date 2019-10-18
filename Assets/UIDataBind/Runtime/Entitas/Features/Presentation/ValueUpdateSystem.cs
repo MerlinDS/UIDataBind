@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace UIDataBind.Entitas.Features.Presentation
 {
+    [Obsolete]
     public abstract class ValueUpdateSystem<T> : ReactiveSystem<UiBindEntity>, IInitializeSystem, ICleanupSystem
     {
         private readonly UiBindContext _context;
