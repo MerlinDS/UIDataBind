@@ -32,7 +32,7 @@ namespace UIDataBind.Entitas.Features.Presentation
                 return true;
             }
 
-            result = null;
+            result = default;
             return false;
         }
 

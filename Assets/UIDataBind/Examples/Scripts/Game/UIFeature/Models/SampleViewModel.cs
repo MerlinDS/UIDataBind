@@ -10,6 +10,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
         public bool Toggle;
         public string Label;
         public string ButtonLabel;
+        public string Icon;
 
         public void Update(IProperties properties)
         {
@@ -18,6 +19,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
             properties.ReadProperty(nameof(Toggle), ref Toggle);
             properties.ReadProperty(nameof(Index), ref Index);
             properties.ReadProperty(nameof(ButtonLabel), ref ButtonLabel);
+            properties.ReadProperty(nameof(Icon), ref Icon);
         }
 
         public void Fetch(IProperties properties)
@@ -27,6 +29,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
             properties.WriteProperty(nameof(Toggle), Toggle);
             properties.WriteProperty(nameof(Index), Index);
             properties.WriteProperty(nameof(ButtonLabel), ButtonLabel);
+            properties.WriteProperty(nameof(Icon), Icon);
         }
     }
 }

@@ -200,7 +200,6 @@ GameObject:
   - component: {fileID: 170125549}
   - component: {fileID: 170125551}
   - component: {fileID: 170125553}
-  - component: {fileID: 170125552}
   m_Layer: 5
   m_Name: '[C]Label'
   m_TagString: Untagged
@@ -360,21 +359,6 @@ MonoBehaviour:
   _path: Label
   _value: 
   _format: '{0}'
---- !u!114 &170125552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170125547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7886da558e6b441f81f5c1aee0c0bab6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _path: Toggle
-  _value: 0
-  _inverted: 0
 --- !u!114 &170125553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1447,6 +1431,7 @@ GameObject:
   - component: {fileID: 1846402393}
   - component: {fileID: 1846402392}
   - component: {fileID: 1846402394}
+  - component: {fileID: 1846402395}
   m_Layer: 5
   m_Name: '[I]Icon'
   m_TagString: Untagged
@@ -1491,9 +1476,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1524,6 +1509,21 @@ MonoBehaviour:
   _path: Toggle
   _value: 0
   _inverted: 0
+--- !u!114 &1846402395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846402390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3515144caa1a4d9b9c55587c961a451b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _path: Icon
+  _value: {fileID: 0}
+  _sprite: 
 --- !u!1 &2020042854
 GameObject:
   m_ObjectHideFlags: 0

@@ -84,7 +84,7 @@ namespace UIDataBind.Entitas.Features.Presentation
 
                     object value;
                     if (!TryConvertSourceToTarget(component.Value, binder.ValueType, out value))
-                        Debug.LogWarning($"Can't convert {component.Value} to {binder.ValueType.Name}");
+                        Debug.LogWarning($"{GetType().Name} Can't convert {component.Value} to {binder.ValueType.Name}");
                     else
                         binder.Value = value;
                 }

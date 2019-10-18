@@ -9,6 +9,7 @@ namespace UIDataBind.Entitas.Features.Presentation
             Add(new IntValueUpdateSystem(context));
             Add(new FloatValueUpdateSystem(context));
             Add(new StringValueUpdateSystem(context));
+            Add(new SpriteValueBinderSystem(context));
         }
     }
 }

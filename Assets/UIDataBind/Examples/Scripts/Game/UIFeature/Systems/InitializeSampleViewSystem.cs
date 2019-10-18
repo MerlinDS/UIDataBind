@@ -27,6 +27,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
             _viewModel.Label = "This is a text from model";
             _viewModel.ButtonLabel = "Button";
             _viewModel.Toggle = true;
+            _viewModel.Icon = "UIDataBind Icon";
             _properties.Fetch(_viewModel);
         }
 
