@@ -6,6 +6,7 @@ using Entitas;
 using UIDataBind.Base;
 using UIDataBind.Base.Components;
 using UIDataBind.Converters;
+using UIDataBind.Entitas.Extensions;
 using UIDataBind.Entitas.Wrappers;
 
 namespace UIDataBind.Entitas
@@ -68,42 +69,41 @@ namespace UIDataBind.Entitas
                 CreateEntity(bindingPath).isModel = true;
         }
 
-        public void CreateProperty(BindingPath propertyName)
+        public void CreateProperty(BindingPath propertyPath)
         {
-            var entity = _context.GetEntityWithModelPath(propertyName);
+            var entity = _context.GetEntityWithModelPath(propertyPath);
             if (entity != null)
-                throw new ArgumentException($"{propertyName} property already created!", nameof(propertyName));
+                throw new ArgumentException($"{propertyPath} property already created!", nameof(propertyPath));
 
-            CreateEntity(propertyName).isProperty = true;
+            CreateEntity(propertyPath).isProperty = true;
         }
 
         public bool HasProperty<TValue>(BindingPath propertyName) =>
             _context.GetEntityWithModelPath(propertyName)?.HasComponent(GetPropertyIndex<TValue>()) ?? false;
 
-        public void SetProperty<TValue>(BindingPath propertyName, TValue value)
+        public void SetProperty<TValue>(BindingPath propertyPath, TValue value)
         {
-            var entity = GetModeEntity(propertyName);
+            var entity = GetModeEntity(propertyPath);
             var typeIndex = GetPropertyTypeIndex<TValue>();
             if (typeIndex < 0)
                 return;
 
             var index = _propertyIndices[typeIndex];
-            var component = entity.HasComponent(index)
-                ? (IPropertyComponent<TValue>) entity.GetComponent(index)
-                : (IPropertyComponent<TValue>) entity.CreateComponent(index, _componentTypes[typeIndex]);
+            var component = !entity.HasComponent(index)
+                ? entity.CreateComponent<TValue>(index, _componentTypes[typeIndex])
+                : entity.GetComponent<TValue>(index);
 
             component.Value = value;
             entity.ReplaceComponent(index, component as IComponent);
             ((UiBindEntity) entity).isDirty = true;
         }
 
-        public TValue GetPropertyValue<TValue>(BindingPath propertyName)
+        public TValue GetPropertyValue<TValue>(BindingPath propertyPath)
         {
-            var entity = GetModeEntity(propertyName);
+            var entity = GetModeEntity(propertyPath);
             var index = GetPropertyTypeIndex<TValue>();
-            return !entity.HasComponent(index)
-                ? ((IPropertyComponent<TValue>) entity.GetComponent(index)).Value
-                : default;
+            index = _propertyIndices[index];
+            return !entity.HasComponent(index) ? entity.GetComponent<TValue>(index).Value : default;
         }
 
         #region Helpers
@@ -130,8 +130,6 @@ namespace UIDataBind.Entitas
         }
 
         #endregion
-
-
     }
 }
 

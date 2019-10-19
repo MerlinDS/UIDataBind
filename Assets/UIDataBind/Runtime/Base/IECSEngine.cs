@@ -11,10 +11,10 @@ namespace UIDataBind.Base
     {
         IEntityProvider CreateBinderEntity(IBinder binder);
         void CreateModelEntity(BindingPath bindingPath);
-        void CreateProperty(BindingPath propertyName);
+        void CreateProperty(BindingPath propertyPath);
         bool HasProperty<TValue>(BindingPath propertyName);
-        void SetProperty<TValue>(BindingPath propertyName, TValue value);
-        TValue GetPropertyValue<TValue>(BindingPath propertyName);
+        void SetProperty<TValue>(BindingPath propertyPath, TValue value);
+        TValue GetPropertyValue<TValue>(BindingPath propertyPath);
 
         int GetPropertyIndex<TValue>();
 
