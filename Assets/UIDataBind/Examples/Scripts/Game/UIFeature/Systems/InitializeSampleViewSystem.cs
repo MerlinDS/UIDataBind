@@ -3,6 +3,7 @@ using UIDataBind.Base;
 using UIDataBind.Base.Extensions;
 using UIDataBind.Entitas.Extensions;
 using UIDataBind.Examples.Game.UIFeature.Models;
+using UnityEngine;
 
 namespace UIDataBind.Examples.Game.UIFeature.Systems
 {
@@ -24,6 +25,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
             _viewModel.Label = "This is a text from model";
             _viewModel.HoveringAction = "None";
             _viewModel.Icon = "UIDataBind Icon";
+            _viewModel.Color = Color.green;
             _properties.Fetch(_viewModel);
         }
     }
