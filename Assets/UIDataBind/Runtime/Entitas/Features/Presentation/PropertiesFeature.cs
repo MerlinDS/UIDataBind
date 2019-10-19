@@ -1,6 +1,7 @@
 using System;
-using UIDataBind.Utils;
-using UnityEngine;
+using Entitas;
+using UIDataBind.Base;
+using UIDataBind.Base.Extensions;
 
 namespace UIDataBind.Entitas.Features.Presentation
 {
@@ -8,28 +9,17 @@ namespace UIDataBind.Entitas.Features.Presentation
     {
         public PropertiesFeature(UiBindContext context)
         {
-            Add(new GetPropertyFromBinderSystem(context));
-            Add(new GetPropertyDirectSystem<bool>(context));
 
-            Add(new SetPropertyToBinderSystem(context));
-            Add(new SetDirectValueBinderSystem<string>(context));
-            Add(new SetDirectValueBinderSystem<bool>(context));
-            Add(new SetDirectValueBinderSystem<int>(context));
-            Add(new SetDirectValueBinderSystem<float>(context));
-            Add(new SetDirectValueBinderSystem<Color>(context));
-            Add(new SetDirectValueBinderSystem<Sprite>(context));
-            Add(new SetDirectValueBinderSystem<Texture>(context));
+            Add(new InitConvertersSystem(context));
+            AddPropertyUpdateSystems(context);
 
-            Add(new ConverterSystem<string, bool>(context, Convert.ToBoolean, Convert.ToString));
-            Add(new ConverterSystem<string, int>(context, Convert.ToInt32, Convert.ToString));
-            Add(new ConverterSystem<string, float>(context, Convert.ToSingle, Convert.ToString));
-            Add(new ConverterSystem<bool, float>(context, Convert.ToSingle, Convert.ToBoolean));
-            Add(new ConverterSystem<bool, int>(context, Convert.ToInt32, Convert.ToBoolean));
-            Add(new ConverterSystem<int, float>(context, Convert.ToSingle, Convert.ToInt32));
-            Add(new ConverterSystem<Sprite, string>(context, x => x.GetName(), Resources.Load<Sprite>));
-            Add(new ConverterSystem<Texture, string>(context, x => x.GetName(), Resources.Load<Texture>));
+        }
 
-            Add(new SetConvertedValueSystem(context));
+        private void AddPropertyUpdateSystems(IEngineProvider context)
+        {
+            var systemType = typeof(PropertyUpdateSystem<>);
+            foreach (var propertyType in context.GetEngine().PropertyTypes)
+                Add((ISystem) Activator.CreateInstance(systemType.MakeGenericType(propertyType), context));
         }
     }
 }

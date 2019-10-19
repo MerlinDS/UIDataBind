@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Entitas;
 using UIDataBind.Base;
 using UIDataBind.Base.Components;
+using UIDataBind.Converters;
 using UIDataBind.Entitas.Wrappers;
 
 namespace UIDataBind.Entitas
@@ -39,9 +40,12 @@ namespace UIDataBind.Entitas
             _propertyTypes = types.ToArray();
             _propertyIndices = indices.ToArray();
             _componentTypes = cTypes.ToArray();
+            Converters = new Converters.Converters();
         }
 
-        public int[] PropertyIndices => _propertyIndices;
+        public IConverters Converters { get; }
+
+        public Type[] PropertyTypes => _propertyTypes;
 
         public int GetPropertyIndex<TValue>()
         {
@@ -125,6 +129,8 @@ namespace UIDataBind.Entitas
         }
 
         #endregion
+
+
     }
 }
 

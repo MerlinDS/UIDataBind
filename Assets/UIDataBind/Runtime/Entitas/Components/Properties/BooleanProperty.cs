@@ -7,6 +7,7 @@ namespace UIDataBind.Entitas.Components.Properties
     public struct BooleanProperty : IPropertyComponent<bool>, IComponent
     {
         public bool Value { get; set; }
+
         public override string ToString() => $"Boolean({Value})";
     }
 }

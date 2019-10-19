@@ -1,3 +1,6 @@
+using System;
+using UIDataBind.Converters;
+
 namespace UIDataBind.Base
 {
     public interface IEngineProvider
@@ -14,6 +17,8 @@ namespace UIDataBind.Base
         TValue GetPropertyValue<TValue>(BindingPath propertyName);
 
         int GetPropertyIndex<TValue>();
-        int[] PropertyIndices { get; }
+
+        IConverters Converters { get; }
+        Type[] PropertyTypes { get; }
     }
 }
