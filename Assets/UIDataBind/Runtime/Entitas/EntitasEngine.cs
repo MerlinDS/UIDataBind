@@ -46,6 +46,7 @@ namespace UIDataBind.Entitas
         public IConverters Converters { get; }
 
         public Type[] PropertyTypes => _propertyTypes;
+        public Type[] ComponentTypes => _componentTypes;
 
         public int GetPropertyIndex<TValue>()
         {

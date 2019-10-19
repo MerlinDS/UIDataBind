@@ -20,5 +20,6 @@ namespace UIDataBind.Base
 
         IConverters Converters { get; }
         Type[] PropertyTypes { get; }
+        Type[] ComponentTypes { get; }
     }
 }

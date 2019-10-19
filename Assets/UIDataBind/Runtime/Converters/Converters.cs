@@ -11,37 +11,30 @@ namespace UIDataBind.Converters
         public Converters() =>
             _content = new Dictionary<int, Delegate>();
 
+        public bool Has(Type a, Type b) =>
+            _content.ContainsKey(GetPairHashcode(a, b));
+
         public void Register<TSource, TValue>(Func<TSource, TValue> method)
         {
             var key = GetPairHashcode(typeof(TSource), typeof(TValue));
-            if(_content.ContainsKey(key))
-                return;
-
-            _content.Add(key, method);
+            if(!_content.ContainsKey(key))
+                _content.Add(key, method);
         }
 
-        public TTarget Convert<TTarget>(object sourceValue)
-        {
-            var sourceType = sourceValue.GetType();
-            var @delegate = Retrieve(sourceType, typeof(TTarget));
-            return (TTarget) @delegate?.DynamicInvoke(sourceValue);
-        }
+        public TTarget Convert<TTarget>(object value) =>
+            (TTarget) Convert(value.GetType(), typeof(TTarget), value);
 
-        public object Convert<TSource>(Type targetType, TSource sourceValue)
-        {
-            var sourceType = typeof(TSource);
-            var @delegate = Retrieve(sourceType, targetType);
-            return @delegate?.DynamicInvoke(sourceValue);
-        }
+        public object Convert<TSource>(Type targetType, TSource value) =>
+            Convert(typeof(TSource), targetType, value);
 
-        public Delegate Retrieve(Type a, Type b)
+        private object Convert(Type sourceType, Type targetType, object value) =>
+            Retrieve(sourceType, targetType)?.DynamicInvoke(value);
+
+        private Delegate Retrieve(Type a, Type b)
         {
             Delegate method;
             return _content.TryGetValue( GetPairHashcode(a, b), out method) ? method : null;
         }
-
-        public bool Has(Type a, Type b) =>
-            _content.ContainsKey(GetPairHashcode(a, b));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int GetPairHashcode(Type a, Type b)=>

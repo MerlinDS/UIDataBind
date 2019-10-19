@@ -1,3 +1,5 @@
+using UIDataBind.Converters;
+
 namespace UIDataBind.Base.Components
 {
     /// <summary>
@@ -11,5 +13,10 @@ namespace UIDataBind.Base.Components
 
     public interface IPropertyComponent
     {
+    }
+
+    public interface IConversionRegistrator
+    {
+        void Register(IConverters converters);
     }
 }

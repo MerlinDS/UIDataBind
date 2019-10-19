@@ -10,7 +10,7 @@ namespace UIDataBind.Entitas.Features.Presentation
         public PropertiesFeature(UiBindContext context)
         {
 
-            Add(new InitConvertersSystem(context));
+            Add(new InitConvertersSystem(context.GetEngine()));
             AddPropertyUpdateSystems(context);
 
         }

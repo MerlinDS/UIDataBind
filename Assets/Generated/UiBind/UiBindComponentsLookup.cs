@@ -16,17 +16,15 @@ public static class UiBindComponentsLookup {
     public const int ModelPath = 5;
     public const int BooleanProperty = 6;
     public const int ColorProperty = 7;
-    public const int Converted = 8;
-    public const int ConvertTo = 9;
-    public const int FloatProperty = 10;
-    public const int IntProperty = 11;
-    public const int Property = 12;
-    public const int SpriteProperty = 13;
-    public const int StringProperty = 14;
-    public const int TextureProperty = 15;
-    public const int View = 16;
+    public const int FloatProperty = 8;
+    public const int IntProperty = 9;
+    public const int Property = 10;
+    public const int SpriteProperty = 11;
+    public const int StringProperty = 12;
+    public const int TextureProperty = 13;
+    public const int View = 14;
 
-    public const int TotalComponents = 17;
+    public const int TotalComponents = 15;
 
     public static readonly string[] componentNames = {
         "Action",
@@ -37,8 +35,6 @@ public static class UiBindComponentsLookup {
         "ModelPath",
         "BooleanProperty",
         "ColorProperty",
-        "Converted",
-        "ConvertTo",
         "FloatProperty",
         "IntProperty",
         "Property",
@@ -57,8 +53,6 @@ public static class UiBindComponentsLookup {
         typeof(UIDataBind.Entitas.Components.ModelPathComponent),
         typeof(UIDataBind.Entitas.Components.Properties.BooleanProperty),
         typeof(UIDataBind.Entitas.Components.Properties.ColorProperty),
-        typeof(UIDataBind.Entitas.Components.Properties.Converted),
-        typeof(UIDataBind.Entitas.Components.Properties.ConvertTo),
         typeof(UIDataBind.Entitas.Components.Properties.FloatProperty),
         typeof(UIDataBind.Entitas.Components.Properties.IntProperty),
         typeof(UIDataBind.Entitas.Components.Properties.PropertyComponent),
