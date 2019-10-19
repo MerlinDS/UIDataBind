@@ -1,5 +1,4 @@
-using UIDataBind.Entitas.Components;
-using UIDataBind.Entitas.Extensions;
+using UIDataBind.Base;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,10 +9,16 @@ namespace UIDataBind.Binders.Buttons
     [RequireComponent(typeof(Button))]
     public sealed class ButtonPointerBinder : ButtonClickBinder, IPointerEnterHandler, IPointerExitHandler
     {
-        public void OnPointerEnter(PointerEventData eventData) =>
-            Debug.Log(ActionType.PointerEnter);
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            Value = true;
+            BroadcastEvent(UIEventType.PointerEnter);
+        }
 
-        public void OnPointerExit(PointerEventData eventData) =>
-            Debug.Log(ActionType.PointerExit);
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            Value = true;
+            BroadcastEvent(UIEventType.PointerExit);
+        }
     }
 }

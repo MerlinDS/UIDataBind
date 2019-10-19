@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Entitas;
 using UIDataBind.Base;
@@ -79,7 +80,7 @@ namespace UIDataBind.Entitas.Features.Presentation
             {
                 var value = propertyEntity.GetComponent<T>(_index).Value;
                 var binderEntities = _context.GetEntitiesWithBindingPath(propertyEntity.modelPath.Value);
-                foreach (var binderEntity in binderEntities)
+                foreach (var binderEntity in binderEntities.Where(binderEntity => binderEntity.HasValueBinder()))
                     UpdateBinder(binderEntity.AsValueBinder(), value);
 
                 propertyEntity.isDirty = false;

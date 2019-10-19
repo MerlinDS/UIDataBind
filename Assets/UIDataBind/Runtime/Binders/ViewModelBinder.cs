@@ -13,10 +13,5 @@ namespace UIDataBind.Binders
         {
 
         }
-
-        protected override void Dispose()
-        {
-
-        }
     }
 }

@@ -7,7 +7,6 @@ namespace UIDataBind.Binders
 {
     public abstract class BaseBinder : MonoBehaviour, IBinder
     {
-
 #pragma warning disable 649
         [SerializeField]
         private string _path;
@@ -15,10 +14,11 @@ namespace UIDataBind.Binders
 
         private IEntityProvider _entity;
 
-        // ReSharper disable once SuspiciousTypeConversion.Global
         public BindingPath Path => !(this is IView)
-                ? GetComponentInParent<IView>()?.BuildPath(_path) ?? default
-                : (BindingPath) _path;
+            ? ParentPath.BuildPath(_path)
+            : (BindingPath) _path;
+
+        public BindingPath ParentPath => GetComponentInParent<IView>()?.Path ?? default;
 
         #region Unity Events
 
@@ -34,19 +34,18 @@ namespace UIDataBind.Binders
             Unbind();
         }
 
-        private void OnDestroy() => Dispose();
-
         #endregion
 
         #region Abstractions
 
         protected abstract void Bind();
         protected abstract void Unbind();
-        protected abstract void Dispose();
 
         #endregion
 
-        protected void SetDirty() => _entity.SetDirty();
+        protected       void   SetDirty() => _entity.SetDirty();
+        protected void BroadcastEvent(UIEventType type) => _entity.BroadcastEvent(type);
         public override string ToString() => $"{name} ({GetType().Name}";
+
     }
 }

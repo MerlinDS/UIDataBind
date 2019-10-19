@@ -33,10 +33,6 @@ namespace UIDataBind.Binders.ValueBinders
         {
         }
 
-        protected override void Dispose()
-        {
-        }
-
         protected abstract void UpdateValueHandler(T value);
     }
 }

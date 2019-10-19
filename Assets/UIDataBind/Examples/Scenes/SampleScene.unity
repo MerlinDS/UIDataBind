@@ -504,7 +504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de0901998174815af84df1c9e7adbc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _path: Hovering
+  _path: Hovered
+  _value: 0
 --- !u!114 &424865504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1847,7 +1848,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d9e57fd1a34add97064700f295235b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _path: Click
+  _path: Clicked
+  _value: 1
 --- !u!114 &2080025758
 MonoBehaviour:
   m_ObjectHideFlags: 0

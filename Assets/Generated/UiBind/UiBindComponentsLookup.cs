@@ -8,31 +8,33 @@
 //------------------------------------------------------------------------------
 public static class UiBindComponentsLookup {
 
-    public const int Action = 0;
-    public const int Binder = 1;
-    public const int BindingPath = 2;
-    public const int Dirty = 3;
+    public const int Binder = 0;
+    public const int BindingPath = 1;
+    public const int Dirty = 2;
+    public const int Event = 3;
     public const int Model = 4;
     public const int ModelPath = 5;
-    public const int BooleanProperty = 6;
-    public const int ColorProperty = 7;
-    public const int FloatProperty = 8;
-    public const int IntProperty = 9;
-    public const int Property = 10;
-    public const int SpriteProperty = 11;
-    public const int StringProperty = 12;
-    public const int TextureProperty = 13;
-    public const int View = 14;
+    public const int ParentModel = 6;
+    public const int BooleanProperty = 7;
+    public const int ColorProperty = 8;
+    public const int FloatProperty = 9;
+    public const int IntProperty = 10;
+    public const int Property = 11;
+    public const int SpriteProperty = 12;
+    public const int StringProperty = 13;
+    public const int TextureProperty = 14;
+    public const int View = 15;
 
-    public const int TotalComponents = 15;
+    public const int TotalComponents = 16;
 
     public static readonly string[] componentNames = {
-        "Action",
         "Binder",
         "BindingPath",
         "Dirty",
+        "Event",
         "Model",
         "ModelPath",
+        "ParentModel",
         "BooleanProperty",
         "ColorProperty",
         "FloatProperty",
@@ -45,12 +47,13 @@ public static class UiBindComponentsLookup {
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(UIDataBind.Entitas.Components.Action),
         typeof(UIDataBind.Entitas.Components.Binder),
         typeof(UIDataBind.Entitas.Components.BindingPath),
         typeof(UIDataBind.Entitas.Components.Dirty),
+        typeof(UIDataBind.Entitas.Components.Event),
         typeof(UIDataBind.Entitas.Components.Model),
         typeof(UIDataBind.Entitas.Components.ModelPath),
+        typeof(UIDataBind.Entitas.Components.ParentModel),
         typeof(UIDataBind.Entitas.Components.Properties.BooleanProperty),
         typeof(UIDataBind.Entitas.Components.Properties.ColorProperty),
         typeof(UIDataBind.Entitas.Components.Properties.FloatProperty),

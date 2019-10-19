@@ -58,6 +58,7 @@ namespace UIDataBind.Entitas
         public IEntityProvider CreateBinderEntity(IBinder binder)
         {
             var entity = _context.CreateEntity();
+            entity.AddParentModel(binder.ParentPath);
             entity.AddBindingPath(binder.Path);
             entity.AddBinder(binder);
             return new EntitasProvider(entity);
@@ -103,7 +104,7 @@ namespace UIDataBind.Entitas
             var entity = GetModeEntity(propertyPath);
             var index = GetPropertyTypeIndex<TValue>();
             index = _propertyIndices[index];
-            return !entity.HasComponent(index) ? entity.GetComponent<TValue>(index).Value : default;
+            return entity.HasComponent(index) ? entity.GetComponent<TValue>(index).Value : default;
         }
 
         #region Helpers
