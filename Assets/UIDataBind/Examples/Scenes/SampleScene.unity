@@ -850,6 +850,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _path: Toggle
   _value: 0
+  _broadcastChangeEvent: 1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1294,7 +1295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _path: Index
+  _path: ToggledCount
   _value: 
   _format: Icon visibility changed {0} times
 --- !u!114 &1209944929
@@ -1681,7 +1682,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Interact
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1750,7 +1751,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 2031337267}
-    characterCount: 6
+    characterCount: 8
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -1793,9 +1794,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _path: ButtonLabel
+  _path: HoveringAction
   _value: 
-  _format: 'Action: {0}'
+  _format: 'Event: {0}'
 --- !u!1 &2080025755
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,9 +2079,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _path: ButtonLabel
+  _path: ClickedCount
   _value: 
-  _format: 'Action: {0}'
+  _format: 'Clicked: {0}'
 --- !u!114 &2120626170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2099,7 +2100,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Click for action
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2168,10 +2169,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 2120626170}
-    characterCount: 6
+    characterCount: 16
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 1
+    spaceCount: 2
+    wordCount: 3
     linkCount: 0
     lineCount: 1
     pageCount: 1
