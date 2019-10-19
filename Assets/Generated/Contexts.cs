@@ -66,12 +66,12 @@ public partial class Contexts {
         uiBind.AddEntityIndex(new Entitas.EntityIndex<UiBindEntity, UIDataBind.Base.BindingPath>(
             BindingPath,
             uiBind.GetGroup(UiBindMatcher.BindingPath),
-            (e, c) => ((UIDataBind.Entitas.Components.BindingPathComponent)c).Value));
+            (e, c) => ((UIDataBind.Entitas.Components.BindingPath)c).Value));
 
         uiBind.AddEntityIndex(new Entitas.PrimaryEntityIndex<UiBindEntity, UIDataBind.Base.BindingPath>(
             ModelPath,
             uiBind.GetGroup(UiBindMatcher.ModelPath),
-            (e, c) => ((UIDataBind.Entitas.Components.ModelPathComponent)c).Value));
+            (e, c) => ((UIDataBind.Entitas.Components.ModelPath)c).Value));
     }
 }
 

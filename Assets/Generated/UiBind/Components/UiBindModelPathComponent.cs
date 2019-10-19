@@ -8,19 +8,19 @@
 //------------------------------------------------------------------------------
 public partial class UiBindEntity {
 
-    public UIDataBind.Entitas.Components.ModelPathComponent modelPath { get { return (UIDataBind.Entitas.Components.ModelPathComponent)GetComponent(UiBindComponentsLookup.ModelPath); } }
+    public UIDataBind.Entitas.Components.ModelPath modelPath { get { return (UIDataBind.Entitas.Components.ModelPath)GetComponent(UiBindComponentsLookup.ModelPath); } }
     public bool hasModelPath { get { return HasComponent(UiBindComponentsLookup.ModelPath); } }
 
     public void AddModelPath(UIDataBind.Base.BindingPath newValue) {
         var index = UiBindComponentsLookup.ModelPath;
-        var component = (UIDataBind.Entitas.Components.ModelPathComponent)CreateComponent(index, typeof(UIDataBind.Entitas.Components.ModelPathComponent));
+        var component = (UIDataBind.Entitas.Components.ModelPath)CreateComponent(index, typeof(UIDataBind.Entitas.Components.ModelPath));
         component.Value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceModelPath(UIDataBind.Base.BindingPath newValue) {
         var index = UiBindComponentsLookup.ModelPath;
-        var component = (UIDataBind.Entitas.Components.ModelPathComponent)CreateComponent(index, typeof(UIDataBind.Entitas.Components.ModelPathComponent));
+        var component = (UIDataBind.Entitas.Components.ModelPath)CreateComponent(index, typeof(UIDataBind.Entitas.Components.ModelPath));
         component.Value = newValue;
         ReplaceComponent(index, component);
     }

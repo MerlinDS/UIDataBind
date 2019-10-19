@@ -8,19 +8,19 @@
 //------------------------------------------------------------------------------
 public partial class UiBindEntity {
 
-    public UIDataBind.Entitas.Components.ActionComponent action { get { return (UIDataBind.Entitas.Components.ActionComponent)GetComponent(UiBindComponentsLookup.Action); } }
+    public UIDataBind.Entitas.Components.Action action { get { return (UIDataBind.Entitas.Components.Action)GetComponent(UiBindComponentsLookup.Action); } }
     public bool hasAction { get { return HasComponent(UiBindComponentsLookup.Action); } }
 
     public void AddAction(UIDataBind.Entitas.Components.ActionType newType) {
         var index = UiBindComponentsLookup.Action;
-        var component = (UIDataBind.Entitas.Components.ActionComponent)CreateComponent(index, typeof(UIDataBind.Entitas.Components.ActionComponent));
+        var component = (UIDataBind.Entitas.Components.Action)CreateComponent(index, typeof(UIDataBind.Entitas.Components.Action));
         component.Type = newType;
         AddComponent(index, component);
     }
 
     public void ReplaceAction(UIDataBind.Entitas.Components.ActionType newType) {
         var index = UiBindComponentsLookup.Action;
-        var component = (UIDataBind.Entitas.Components.ActionComponent)CreateComponent(index, typeof(UIDataBind.Entitas.Components.ActionComponent));
+        var component = (UIDataBind.Entitas.Components.Action)CreateComponent(index, typeof(UIDataBind.Entitas.Components.Action));
         component.Type = newType;
         ReplaceComponent(index, component);
     }

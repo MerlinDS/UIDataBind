@@ -45,12 +45,12 @@ public static class UiBindComponentsLookup {
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(UIDataBind.Entitas.Components.ActionComponent),
-        typeof(UIDataBind.Entitas.Components.BinderComponent),
-        typeof(UIDataBind.Entitas.Components.BindingPathComponent),
-        typeof(UIDataBind.Entitas.Components.DirtyComponent),
-        typeof(UIDataBind.Entitas.Components.ModelComponent),
-        typeof(UIDataBind.Entitas.Components.ModelPathComponent),
+        typeof(UIDataBind.Entitas.Components.Action),
+        typeof(UIDataBind.Entitas.Components.Binder),
+        typeof(UIDataBind.Entitas.Components.BindingPath),
+        typeof(UIDataBind.Entitas.Components.Dirty),
+        typeof(UIDataBind.Entitas.Components.Model),
+        typeof(UIDataBind.Entitas.Components.ModelPath),
         typeof(UIDataBind.Entitas.Components.Properties.BooleanProperty),
         typeof(UIDataBind.Entitas.Components.Properties.ColorProperty),
         typeof(UIDataBind.Entitas.Components.Properties.FloatProperty),
@@ -59,6 +59,6 @@ public static class UiBindComponentsLookup {
         typeof(UIDataBind.Entitas.Components.Properties.SpriteProperty),
         typeof(UIDataBind.Entitas.Components.Properties.StringProperty),
         typeof(UIDataBind.Entitas.Components.Properties.TextureProperty),
-        typeof(UIDataBind.Entitas.Components.ViewComponent)
+        typeof(UIDataBind.Entitas.Components.View)
     };
 }

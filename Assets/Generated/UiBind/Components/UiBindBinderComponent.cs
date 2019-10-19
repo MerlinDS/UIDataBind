@@ -8,19 +8,19 @@
 //------------------------------------------------------------------------------
 public partial class UiBindEntity {
 
-    public UIDataBind.Entitas.Components.BinderComponent binder { get { return (UIDataBind.Entitas.Components.BinderComponent)GetComponent(UiBindComponentsLookup.Binder); } }
+    public UIDataBind.Entitas.Components.Binder binder { get { return (UIDataBind.Entitas.Components.Binder)GetComponent(UiBindComponentsLookup.Binder); } }
     public bool hasBinder { get { return HasComponent(UiBindComponentsLookup.Binder); } }
 
     public void AddBinder(UIDataBind.Base.IBinder newValue) {
         var index = UiBindComponentsLookup.Binder;
-        var component = (UIDataBind.Entitas.Components.BinderComponent)CreateComponent(index, typeof(UIDataBind.Entitas.Components.BinderComponent));
+        var component = (UIDataBind.Entitas.Components.Binder)CreateComponent(index, typeof(UIDataBind.Entitas.Components.Binder));
         component.Value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceBinder(UIDataBind.Base.IBinder newValue) {
         var index = UiBindComponentsLookup.Binder;
-        var component = (UIDataBind.Entitas.Components.BinderComponent)CreateComponent(index, typeof(UIDataBind.Entitas.Components.BinderComponent));
+        var component = (UIDataBind.Entitas.Components.Binder)CreateComponent(index, typeof(UIDataBind.Entitas.Components.Binder));
         component.Value = newValue;
         ReplaceComponent(index, component);
     }

@@ -5,10 +5,10 @@ using UIDataBind.Base;
 namespace UIDataBind.Entitas.Components
 {
     [UiBind]
-    public class BindingPathComponent : IComponent
+    public struct ModelPath : IComponent
     {
-        [EntityIndex]
-        public BindingPath Value;
+        [PrimaryEntityIndex]
+        public Base.BindingPath Value;
 
         public override string ToString() => Value;
     }

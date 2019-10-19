@@ -7,8 +7,11 @@ namespace UIDataBind.Binders
 {
     public abstract class BaseBinder : MonoBehaviour, IBinder
     {
+
+#pragma warning disable 649
         [SerializeField]
         private string _path;
+#pragma warning restore 649
 
         private IEntityProvider _entity;
 
@@ -44,6 +47,6 @@ namespace UIDataBind.Binders
         #endregion
 
         protected void SetDirty() => _entity.SetDirty();
-        public override string ToString() => $"{name} ({GetType().Name})";
+        public override string ToString() => $"{name} ({GetType().Name}";
     }
 }

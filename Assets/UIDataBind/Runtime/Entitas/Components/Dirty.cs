@@ -6,7 +6,7 @@ namespace UIDataBind.Entitas.Components
     /// Update is needed
     /// </summary>
     [UiBind]
-    public struct DirtyComponent : IComponent
+    public struct Dirty : IComponent
     {
         public override string ToString() => "Dirty";
     }

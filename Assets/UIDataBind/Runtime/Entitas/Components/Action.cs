@@ -11,7 +11,7 @@ namespace UIDataBind.Entitas.Components
     }
 
     [UiBind]
-    public class ActionComponent : IComponent
+    public class Action : IComponent
     {
         public ActionType Type;
 

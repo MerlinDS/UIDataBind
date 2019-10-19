@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 public partial class UiBindEntity {
 
-    static readonly UIDataBind.Entitas.Components.DirtyComponent dirtyComponent = new UIDataBind.Entitas.Components.DirtyComponent();
+    static readonly UIDataBind.Entitas.Components.Dirty dirtyComponent = new UIDataBind.Entitas.Components.Dirty();
 
     public bool isDirty {
         get { return HasComponent(UiBindComponentsLookup.Dirty); }

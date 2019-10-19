@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 public partial class UiBindEntity {
 
-    static readonly UIDataBind.Entitas.Components.ViewComponent viewComponent = new UIDataBind.Entitas.Components.ViewComponent();
+    static readonly UIDataBind.Entitas.Components.View viewComponent = new UIDataBind.Entitas.Components.View();
 
     public bool isView {
         get { return HasComponent(UiBindComponentsLookup.View); }
