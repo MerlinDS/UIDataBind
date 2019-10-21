@@ -9,9 +9,9 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
         public bool Visible;
 
         public bool Toggle;
-        public bool Clicked;
-        public bool ColorClicked;
-        public bool Hovered;
+        public ControlEvent Clicked;
+        public ControlEvent ColorClicked;
+        public ControlEvent Hovered;
 
         public int ClickedCount;
         public int ToggledCount;

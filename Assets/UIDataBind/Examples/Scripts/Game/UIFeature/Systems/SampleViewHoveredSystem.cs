@@ -16,13 +16,9 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
             context.CreateCollector(UiBindMatcher.Event);
 
         protected override bool Filter(UiBindEntity entity) =>
-            entity.IsEventOf(ModelPath, UIEventType.Click | UIEventType.PointerEnter | UIEventType.PointerExit);
+            entity.IsEventOf(ModelPath, ControlEvent.Click | ControlEvent.PointerEnter | ControlEvent.PointerExit);
 
-        protected override void Execute(ref SampleViewModel viewModel, UiBindEntity entity)
-        {
-            if(!viewModel.Hovered)
-                return;
-            viewModel.HoveringAction = $"{entity.@event.Value}";
-        }
+        protected override void Execute(ref SampleViewModel viewModel, UiBindEntity entity) =>
+            viewModel.HoveringAction = $"{viewModel.Hovered}";
     }
 }

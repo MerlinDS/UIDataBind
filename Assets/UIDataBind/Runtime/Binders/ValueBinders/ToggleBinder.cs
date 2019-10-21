@@ -8,8 +8,10 @@ namespace UIDataBind.Binders.ValueBinders
     [AddComponentMenu("UIDataBind/Toggle", 1)]
     public sealed class ToggleBinder : ValueToComponentBinder<Toggle, bool>
     {
+#pragma warning disable 649
         [SerializeField]
         private bool _broadcastChangeEvent;
+#pragma warning restore 649
         protected override void Bind()
         {
             base.Bind();
@@ -26,7 +28,7 @@ namespace UIDataBind.Binders.ValueBinders
         {
             Value = value;
             if(_broadcastChangeEvent)
-                BroadcastEvent(UIEventType.Changed);
+                BroadcastEvent(ControlEvent.Changed);
             SetDirty();
         }
 

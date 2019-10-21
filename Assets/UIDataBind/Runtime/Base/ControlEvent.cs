@@ -3,8 +3,9 @@ using System;
 namespace UIDataBind.Base
 {
     [Flags]
-    public enum UIEventType
+    public enum ControlEvent
     {
+        None = 0x0,
         Click = 1,
         PointerEnter = 1 << 1,
         PointerExit = 1 << 2,

@@ -32,7 +32,7 @@ namespace UIDataBind.Entitas.Features.PostProcessing
             _actionsGroup.GetEntities(_entities);
             foreach (var entity in _entities.Where(entity => !entity.isDirty))
             {
-                if(entity.@event.Value != UIEventType.Changed)
+                if(entity.@event.Value != ControlEvent.Changed)
                     Invalidate(entity);
                 entity.RemoveEvent();
             }
@@ -41,12 +41,12 @@ namespace UIDataBind.Entitas.Features.PostProcessing
 
         private void Invalidate(UiBindEntity entity)
         {
-            if (entity.AsValueBinder() is IValueBinder<bool> binder)
-                binder.Value = false;
+            if (entity.AsValueBinder() is IValueBinder<ControlEvent> binder)
+                binder.Value = ControlEvent.None;
 
             var path = entity.bindingPath.Value;
-            if (_engine.HasProperty<bool>(path))
-                _engine.SetProperty(path, false);
+            if (_engine.HasProperty<ControlEvent>(path))
+                _engine.SetProperty(path, ControlEvent.None);
         }
     }
 }

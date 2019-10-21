@@ -17,15 +17,16 @@ public static class UiBindComponentsLookup {
     public const int ParentModel = 6;
     public const int BooleanProperty = 7;
     public const int ColorProperty = 8;
-    public const int FloatProperty = 9;
-    public const int IntProperty = 10;
-    public const int Property = 11;
-    public const int SpriteProperty = 12;
-    public const int StringProperty = 13;
-    public const int TextureProperty = 14;
-    public const int View = 15;
+    public const int ControlEventProperty = 9;
+    public const int FloatProperty = 10;
+    public const int IntProperty = 11;
+    public const int Property = 12;
+    public const int SpriteProperty = 13;
+    public const int StringProperty = 14;
+    public const int TextureProperty = 15;
+    public const int View = 16;
 
-    public const int TotalComponents = 16;
+    public const int TotalComponents = 17;
 
     public static readonly string[] componentNames = {
         "Binder",
@@ -37,6 +38,7 @@ public static class UiBindComponentsLookup {
         "ParentModel",
         "BooleanProperty",
         "ColorProperty",
+        "ControlEventProperty",
         "FloatProperty",
         "IntProperty",
         "Property",
@@ -56,6 +58,7 @@ public static class UiBindComponentsLookup {
         typeof(UIDataBind.Entitas.Components.ParentModel),
         typeof(UIDataBind.Entitas.Components.Properties.BooleanProperty),
         typeof(UIDataBind.Entitas.Components.Properties.ColorProperty),
+        typeof(UIDataBind.Entitas.Components.Properties.ControlEventProperty),
         typeof(UIDataBind.Entitas.Components.Properties.FloatProperty),
         typeof(UIDataBind.Entitas.Components.Properties.IntProperty),
         typeof(UIDataBind.Entitas.Components.Properties.PropertyComponent),

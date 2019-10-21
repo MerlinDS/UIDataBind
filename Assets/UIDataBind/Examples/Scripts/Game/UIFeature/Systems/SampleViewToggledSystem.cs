@@ -17,7 +17,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
             context.CreateCollector(UiBindMatcher.Event);
 
         protected override bool Filter(UiBindEntity entity) =>
-            entity.IsEventOf(ModelPath, UIEventType.Changed);
+            entity.IsEventOf(ModelPath, ControlEvent.Changed);
 
         protected override void Execute(ref SampleViewModel viewModel, UiBindEntity entity)
         {

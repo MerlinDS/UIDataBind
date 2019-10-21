@@ -7,7 +7,7 @@ namespace UIDataBind.Binders.Buttons
 {
     [AddComponentMenu("UIDataBind/Button - Click", 1)]
     [RequireComponent(typeof(Button))]
-    public class ButtonClickBinder : ValueToComponentBinder<Button, bool>
+    public class ButtonClickBinder : ValueToComponentBinder<Button, ControlEvent>
     {
         protected override void Bind() =>
             // ReSharper disable once Unity.NoNullPropagation
@@ -18,15 +18,15 @@ namespace UIDataBind.Binders.Buttons
             // ReSharper disable once Unity.NoNullPropagation
             Component?.onClick.RemoveListener(InvokeAction);
 
-        protected override void UpdateValueHandler(bool value)
+        protected override void UpdateValueHandler(ControlEvent value)
         {
 
         }
 
         private void InvokeAction()
         {
-            Value = true;
-            BroadcastEvent(UIEventType.Click);
+            Value = ControlEvent.Click;
+            BroadcastEvent(ControlEvent.Click);
         }
     }
 

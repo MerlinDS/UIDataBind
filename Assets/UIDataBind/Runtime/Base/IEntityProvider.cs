@@ -4,6 +4,6 @@ namespace UIDataBind.Base
     {
         void SetDirty();
         void Destroy();
-        void BroadcastEvent(UIEventType type);
+        void BroadcastEvent(ControlEvent type);
     }
 }

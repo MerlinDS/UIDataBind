@@ -11,14 +11,14 @@ public partial class UiBindEntity {
     public UIDataBind.Entitas.Components.Event @event { get { return (UIDataBind.Entitas.Components.Event)GetComponent(UiBindComponentsLookup.Event); } }
     public bool hasEvent { get { return HasComponent(UiBindComponentsLookup.Event); } }
 
-    public void AddEvent(UIDataBind.Base.UIEventType newValue) {
+    public void AddEvent(UIDataBind.Base.ControlEvent newValue) {
         var index = UiBindComponentsLookup.Event;
         var component = (UIDataBind.Entitas.Components.Event)CreateComponent(index, typeof(UIDataBind.Entitas.Components.Event));
         component.Value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceEvent(UIDataBind.Base.UIEventType newValue) {
+    public void ReplaceEvent(UIDataBind.Base.ControlEvent newValue) {
         var index = UiBindComponentsLookup.Event;
         var component = (UIDataBind.Entitas.Components.Event)CreateComponent(index, typeof(UIDataBind.Entitas.Components.Event));
         component.Value = newValue;

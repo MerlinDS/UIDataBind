@@ -6,7 +6,7 @@ namespace UIDataBind.Entitas.Components
     [UiBind]
     public struct Event : IComponent
     {
-        public UIEventType Value;
+        public ControlEvent Value;
 
         public override string ToString() => $"Event({Value})";
     }

@@ -11,14 +11,14 @@ namespace UIDataBind.Binders.Buttons
     {
         public void OnPointerEnter(PointerEventData eventData)
         {
-            Value = true;
-            BroadcastEvent(UIEventType.PointerEnter);
+            Value = ControlEvent.PointerEnter;
+            BroadcastEvent(ControlEvent.PointerEnter);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            Value = true;
-            BroadcastEvent(UIEventType.PointerExit);
+            Value = ControlEvent.PointerExit;
+            BroadcastEvent(ControlEvent.PointerExit);
         }
     }
 }
