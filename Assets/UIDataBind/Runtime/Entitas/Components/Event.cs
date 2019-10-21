@@ -7,6 +7,7 @@ namespace UIDataBind.Entitas.Components
     public struct Event : IComponent
     {
         public ControlEvent Value;
+        public Base.BindingPath Path;
 
         public override string ToString() => $"Event({Value})";
     }

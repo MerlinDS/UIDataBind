@@ -44,7 +44,7 @@ namespace UIDataBind.Binders
         #endregion
 
         protected       void   SetDirty() => _entity.SetDirty();
-        protected void BroadcastEvent(ControlEvent type) => _entity.BroadcastEvent(type);
+        protected void BroadcastEvent(ControlEvent type) => _entity.BroadcastEvent(type, Path);
         public override string ToString() => $"{name} ({GetType().Name}";
 
     }

@@ -11,15 +11,17 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
     {
         private TModel _viewModel;
         private readonly IProperties _properties;
+        private readonly BindingPath _modelPath;
 
         protected SampleViewSystem(UiBindContext context, BindingPath modelPath) : base(context)
         {
-            ModelPath = modelPath;
+            _modelPath = modelPath;
             _viewModel = new TModel();
             _properties = context.GetEngine().GetProperties(modelPath);
         }
 
-        protected BindingPath ModelPath { get; }
+        protected BindingPath ModelPath => _modelPath;
+        protected TModel ViewModel => _viewModel;
 
         protected sealed override void Execute(List<UiBindEntity> entities)
         {

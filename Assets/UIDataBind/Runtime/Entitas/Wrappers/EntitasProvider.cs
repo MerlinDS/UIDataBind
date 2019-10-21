@@ -15,9 +15,9 @@ namespace UIDataBind.Entitas.Wrappers
         public void Destroy() =>
             _entity.Destroy();
 
-        public void BroadcastEvent(ControlEvent type)
+        public void BroadcastEvent(ControlEvent type, BindingPath path)
         {
-            _entity.ReplaceEvent(type);
+            _entity.ReplaceEvent(type, path);
             SetDirty();
         }
     }

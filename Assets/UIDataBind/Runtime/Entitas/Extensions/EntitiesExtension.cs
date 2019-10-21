@@ -1,4 +1,5 @@
 using UIDataBind.Base;
+using UIDataBind.Utils.Extensions;
 
 namespace UIDataBind.Entitas.Extensions
 {
@@ -6,6 +7,10 @@ namespace UIDataBind.Entitas.Extensions
     {
         public static bool IsEventOf(this UiBindEntity entity, BindingPath model, ControlEvent type) =>
             entity.IsChildOf(model) && entity.hasEvent && (entity.@event.Value & type) != 0x0;
+
+        public static bool IsEventOf(this UiBindEntity entity, BindingPath model, BindingPath property, ControlEvent type) =>
+            entity.hasBindingPath && entity.bindingPath.Value == model.BuildPath(property)
+                                  && entity.hasEvent && (entity.@event.Value & type) != 0x0;
 
         public static bool IsChildOf(this UiBindEntity entity, BindingPath model) =>
             entity.hasParentModel && entity.parentModel.Path == model;

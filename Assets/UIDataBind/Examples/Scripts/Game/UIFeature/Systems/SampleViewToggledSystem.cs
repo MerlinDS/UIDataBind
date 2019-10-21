@@ -7,25 +7,18 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
 {
     public class SampleViewToggledSystem : SampleViewSystem<SampleViewModel>
     {
-        private bool _previous;
+
         public SampleViewToggledSystem(UiBindContext context, BindingPath path) : base(context, path)
         {
-
         }
 
         protected override ICollector<UiBindEntity> GetTrigger(IContext<UiBindEntity> context) =>
             context.CreateCollector(UiBindMatcher.Event);
 
         protected override bool Filter(UiBindEntity entity) =>
-            entity.IsEventOf(ModelPath, ControlEvent.Changed);
+            entity.IsEventOf(ModelPath, nameof(ViewModel.Toggle), ControlEvent.Changed);
 
-        protected override void Execute(ref SampleViewModel viewModel, UiBindEntity entity)
-        {
-            if (_previous == viewModel.Toggle)
-                return;
-
+        protected override void Execute(ref SampleViewModel viewModel, UiBindEntity entity) =>
             viewModel.ToggledCount++;
-            _previous = viewModel.Toggle;
-        }
     }
 }
