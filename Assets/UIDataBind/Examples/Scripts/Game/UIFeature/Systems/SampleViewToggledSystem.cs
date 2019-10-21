@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Entitas;
 using UIDataBind.Base;
 using UIDataBind.Entitas.Extensions;
@@ -5,20 +6,33 @@ using UIDataBind.Examples.Game.UIFeature.Models;
 
 namespace UIDataBind.Examples.Game.UIFeature.Systems
 {
-    public class SampleViewToggledSystem : SampleViewSystem<SampleViewModel>
+    public class SampleViewToggledSystem : ReactiveSystem<UiBindEntity>
     {
+        private readonly UiBindContext _context;
+        private readonly BindingPath _modelPath;
 
-        public SampleViewToggledSystem(UiBindContext context, BindingPath path) : base(context, path)
+        public SampleViewToggledSystem(UiBindContext context, BindingPath modelPath) : base(context)
         {
+            _context = context;
+            _modelPath = modelPath;
         }
 
         protected override ICollector<UiBindEntity> GetTrigger(IContext<UiBindEntity> context) =>
             context.CreateCollector(UiBindMatcher.Event);
 
         protected override bool Filter(UiBindEntity entity) =>
-            entity.IsEventOf(ModelPath, nameof(ViewModel.Toggle), ControlEvent.Changed);
+            entity.IsEventOf(_modelPath, nameof(SampleViewModel.Toggle), ControlEvent.Changed);
 
-        protected override void Execute(ref SampleViewModel viewModel) =>
+        protected override void Execute(List<UiBindEntity> entities)
+        {
+            //TODO: Add help 
+            var properties = _context.GetProperties(_modelPath);
+            var viewModel = properties.GetModel<SampleViewModel>(nameof(SampleViewModel.ToggledCount));
+
             viewModel.ToggledCount++;
+
+            properties.Fetch(viewModel, nameof(viewModel.ToggledCount));
+        }
+
     }
 }

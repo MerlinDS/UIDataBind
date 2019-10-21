@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Entitas;
 using UIDataBind.Base;
 using UIDataBind.Base.Extensions;
@@ -7,23 +8,35 @@ using UnityEngine;
 
 namespace UIDataBind.Examples.Game.UIFeature.Systems
 {
-    public class SampleViewClickedSystem : SampleViewSystem<SampleViewModel>
+    public class SampleViewClickedSystem : ReactiveSystem<UiBindEntity>
     {
-        public SampleViewClickedSystem(UiBindContext context, BindingPath modelPath) : base(context, modelPath)
+        private readonly UiBindContext _context;
+        private readonly BindingPath _modelPath;
+
+        public SampleViewClickedSystem(UiBindContext context, BindingPath modelPath) : base(context)
         {
+            _context = context;
+            _modelPath = modelPath;
         }
 
         protected override ICollector<UiBindEntity> GetTrigger(IContext<UiBindEntity> context) =>
             context.CreateCollector(UiBindMatcher.Event);
 
         protected override bool Filter(UiBindEntity entity) =>
-            entity.IsEventOf(ModelPath, ControlEvent.Click);
+            entity.IsEventOf(_modelPath, ControlEvent.Click);
 
-        protected override void Execute(ref SampleViewModel viewModel)
+        protected override void Execute(List<UiBindEntity> entities)
         {
+            //TODO: Add help
+            var properties = _context.GetProperties(_modelPath);
+            var viewModel = properties.GetModel<SampleViewModel>();
+
             viewModel.ClickedCount += viewModel.Clicked.IsInvoked() ? 1 : 0;
             if(viewModel.ColorClicked.IsInvoked())
                 viewModel.Color = viewModel.Color == Color.green ? Color.yellow : Color.green;
+
+            properties.Fetch(viewModel);
         }
+
     }
 }
