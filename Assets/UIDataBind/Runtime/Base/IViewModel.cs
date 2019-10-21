@@ -1,5 +1,3 @@
-using UIDataBind.Entitas.Extensions;
-
 namespace UIDataBind.Base
 {
     /// <summary>
@@ -7,6 +5,6 @@ namespace UIDataBind.Base
     /// </summary>
     public interface IViewModel
     {
-        void Refresh(RefreshType actionType, IProperties properties);
+        void Refresh(IProperties properties);
     }
 }
