@@ -11,7 +11,6 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
             Add(new SampleViewClickedSystem(contexts.uiBind, path));
             Add(new SampleViewHoveredSystem(contexts.uiBind, path));
             Add(new SampleViewToggledSystem(contexts.uiBind, path));
-            Add(new SampleViewColorClickedSystem(contexts.uiBind, path));
         }
     }
 }

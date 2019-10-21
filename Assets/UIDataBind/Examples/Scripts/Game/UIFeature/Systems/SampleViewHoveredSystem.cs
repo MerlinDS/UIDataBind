@@ -19,7 +19,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
             entity.IsEventOf(ModelPath, nameof(ViewModel.Hovered),
                              ControlEvent.Click | ControlEvent.PointerEnter | ControlEvent.PointerExit);
 
-        protected override void Execute(ref SampleViewModel viewModel, UiBindEntity entity) =>
+        protected override void Execute(ref SampleViewModel viewModel) =>
             viewModel.HoveringAction = $"{viewModel.Hovered}";
     }
 }

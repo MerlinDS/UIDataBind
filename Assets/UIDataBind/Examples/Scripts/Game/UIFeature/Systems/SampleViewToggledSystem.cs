@@ -18,7 +18,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
         protected override bool Filter(UiBindEntity entity) =>
             entity.IsEventOf(ModelPath, nameof(ViewModel.Toggle), ControlEvent.Changed);
 
-        protected override void Execute(ref SampleViewModel viewModel, UiBindEntity entity) =>
+        protected override void Execute(ref SampleViewModel viewModel) =>
             viewModel.ToggledCount++;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UIDataBind.Base;
 using UIDataBind.Entitas.Extensions;
 using UnityEngine;
@@ -10,8 +11,8 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
         public bool Toggle;
 
         public ControlEvent Clicked;
-        public ControlEvent ColorClicked;
         public ControlEvent Hovered;
+        public ControlEvent ColorClicked;
 
         public int ClickedCount;
         public int ToggledCount;
@@ -23,40 +24,23 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
         public string Label;
         public string HoveringAction;
 
-        public void Update(IProperties properties)
+        public void Refresh(RefreshType actionType, IProperties properties)
         {
-            properties.ReadProperty(nameof(Clicked), ref Clicked);
-            properties.ReadProperty(nameof(Hovered), ref Hovered);
+            properties.RefreshProperty(actionType, nameof(Clicked), ref Clicked);
+            properties.RefreshProperty(actionType, nameof(Hovered), ref Hovered);
+            properties.RefreshProperty(actionType, nameof(ColorClicked), ref ColorClicked);
 
-            properties.ReadProperty(nameof(ClickedCount), ref ClickedCount);
-            properties.ReadProperty(nameof(ColorClicked), ref ColorClicked);
-            properties.ReadProperty(nameof(HoveringAction), ref HoveringAction);
+            properties.RefreshProperty(actionType, nameof(ClickedCount), ref ClickedCount);
+            properties.RefreshProperty(actionType, nameof(HoveringAction), ref HoveringAction);
 
-            properties.ReadProperty(nameof(Visible), ref Visible);
-            properties.ReadProperty(nameof(Label), ref Label);
-            properties.ReadProperty(nameof(Toggle), ref Toggle);
-            properties.ReadProperty(nameof(ToggledCount), ref ToggledCount);
-            properties.ReadProperty(nameof(Icon), ref Icon);
-            properties.ReadProperty(nameof(Color), ref Color);
-            properties.ReadProperty(nameof(Image), ref Image);
-        }
+            properties.RefreshProperty(actionType, nameof(Visible), ref Visible);
+            properties.RefreshProperty(actionType, nameof(Label), ref Label);
+            properties.RefreshProperty(actionType, nameof(Toggle), ref Toggle);
+            properties.RefreshProperty(actionType, nameof(ToggledCount), ref ToggledCount);
+            properties.RefreshProperty(actionType, nameof(Icon), ref Icon);
+            properties.RefreshProperty(actionType, nameof(Color), ref Color);
+            properties.RefreshProperty(actionType, nameof(Image), ref Image);
 
-        public void Fetch(IProperties properties)
-        {
-            properties.WriteProperty(nameof(Clicked), Clicked);
-            properties.WriteProperty(nameof(Hovered), Hovered);
-            properties.WriteProperty(nameof(ColorClicked), ColorClicked);
-
-            properties.WriteProperty(nameof(ClickedCount), ClickedCount);
-            properties.WriteProperty(nameof(HoveringAction), HoveringAction);
-
-            properties.WriteProperty(nameof(Visible), Visible);
-            properties.WriteProperty(nameof(Label), Label);
-            properties.WriteProperty(nameof(Toggle), Toggle);
-            properties.WriteProperty(nameof(ToggledCount), ToggledCount);
-            properties.WriteProperty(nameof(Icon), Icon);
-            properties.WriteProperty(nameof(Color), Color);
-            properties.WriteProperty(nameof(Image), Image);
         }
     }
 }

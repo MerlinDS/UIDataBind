@@ -18,12 +18,13 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
 
         protected sealed override void Execute(List<UiBindEntity> entities)
         {
-            var model = _properties.GetModel<TModel>();
+            var model = ViewModel;
+            // ReSharper disable once UnusedVariable
             foreach (var entity in entities)
-                Execute(ref model, entity);
-            model.Fetch(_properties);
+                Execute(ref model);
+            _properties.Fetch(model);
         }
 
-        protected abstract void Execute(ref TModel viewModel, UiBindEntity entity);
+        protected abstract void Execute(ref TModel viewModel);
     }
 }
