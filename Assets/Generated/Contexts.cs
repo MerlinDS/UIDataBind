@@ -58,15 +58,15 @@ public partial class Contexts : Entitas.IContexts {
 //------------------------------------------------------------------------------
 public partial class Contexts {
 
-    public const string BindingPath = "BindingPath";
+    public const string BinderPath = "BinderPath";
     public const string ModelPath = "ModelPath";
 
     [Entitas.CodeGeneration.Attributes.PostConstructor]
     public void InitializeEntityIndices() {
         uiBind.AddEntityIndex(new Entitas.EntityIndex<UiBindEntity, UIDataBind.Base.BindingPath>(
-            BindingPath,
-            uiBind.GetGroup(UiBindMatcher.BindingPath),
-            (e, c) => ((UIDataBind.Entitas.Components.BindingPath)c).Value));
+            BinderPath,
+            uiBind.GetGroup(UiBindMatcher.BinderPath),
+            (e, c) => ((UIDataBind.Entitas.Components.BinderPath)c).Value));
 
         uiBind.AddEntityIndex(new Entitas.PrimaryEntityIndex<UiBindEntity, UIDataBind.Base.BindingPath>(
             ModelPath,
@@ -77,8 +77,8 @@ public partial class Contexts {
 
 public static class ContextsExtensions {
 
-    public static System.Collections.Generic.HashSet<UiBindEntity> GetEntitiesWithBindingPath(this UiBindContext context, UIDataBind.Base.BindingPath Value) {
-        return ((Entitas.EntityIndex<UiBindEntity, UIDataBind.Base.BindingPath>)context.GetEntityIndex(Contexts.BindingPath)).GetEntities(Value);
+    public static System.Collections.Generic.HashSet<UiBindEntity> GetEntitiesWithBinderPath(this UiBindContext context, UIDataBind.Base.BindingPath Value) {
+        return ((Entitas.EntityIndex<UiBindEntity, UIDataBind.Base.BindingPath>)context.GetEntityIndex(Contexts.BinderPath)).GetEntities(Value);
     }
 
     public static UiBindEntity GetEntityWithModelPath(this UiBindContext context, UIDataBind.Base.BindingPath Value) {

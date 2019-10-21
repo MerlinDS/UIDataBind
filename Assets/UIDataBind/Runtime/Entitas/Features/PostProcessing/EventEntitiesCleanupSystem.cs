@@ -44,7 +44,7 @@ namespace UIDataBind.Entitas.Features.PostProcessing
             if (entity.AsValueBinder() is IValueBinder<ControlEvent> binder)
                 binder.Value = ControlEvent.None;
 
-            var path = entity.bindingPath.Value;
+            var path = entity.binderPath.Value;
             if (_engine.HasProperty<ControlEvent>(path))
                 _engine.SetProperty(path, ControlEvent.None);
         }

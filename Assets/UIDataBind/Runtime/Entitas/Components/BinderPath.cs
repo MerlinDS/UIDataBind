@@ -1,11 +1,10 @@
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
-using UIDataBind.Base;
 
 namespace UIDataBind.Entitas.Components
 {
     [UiBind]
-    public class BindingPath : IComponent
+    public class BinderPath : IComponent
     {
         [EntityIndex]
         public Base.BindingPath Value;

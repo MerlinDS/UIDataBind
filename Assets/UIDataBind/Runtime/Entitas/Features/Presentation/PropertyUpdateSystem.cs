@@ -35,7 +35,7 @@ namespace UIDataBind.Entitas.Features.Presentation
         }
 
         protected override ICollector<UiBindEntity> GetTrigger(IContext<UiBindEntity> context) =>
-            context.CreateCollector(UiBindMatcher.AllOf(UiBindMatcher.Binder, UiBindMatcher.BindingPath,
+            context.CreateCollector(UiBindMatcher.AllOf(UiBindMatcher.Binder, UiBindMatcher.BinderPath,
                                                         UiBindMatcher.Dirty));
 
         public void Initialize() =>
@@ -43,7 +43,7 @@ namespace UIDataBind.Entitas.Features.Presentation
                                                                      UiBindMatcher.Dirty, _matcher));
 
         protected override bool Filter(UiBindEntity binderEntity) =>
-            _context.GetEngine().HasProperty<T>(binderEntity.bindingPath.Value) && CanBeConverted(binderEntity);
+            _context.GetEngine().HasProperty<T>(binderEntity.binderPath.Value) && CanBeConverted(binderEntity);
 
         #region From binder to property
 
@@ -58,7 +58,7 @@ namespace UIDataBind.Entitas.Features.Presentation
 
         private void UpdateProperty(UiBindEntity binderEntity)
         {
-            var propertyEntity = _context.GetEntityWithModelPath(binderEntity.bindingPath.Value);
+            var propertyEntity = _context.GetEntityWithModelPath(binderEntity.binderPath.Value);
             var component = propertyEntity.GetComponent<T>(_index);
             var binder = binderEntity.AsValueBinder();
             component.Value = binder is IValueBinder<T> b ? b.Value : _converters.Convert<T>(binder.Value);
@@ -79,7 +79,7 @@ namespace UIDataBind.Entitas.Features.Presentation
             foreach (var propertyEntity in _entities)
             {
                 var value = propertyEntity.GetComponent<T>(_index).Value;
-                var binderEntities = _context.GetEntitiesWithBindingPath(propertyEntity.modelPath.Value);
+                var binderEntities = _context.GetEntitiesWithBinderPath(propertyEntity.modelPath.Value);
                 foreach (var binderEntity in binderEntities.Where(binderEntity => binderEntity.HasValueBinder()))
                     UpdateBinder(binderEntity.AsValueBinder(), value);
 

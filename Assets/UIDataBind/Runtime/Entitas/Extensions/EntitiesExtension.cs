@@ -9,7 +9,7 @@ namespace UIDataBind.Entitas.Extensions
             entity.IsChildOf(model) && entity.hasEvent && (entity.@event.Value & type) != 0x0;
 
         public static bool IsEventOf(this UiBindEntity entity, BindingPath model, BindingPath property, ControlEvent type) =>
-            entity.hasBindingPath && entity.bindingPath.Value == model.BuildPath(property)
+            entity.hasBinderPath && entity.binderPath.Value == model.BuildPath(property)
                                   && entity.hasEvent && (entity.@event.Value & type) != 0x0;
 
         public static bool IsChildOf(this UiBindEntity entity, BindingPath model) =>

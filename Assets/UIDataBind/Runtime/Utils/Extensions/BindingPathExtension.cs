@@ -3,7 +3,7 @@ using UIDataBind.Base;
 
 namespace UIDataBind.Utils.Extensions
 {
-    public static class PathExtension
+    public static class BindingPathExtension
     {
         private const char PathSeparator = '.';
         private static readonly StringBuilder Sb = new StringBuilder(100);

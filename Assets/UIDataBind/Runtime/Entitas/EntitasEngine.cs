@@ -59,7 +59,7 @@ namespace UIDataBind.Entitas
         {
             var entity = _context.CreateEntity();
             entity.AddParentModel(binder.ParentPath);
-            entity.AddBindingPath(binder.Path);
+            entity.AddBinderPath(binder.Path);
             entity.AddBinder(binder);
             return new EntitasProvider(entity);
         }

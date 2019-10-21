@@ -9,7 +9,7 @@
 public static class UiBindComponentsLookup {
 
     public const int Binder = 0;
-    public const int BindingPath = 1;
+    public const int BinderPath = 1;
     public const int Dirty = 2;
     public const int Event = 3;
     public const int Model = 4;
@@ -30,7 +30,7 @@ public static class UiBindComponentsLookup {
 
     public static readonly string[] componentNames = {
         "Binder",
-        "BindingPath",
+        "BinderPath",
         "Dirty",
         "Event",
         "Model",
@@ -50,7 +50,7 @@ public static class UiBindComponentsLookup {
 
     public static readonly System.Type[] componentTypes = {
         typeof(UIDataBind.Entitas.Components.Binder),
-        typeof(UIDataBind.Entitas.Components.BindingPath),
+        typeof(UIDataBind.Entitas.Components.BinderPath),
         typeof(UIDataBind.Entitas.Components.Dirty),
         typeof(UIDataBind.Entitas.Components.Event),
         typeof(UIDataBind.Entitas.Components.Model),
