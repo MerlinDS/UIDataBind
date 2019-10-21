@@ -22,7 +22,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
             var model = new SampleViewModel
             {
                 Visible = true,
-                Image = Resources.Load<Sprite>("UIDataBind Icon"),
+                Image = Resources.Load<Texture>("UIDataBind Raw Icon"),
                 Label = "This is a text from model",
                 HoveringAction = "None",
                 Icon = "UIDataBind Icon",

@@ -18,7 +18,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
         public float Slider;
 
         public Color Color;
-        public Sprite Image;
+        public Texture Image;
 
         public string Icon;
         public string Label;
