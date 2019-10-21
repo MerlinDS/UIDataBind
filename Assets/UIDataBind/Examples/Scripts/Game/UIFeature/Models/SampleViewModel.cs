@@ -7,8 +7,8 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
     public struct SampleViewModel : IViewModel
     {
         public bool Visible;
-
         public bool Toggle;
+
         public ControlEvent Clicked;
         public ControlEvent ColorClicked;
         public ControlEvent Hovered;
@@ -18,8 +18,9 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
 
         public Color Color;
 
-        public string Label;
         public string Icon;
+        public Sprite Image;
+        public string Label;
         public string HoveringAction;
 
         public void Update(IProperties properties)
@@ -37,6 +38,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
             properties.ReadProperty(nameof(ToggledCount), ref ToggledCount);
             properties.ReadProperty(nameof(Icon), ref Icon);
             properties.ReadProperty(nameof(Color), ref Color);
+            properties.ReadProperty(nameof(Image), ref Image);
         }
 
         public void Fetch(IProperties properties)
@@ -54,6 +56,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
             properties.WriteProperty(nameof(ToggledCount), ToggledCount);
             properties.WriteProperty(nameof(Icon), Icon);
             properties.WriteProperty(nameof(Color), Color);
+            properties.WriteProperty(nameof(Image), Image);
         }
     }
 }

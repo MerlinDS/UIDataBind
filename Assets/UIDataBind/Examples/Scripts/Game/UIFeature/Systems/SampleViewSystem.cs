@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Entitas;
 using UIDataBind.Base;
-using UIDataBind.Base.Extensions;
 using UIDataBind.Entitas.Extensions;
 
 namespace UIDataBind.Examples.Game.UIFeature.Systems
@@ -9,26 +8,20 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
     public abstract class SampleViewSystem<TModel> : ReactiveSystem<UiBindEntity>
         where TModel : struct, IViewModel
     {
-        private TModel _viewModel;
         private readonly IProperties _properties;
-        private readonly BindingPath _modelPath;
 
-        protected SampleViewSystem(UiBindContext context, BindingPath modelPath) : base(context)
-        {
-            _modelPath = modelPath;
-            _viewModel = new TModel();
-            _properties = context.GetEngine().GetProperties(modelPath);
-        }
+        protected SampleViewSystem(UiBindContext context, BindingPath modelPath): base(context) =>
+            _properties = context.GetProperties(modelPath);
 
-        protected BindingPath ModelPath => _modelPath;
-        protected TModel ViewModel => _viewModel;
+        protected BindingPath ModelPath => _properties.ModelPath;
+        protected TModel ViewModel => _properties.GetModel<TModel>();
 
         protected sealed override void Execute(List<UiBindEntity> entities)
         {
-            _properties.UpdateModel(ref _viewModel);
+            var model = _properties.GetModel<TModel>();
             foreach (var entity in entities)
-                Execute(ref _viewModel, entity);
-            _properties.Fetch(_viewModel);
+                Execute(ref model, entity);
+            model.Fetch(_properties);
         }
 
         protected abstract void Execute(ref TModel viewModel, UiBindEntity entity);
