@@ -26,7 +26,8 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
                 Label = "This is a text from model",
                 HoveringAction = "None",
                 Icon = "UIDataBind Icon",
-                Color = Color.green
+                Color = Color.green,
+                Slider = 1F
             };
             _context.InitModel(_path, model);
         }

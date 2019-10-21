@@ -15,11 +15,12 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
 
         public int ClickedCount;
         public int ToggledCount;
+        public float Slider;
 
         public Color Color;
+        public Sprite Image;
 
         public string Icon;
-        public Sprite Image;
         public string Label;
         public string HoveringAction;
 
@@ -36,6 +37,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
             properties.RefreshProperty(nameof(Label), ref Label);
             properties.RefreshProperty(nameof(Toggle), ref Toggle);
             properties.RefreshProperty(nameof(ToggledCount), ref ToggledCount);
+            properties.RefreshProperty(nameof(Slider), ref Slider);
             properties.RefreshProperty(nameof(Icon), ref Icon);
             properties.RefreshProperty(nameof(Color), ref Color);
             properties.RefreshProperty(nameof(Image), ref Image);
