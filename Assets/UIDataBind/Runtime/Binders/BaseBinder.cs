@@ -1,5 +1,6 @@
 using UIDataBind.Base;
 using UIDataBind.Base.Extensions;
+using UIDataBind.Binders.Extensions;
 using UIDataBind.Utils.Extensions;
 using UnityEngine;
 
@@ -14,11 +15,28 @@ namespace UIDataBind.Binders
 
         private IEntityProvider _entity;
 
-        public BindingPath Path => !(this is IView)
-            ? ParentPath.BuildPath(_path)
-            : (BindingPath) _path;
 
-        public BindingPath ParentPath => GetComponentInParent<IView>()?.Path ?? default;
+        private BindingPath _fullPath;
+        private BindingPath _parentPath;
+        public BindingPath Path
+        {
+            get
+            {
+                if (_fullPath.IsEmpty)
+                    _fullPath = ParentPath.IsEmpty ? (BindingPath) _path : ParentPath.BuildPath(_path);
+                return _fullPath;
+            }
+        }
+
+        public BindingPath ParentPath
+        {
+            get
+            {
+                if (_parentPath.IsEmpty)
+                    _parentPath = this.GetParentView()?.Path??string.Empty;
+                return _parentPath;
+            }
+        }
 
         #region Unity Events
 
@@ -31,6 +49,7 @@ namespace UIDataBind.Binders
         private void OnDisable()
         {
             _entity.Destroy();
+            _parentPath = _fullPath = string.Empty;
             Unbind();
         }
 
@@ -43,9 +62,8 @@ namespace UIDataBind.Binders
 
         #endregion
 
-        protected       void   SetDirty() => _entity.SetDirty();
-        protected void BroadcastEvent(ControlEvent type) => _entity.BroadcastEvent(type);
-        public override string ToString() => $"{name} ({GetType().Name}";
-
+        protected       void   SetDirty()                        => _entity.SetDirty();
+        protected       void   BroadcastEvent(ControlEvent type) => _entity.BroadcastEvent(type);
+        public override string ToString()                        => $"{name} ({GetType().Name}";
     }
 }

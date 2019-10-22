@@ -12,6 +12,8 @@ namespace UIDataBind.Base
 
         private BindingPath(string value) => _value = value;
 
+        public bool IsEmpty => string.IsNullOrEmpty(_value);
+
         public override string ToString() => $"Path[{_value}]";
 
         #region Oprators
