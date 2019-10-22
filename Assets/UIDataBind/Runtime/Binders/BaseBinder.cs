@@ -12,29 +12,16 @@ namespace UIDataBind.Binders
         private string _path;
 #pragma warning restore 649
 
-        private IEntityProvider _entity;
-
-
-        private BindingPath _fullPath;
         private BindingPath _parentPath;
+        private IEntityProvider _entity;
 
         public BindingPath Path
         {
             get
             {
-                if (_fullPath == BindingPath.Empty)
-                    _fullPath = BindingPath.BuildFrom(ParentPath, _path);
-                return _fullPath;
-            }
-        }
-
-        public BindingPath ParentPath
-        {
-            get
-            {
                 if (_parentPath == BindingPath.Empty)
                     _parentPath = this.GetParentView()?.Path ?? BindingPath.Empty;
-                return _parentPath;
+                return BindingPath.BuildFrom(_parentPath, _path);
             }
         }
 
@@ -49,7 +36,7 @@ namespace UIDataBind.Binders
         private void OnDisable()
         {
             _entity.Destroy();
-            _parentPath = _fullPath = BindingPath.Empty;
+            _parentPath = BindingPath.Empty;
             Unbind();
         }
 

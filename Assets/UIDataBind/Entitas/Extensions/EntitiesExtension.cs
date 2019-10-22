@@ -12,8 +12,13 @@ namespace UIDataBind.Entitas.Extensions
             entity.hasBinderPath && entity.binderPath.Value == BindingPath.BuildFrom(model, property)
                                   && entity.hasEvent && (entity.@event.Value & type) != 0x0;
 
-        public static bool IsChildOf(this UiBindEntity entity, BindingPath model) =>
-            entity.hasParentModel && entity.parentModel.Path == model;
-
+        public static bool IsChildOf(this UiBindEntity entity, BindingPath model)
+        {
+            if (entity.hasBinderPath)
+                return BindingPath.GetParent(entity.binderPath.Value) == model;
+            if (entity.hasModelPath)
+                return BindingPath.GetParent(entity.modelPath.Value) == model;
+            return false;
+        }
     }
 }
