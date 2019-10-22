@@ -2,7 +2,8 @@
     "name": "Editor.UIDataBind.Tests",
     "references": [
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Unity.UIDataBind"
     ],
     "includePlatforms": [
         "Editor"
@@ -13,7 +14,7 @@
     "precompiledReferences": [
         "nunit.framework.dll"
     ],
-    "autoReferenced": false,
+    "autoReferenced": true,
     "defineConstraints": [
         "UNITY_INCLUDE_TESTS"
     ],

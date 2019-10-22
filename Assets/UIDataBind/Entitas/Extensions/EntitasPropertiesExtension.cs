@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using UIDataBind.Base;
 using UIDataBind.Base.Extensions;
-using UIDataBind.Entitas.Wrappers;
+using UIDataBind.Runtime.Base.Extensions;
 using UIDataBind.Utils.Extensions;
 
 namespace UIDataBind.Entitas.Extensions

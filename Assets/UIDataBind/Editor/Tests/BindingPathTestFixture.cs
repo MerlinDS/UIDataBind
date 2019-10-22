@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using UIDataBind.Base;
 
 namespace UIDataBind.Editor.Tests
 {
@@ -10,7 +11,7 @@ namespace UIDataBind.Editor.Tests
         [Test]
         public void EqualsTest()
         {
-
+            
             // ReSharper disable EqualExpressionComparison
             Assert.That(BPath.Empty == BPath.Empty, Is.True);
             Assert.That(BPath.Empty != BPath.Empty, Is.False);

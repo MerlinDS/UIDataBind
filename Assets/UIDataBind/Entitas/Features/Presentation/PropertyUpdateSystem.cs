@@ -8,6 +8,7 @@ using UIDataBind.Base.Extensions;
 using UIDataBind.Converters;
 using UIDataBind.Entitas.Components;
 using UIDataBind.Entitas.Extensions;
+using UIDataBind.Runtime.Base.Extensions;
 
 namespace UIDataBind.Entitas.Features.Presentation
 {

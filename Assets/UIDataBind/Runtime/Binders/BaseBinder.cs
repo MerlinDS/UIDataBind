@@ -1,6 +1,7 @@
 using UIDataBind.Base;
 using UIDataBind.Base.Extensions;
 using UIDataBind.Binders.Extensions;
+using UIDataBind.Runtime.Base.Extensions;
 using UIDataBind.Utils.Extensions;
 using UnityEngine;
 

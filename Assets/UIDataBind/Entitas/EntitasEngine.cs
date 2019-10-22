@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Entitas;
+using JetBrains.Annotations;
 using UIDataBind.Base;
 using UIDataBind.Base.Components;
 using UIDataBind.Converters;
 using UIDataBind.Entitas.Extensions;
-using UIDataBind.Entitas.Wrappers;
 
 namespace UIDataBind.Entitas
 {
-    public class EntitasEngine : IECSEngine
+    [UsedImplicitly]
+    public sealed class EntitasEngine : IECSEngine
     {
         private readonly UiBindContext _context;
         private readonly Type[] _propertyTypes;

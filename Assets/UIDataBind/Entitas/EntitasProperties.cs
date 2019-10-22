@@ -1,6 +1,6 @@
 using UIDataBind.Base;
 
-namespace UIDataBind.Entitas.Wrappers
+namespace UIDataBind.Entitas
 {
     public struct EntitasProperties : IProperties
     {
