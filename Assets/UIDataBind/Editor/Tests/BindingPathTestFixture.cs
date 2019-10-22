@@ -13,44 +13,44 @@ namespace UIDataBind.Editor.Tests
         {
             
             // ReSharper disable EqualExpressionComparison
-            Assert.That(BPath.Empty == BPath.Empty, Is.True);
-            Assert.That(BPath.Empty != BPath.Empty, Is.False);
-            Assert.That(BPath.BuildFrom("Test") == BPath.BuildFrom("Test"), Is.True);
-            Assert.That(BPath.BuildFrom("Test") != BPath.BuildFrom("Other"), Is.True);
+            Assert.That(BindingPath.Empty == BindingPath.Empty, Is.True);
+            Assert.That(BindingPath.Empty != BindingPath.Empty, Is.False);
+            Assert.That(BindingPath.BuildFrom("Test") == BindingPath.BuildFrom("Test"), Is.True);
+            Assert.That(BindingPath.BuildFrom("Test") != BindingPath.BuildFrom("Other"), Is.True);
             // ReSharper restore EqualExpressionComparison
-            Assert.That(BPath.BuildFrom("Test"), Is.EqualTo(BPath.BuildFrom("Test")));
-            Assert.That(BPath.BuildFrom("Test"), Is.Not.EqualTo(BPath.BuildFrom("Other")));
+            Assert.That(BindingPath.BuildFrom("Test"), Is.EqualTo(BindingPath.BuildFrom("Test")));
+            Assert.That(BindingPath.BuildFrom("Test"), Is.Not.EqualTo(BindingPath.BuildFrom("Other")));
 
-            Assert.That(BPath.BuildFrom("Other").CompareTo(BPath.BuildFrom("Test")), Is.EqualTo(1));
-            Assert.That(BPath.BuildFrom("Test").CompareTo(BPath.BuildFrom("Other")), Is.EqualTo(-1));
-            Assert.That(BPath.BuildFrom("Test").CompareTo(BPath.BuildFrom("Test")), Is.EqualTo(0));
+            Assert.That(BindingPath.BuildFrom("Other").CompareTo(BindingPath.BuildFrom("Test")), Is.EqualTo(1));
+            Assert.That(BindingPath.BuildFrom("Test").CompareTo(BindingPath.BuildFrom("Other")), Is.EqualTo(-1));
+            Assert.That(BindingPath.BuildFrom("Test").CompareTo(BindingPath.BuildFrom("Test")), Is.EqualTo(0));
 
-            Assert.That(BPath.BuildFrom("Test").GetHashCode(), Is.Not.EqualTo(0));
+            Assert.That(BindingPath.BuildFrom("Test").GetHashCode(), Is.Not.EqualTo(0));
 
         }
 
         [Test]
         public void BuildingExceptionsTest()
         {
-            Assert.Throws<ArgumentException>(() => BPath.BuildFrom("Test", string.Empty));
-            Assert.Throws<ArgumentException>(() => BPath.BuildFrom(string.Empty, "Test"));
-            Assert.Throws<ArgumentException>(() => BPath.BuildFrom(string.Empty));
-            Assert.Throws<ArgumentException>(() => BPath.BuildFrom(BPath.Empty, string.Empty));
-            Assert.Throws<ArgumentException>(() => BPath.BuildFrom(BPath.BuildFrom("Test"), string.Empty));
+            Assert.Throws<ArgumentException>(() => BindingPath.BuildFrom("Test", string.Empty));
+            Assert.Throws<ArgumentException>(() => BindingPath.BuildFrom(string.Empty, "Test"));
+            Assert.Throws<ArgumentException>(() => BindingPath.BuildFrom(string.Empty));
+            Assert.Throws<ArgumentException>(() => BindingPath.BuildFrom(BindingPath.Empty, string.Empty));
+            Assert.Throws<ArgumentException>(() => BindingPath.BuildFrom(BindingPath.BuildFrom("Test"), string.Empty));
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => BPath.BuildFrom(GetStrings(BPath.MaxLength + 1)));
-            var parent = BPath.BuildFrom(GetStrings(BPath.MaxLength - 1));
-            Assert.Throws<ArgumentOutOfRangeException>(() => BPath.BuildFrom(parent, GetStrings(2)));
+            Assert.Throws<ArgumentOutOfRangeException>(() => BindingPath.BuildFrom(GetStrings(BindingPath.MaxLength + 1)));
+            var parent = BindingPath.BuildFrom(GetStrings(BindingPath.MaxLength - 1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => BindingPath.BuildFrom(parent, GetStrings(2)));
         }
 
         [Test]
         public void BuildingTest()
         {
-            Assert.That(BPath.Empty.Lenght, Is.EqualTo(0));
-            for (var i = 1; i < BPath.MaxLength; i++)
+            Assert.That(BindingPath.Empty.Lenght, Is.EqualTo(0));
+            for (var i = 1; i < BindingPath.MaxLength; i++)
             {
                 var strings = GetStrings(i);
-                var path = BPath.BuildFrom(strings);
+                var path = BindingPath.BuildFrom(strings);
                 Assert.That(path.Lenght, Is.EqualTo(i));
                 Assert.That(path.ToString(), Is.EqualTo(strings.Aggregate((a, b) => $"{a}.{b}")));
             }
@@ -59,12 +59,12 @@ namespace UIDataBind.Editor.Tests
         [Test]
         public void BuildingFromParentTest()
         {
-            var path = BPath.Empty;
+            var path = BindingPath.Empty;
             var expString = string.Empty;
-            for (var i = 1; i < BPath.MaxLength; i++)
+            for (var i = 1; i < BindingPath.MaxLength; i++)
             {
                 var str = i.ToString();
-                path = BPath.BuildFrom(path, str);
+                path = BindingPath.BuildFrom(path, str);
                 expString += i > 1 ? $".{str}" : str;
                 Assert.That(path.Lenght, Is.EqualTo(i));
                 Assert.That(path.ToString(), Is.EqualTo(expString));
@@ -74,12 +74,12 @@ namespace UIDataBind.Editor.Tests
         [Test]
         public void GetParentTest()
         {
-            var strings = GetStrings(BPath.MaxLength);
-            var path = BPath.BuildFrom(strings);
+            var strings = GetStrings(BindingPath.MaxLength);
+            var path = BindingPath.BuildFrom(strings);
             var i = path.Lenght;
             while (--i > 0)
             {
-                path = BPath.GetParent(path);
+                path = BindingPath.GetParent(path);
                 Assert.That(path.Lenght, Is.EqualTo(i));
                 Assert.That(path.ToString(), Is.EqualTo(GetStrings(i).Aggregate((a, b) => $"{a}.{b}")));
             }

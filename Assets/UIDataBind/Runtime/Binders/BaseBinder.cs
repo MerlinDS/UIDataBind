@@ -17,19 +17,19 @@ namespace UIDataBind.Binders
         private IEntityProvider _entity;
 
 
-        private BindingPath _fullPath;
-        private BindingPath _parentPath;
-        public BindingPath Path
+        private OldBindingPath _fullPath;
+        private OldBindingPath _parentPath;
+        public OldBindingPath Path
         {
             get
             {
                 if (_fullPath.IsEmpty)
-                    _fullPath = ParentPath.IsEmpty ? (BindingPath) _path : ParentPath.BuildPath(_path);
+                    _fullPath = ParentPath.IsEmpty ? (OldBindingPath) _path : ParentPath.BuildPath(_path);
                 return _fullPath;
             }
         }
 
-        public BindingPath ParentPath
+        public OldBindingPath ParentPath
         {
             get
             {

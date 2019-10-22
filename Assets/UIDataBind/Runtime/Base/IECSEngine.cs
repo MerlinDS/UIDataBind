@@ -10,11 +10,11 @@ namespace UIDataBind.Base
     public interface IECSEngine
     {
         IEntityProvider CreateBinderEntity(IBinder binder);
-        void CreateModelEntity(BindingPath bindingPath);
-        void CreateProperty(BindingPath propertyPath);
-        bool HasProperty<TValue>(BindingPath propertyName);
-        void SetProperty<TValue>(BindingPath propertyPath, TValue value);
-        TValue GetPropertyValue<TValue>(BindingPath propertyPath);
+        void CreateModelEntity(OldBindingPath bindingPath);
+        void CreateProperty(OldBindingPath propertyPath);
+        bool HasProperty<TValue>(OldBindingPath propertyName);
+        void SetProperty<TValue>(OldBindingPath propertyPath, TValue value);
+        TValue GetPropertyValue<TValue>(OldBindingPath propertyPath);
 
         int GetPropertyIndex<TValue>();
 

@@ -9,9 +9,9 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
     public class SampleViewHoveredSystem : ReactiveSystem<UiBindEntity>
     {
         private readonly UiBindContext _context;
-        private readonly BindingPath _modelPath;
+        private readonly OldBindingPath _modelPath;
 
-        public SampleViewHoveredSystem(UiBindContext context, BindingPath modelPath) : base(context)
+        public SampleViewHoveredSystem(UiBindContext context, OldBindingPath modelPath) : base(context)
         {
             _context = context;
             _modelPath = modelPath;

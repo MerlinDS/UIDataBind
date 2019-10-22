@@ -6,7 +6,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
     {
         public UIFeature(Contexts contexts)
         {
-            BindingPath path = "SampleView";
+            OldBindingPath path = "SampleView";
             Add(new InitializeSampleViewSystem(contexts.uiBind, path));
             Add(new SampleViewClickedSystem(contexts.uiBind, path));
             Add(new SampleViewHoveredSystem(contexts.uiBind, path));

@@ -11,14 +11,14 @@ public partial class UiBindEntity {
     public UIDataBind.Entitas.Components.ParentModel parentModel { get { return (UIDataBind.Entitas.Components.ParentModel)GetComponent(UiBindComponentsLookup.ParentModel); } }
     public bool hasParentModel { get { return HasComponent(UiBindComponentsLookup.ParentModel); } }
 
-    public void AddParentModel(UIDataBind.Base.BindingPath newPath) {
+    public void AddParentModel(UIDataBind.Base.OldBindingPath newPath) {
         var index = UiBindComponentsLookup.ParentModel;
         var component = (UIDataBind.Entitas.Components.ParentModel)CreateComponent(index, typeof(UIDataBind.Entitas.Components.ParentModel));
         component.Path = newPath;
         AddComponent(index, component);
     }
 
-    public void ReplaceParentModel(UIDataBind.Base.BindingPath newPath) {
+    public void ReplaceParentModel(UIDataBind.Base.OldBindingPath newPath) {
         var index = UiBindComponentsLookup.ParentModel;
         var component = (UIDataBind.Entitas.Components.ParentModel)CreateComponent(index, typeof(UIDataBind.Entitas.Components.ParentModel));
         component.Path = newPath;

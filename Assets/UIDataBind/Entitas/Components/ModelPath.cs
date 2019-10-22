@@ -8,7 +8,7 @@ namespace UIDataBind.Entitas.Components
     public struct ModelPath : IComponent
     {
         [PrimaryEntityIndex]
-        public Base.BindingPath Value;
+        public Base.OldBindingPath Value;
 
         public override string ToString() => Value;
     }

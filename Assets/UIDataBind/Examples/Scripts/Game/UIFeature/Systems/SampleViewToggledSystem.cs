@@ -9,9 +9,9 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
     public class SampleViewToggledSystem : ReactiveSystem<UiBindEntity>
     {
         private readonly UiBindContext _context;
-        private readonly BindingPath _modelPath;
+        private readonly OldBindingPath _modelPath;
 
-        public SampleViewToggledSystem(UiBindContext context, BindingPath modelPath) : base(context)
+        public SampleViewToggledSystem(UiBindContext context, OldBindingPath modelPath) : base(context)
         {
             _context = context;
             _modelPath = modelPath;

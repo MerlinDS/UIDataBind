@@ -7,7 +7,7 @@ namespace UIDataBind.Entitas.Components
     public class BinderPath : IComponent
     {
         [EntityIndex]
-        public Base.BindingPath Value;
+        public Base.OldBindingPath Value;
 
         public override string ToString() => Value;
     }
