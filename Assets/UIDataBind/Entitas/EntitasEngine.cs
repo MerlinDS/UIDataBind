@@ -65,13 +65,13 @@ namespace UIDataBind.Entitas
             return new EntitasProvider(entity);
         }
 
-        public void CreateModelEntity(OldBindingPath bindingPath)
+        public void CreateModelEntity(BindingPath bindingPath)
         {
             if (_context.GetEntityWithModelPath(bindingPath) == null)
                 CreateEntity(bindingPath).isModel = true;
         }
 
-        public void CreateProperty(OldBindingPath propertyPath)
+        public void CreateProperty(BindingPath propertyPath)
         {
             var entity = _context.GetEntityWithModelPath(propertyPath);
             if (entity != null)
@@ -80,10 +80,10 @@ namespace UIDataBind.Entitas
             CreateEntity(propertyPath).isProperty = true;
         }
 
-        public bool HasProperty<TValue>(OldBindingPath propertyName) =>
+        public bool HasProperty<TValue>(BindingPath propertyName) =>
             _context.GetEntityWithModelPath(propertyName)?.HasComponent(GetPropertyIndex<TValue>()) ?? false;
 
-        public void SetProperty<TValue>(OldBindingPath propertyPath, TValue value)
+        public void SetProperty<TValue>(BindingPath propertyPath, TValue value)
         {
             var entity = GetModeEntity(propertyPath);
             var typeIndex = GetPropertyTypeIndex<TValue>();
@@ -100,7 +100,7 @@ namespace UIDataBind.Entitas
             ((UiBindEntity) entity).isDirty = true;
         }
 
-        public TValue GetPropertyValue<TValue>(OldBindingPath propertyPath)
+        public TValue GetPropertyValue<TValue>(BindingPath propertyPath)
         {
             var entity = GetModeEntity(propertyPath);
             var index = GetPropertyTypeIndex<TValue>();
@@ -115,7 +115,7 @@ namespace UIDataBind.Entitas
             Array.IndexOf(_propertyTypes, typeof(TValue));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private UiBindEntity CreateEntity(OldBindingPath path)
+        private UiBindEntity CreateEntity(BindingPath path)
         {
             var entity = _context.CreateEntity();
             entity.AddModelPath(path);
@@ -123,7 +123,7 @@ namespace UIDataBind.Entitas
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private IEntity GetModeEntity(OldBindingPath path)
+        private IEntity GetModeEntity(BindingPath path)
         {
             var entity = _context.GetEntityWithModelPath(path);
             if (entity == null)

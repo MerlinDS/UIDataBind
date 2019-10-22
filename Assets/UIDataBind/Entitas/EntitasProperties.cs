@@ -4,11 +4,11 @@ namespace UIDataBind.Entitas
 {
     public struct EntitasProperties : IProperties
     {
-        public OldBindingPath ModelPath { get; }
+        public BindingPath ModelPath { get; }
         public RefreshType RefreshType { get; set; }
-        public OldBindingPath[] Filter { get; set; }
+        public BindingPath[] Filter { get; set; }
 
-        public EntitasProperties(OldBindingPath modelPath)
+        public EntitasProperties(BindingPath modelPath)
         {
             ModelPath = modelPath;
             RefreshType = RefreshType.None;

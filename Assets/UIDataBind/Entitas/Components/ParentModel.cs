@@ -1,12 +1,13 @@
+using System;
 using Entitas;
 using UIDataBind.Base;
 
 namespace UIDataBind.Entitas.Components
 {
-    [UiBind]
+    [UiBind][Obsolete("Use BindingPath to get parent path")]
     public struct ParentModel: IBindingPathProvider, IComponent
     {
-        public Base.OldBindingPath Path { get; set; }
+        public BindingPath Path { get; set; }
 
         public override string ToString() => $"Parent{Path}";
     }

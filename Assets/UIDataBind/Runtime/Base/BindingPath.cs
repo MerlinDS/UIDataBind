@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using JetBrains.Annotations;
@@ -34,6 +33,9 @@ namespace UIDataBind.Base
 
         private BindingPath(int[] args)
         {
+            if(args.Length > MaxLength)
+                throw new ArgumentOutOfRangeException($"Can't build {nameof(BindingPath)} with args count more that BPath.MaxLength!");
+
             _a = args.Length > 0 ? args[0] : 0;
             _b = args.Length > 1 ? args[1] : 0;
             _c = args.Length > 2 ? args[2] : 0;
@@ -53,25 +55,23 @@ namespace UIDataBind.Base
 
         #region Public Static API
 
-        public static BindingPath BuildFrom(params string[] args)
-        {
-            if(args.Length > MaxLength)
-                ThrowOutOfRange();
-            return new BindingPath(args.Select(ConvertToHash).ToArray());
-        }
+        public static implicit operator BindingPath(string path)
+            => BuildFrom(path);
+        public static BindingPath BuildFrom(params string[] args) =>
+            new BindingPath(args.Select(ConvertToHash).ToArray());
+
+        public static BindingPath BuildFrom(params BindingPath[] args) =>
+            args.Length == 0 ? Empty : new BindingPath(args.SelectMany(x => x.ToEnumerable()).ToArray());
 
         public static BindingPath BuildFrom(BindingPath parent, params string[] args)
         {
             if (parent._length == 0)
                 return BuildFrom(args);
 
-            var length = parent.Lenght + args.Length;
-            if(length > MaxLength)
-                ThrowOutOfRange();
-
+            var length = parent.Length + args.Length;
             var childArgs = new int[length];
             for (var i = 0; i < length; i++)
-                childArgs[i] = i < parent.Lenght ? parent.GetElement(i) : ConvertToHash(args[i - parent.Lenght]);
+                childArgs[i] = i < parent.Length ? parent.GetElement(i) : ConvertToHash(args[i - parent.Length]);
             return new BindingPath(childArgs);
         }
 
@@ -90,7 +90,7 @@ namespace UIDataBind.Base
 
         #region Public API
 
-        public short Lenght => _length;
+        public short Length => _length;
 
         public override int GetHashCode()
         {
@@ -109,6 +109,12 @@ namespace UIDataBind.Base
                 hashCode = (hashCode * 397) ^ _k;
                 return hashCode;
             }
+        }
+
+        public IEnumerable<int> ToEnumerable()
+        {
+            for (var i = 0; i < _length; i++)
+                yield return GetElement(i);
         }
         public override string ToString()
         {
@@ -193,10 +199,6 @@ namespace UIDataBind.Base
         #endregion
 
         #region Helpers
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void ThrowOutOfRange() =>
-            throw new ArgumentOutOfRangeException($"Can't build {nameof(BindingPath)} with args count more that BPath.MaxLength!");
 
         private int GetElement(int index)
         {

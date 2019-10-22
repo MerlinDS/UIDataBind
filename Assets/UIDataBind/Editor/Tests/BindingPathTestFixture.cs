@@ -46,12 +46,12 @@ namespace UIDataBind.Editor.Tests
         [Test]
         public void BuildingTest()
         {
-            Assert.That(BindingPath.Empty.Lenght, Is.EqualTo(0));
+            Assert.That(BindingPath.Empty.Length, Is.EqualTo(0));
             for (var i = 1; i < BindingPath.MaxLength; i++)
             {
                 var strings = GetStrings(i);
                 var path = BindingPath.BuildFrom(strings);
-                Assert.That(path.Lenght, Is.EqualTo(i));
+                Assert.That(path.Length, Is.EqualTo(i));
                 Assert.That(path.ToString(), Is.EqualTo(strings.Aggregate((a, b) => $"{a}.{b}")));
             }
         }
@@ -66,7 +66,7 @@ namespace UIDataBind.Editor.Tests
                 var str = i.ToString();
                 path = BindingPath.BuildFrom(path, str);
                 expString += i > 1 ? $".{str}" : str;
-                Assert.That(path.Lenght, Is.EqualTo(i));
+                Assert.That(path.Length, Is.EqualTo(i));
                 Assert.That(path.ToString(), Is.EqualTo(expString));
             }
         }
@@ -76,11 +76,11 @@ namespace UIDataBind.Editor.Tests
         {
             var strings = GetStrings(BindingPath.MaxLength);
             var path = BindingPath.BuildFrom(strings);
-            var i = path.Lenght;
+            var i = path.Length;
             while (--i > 0)
             {
                 path = BindingPath.GetParent(path);
-                Assert.That(path.Lenght, Is.EqualTo(i));
+                Assert.That(path.Length, Is.EqualTo(i));
                 Assert.That(path.ToString(), Is.EqualTo(GetStrings(i).Aggregate((a, b) => $"{a}.{b}")));
             }
         }

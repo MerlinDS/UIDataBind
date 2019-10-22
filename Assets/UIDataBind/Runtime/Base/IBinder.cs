@@ -14,6 +14,6 @@ namespace UIDataBind.Base
     }
     public interface IBinder : IBindingPathProvider, IEngineProvider
     {
-        OldBindingPath ParentPath { get; }
+        BindingPath ParentPath { get; }
     }
 }

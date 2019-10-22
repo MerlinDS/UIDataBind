@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using UIDataBind.Base;
-using UIDataBind.Base.Extensions;
 using UIDataBind.Runtime.Base.Extensions;
 using UIDataBind.Utils.Extensions;
 
@@ -11,13 +10,13 @@ namespace UIDataBind.Entitas.Extensions
 {
     public static class EntitasPropertiesExtension
     {
-        private static readonly Dictionary<OldBindingPath, IProperties> PropertiesCache =
-            new Dictionary<OldBindingPath, IProperties>();
+        private static readonly Dictionary<BindingPath, IProperties> PropertiesCache =
+            new Dictionary<BindingPath, IProperties>();
 
-        private static readonly Dictionary<OldBindingPath, IViewModel> ModelsCache =
-            new Dictionary<OldBindingPath, IViewModel>();
+        private static readonly Dictionary<BindingPath, IViewModel> ModelsCache =
+            new Dictionary<BindingPath, IViewModel>();
 
-        public static IProperties GetProperties(this IEngineProvider engineProvider, OldBindingPath modelPath)
+        public static IProperties GetProperties(this IEngineProvider engineProvider, BindingPath modelPath)
         {
             if (PropertiesCache.ContainsKey(modelPath))
                 return PropertiesCache[modelPath];
@@ -28,7 +27,7 @@ namespace UIDataBind.Entitas.Extensions
         }
 
         [UsedImplicitly, MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void InitModel(this IEngineProvider engineProvider, OldBindingPath modelPath, IViewModel model) =>
+        public static void InitModel(this IEngineProvider engineProvider, BindingPath modelPath, IViewModel model) =>
             engineProvider.GetProperties(modelPath).Fetch(ModelsCache.Replace(modelPath, model));
 
         [UsedImplicitly, MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -36,7 +35,7 @@ namespace UIDataBind.Entitas.Extensions
             properties.Fetch(ModelsCache.Replace(properties.ModelPath, model));
 
         [UsedImplicitly]
-        public static TViewModel GetModel<TViewModel>(this IProperties properties, params OldBindingPath[] filter)
+        public static TViewModel GetModel<TViewModel>(this IProperties properties, params BindingPath[] filter)
             where TViewModel : struct, IViewModel
         {
             if (!ModelsCache.ContainsKey(properties.ModelPath))
@@ -50,7 +49,7 @@ namespace UIDataBind.Entitas.Extensions
         }
 
         [UsedImplicitly]
-        public static IViewModel Update(this IProperties properties, IViewModel model, params OldBindingPath[] filter)
+        public static IViewModel Update(this IProperties properties, IViewModel model, params BindingPath[] filter)
         {
             properties.Filter = filter;
             properties.RefreshType = RefreshType.Update;
@@ -61,7 +60,7 @@ namespace UIDataBind.Entitas.Extensions
         }
 
         [UsedImplicitly]
-        public static void Fetch(this IProperties properties, IViewModel model, params OldBindingPath[] filter)
+        public static void Fetch(this IProperties properties, IViewModel model, params BindingPath[] filter)
         {
             properties.Filter = filter;
             properties.RefreshType = RefreshType.Fetch;
@@ -71,7 +70,7 @@ namespace UIDataBind.Entitas.Extensions
         }
 
         public static void RefreshProperty<TValue>(this IProperties properties,
-            OldBindingPath propertyName, ref TValue value)
+            BindingPath propertyName, ref TValue value)
         {
             if (!properties.IsFiltered(propertyName))
                 return;
@@ -106,11 +105,11 @@ namespace UIDataBind.Entitas.Extensions
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static OldBindingPath BuildPath(this IProperties properties, OldBindingPath propertyName)
-            => properties.ModelPath.BuildPath(propertyName);
+        private static BindingPath BuildPath(this IProperties properties, BindingPath propertyName)
+            => BindingPath.BuildFrom(properties.ModelPath, propertyName);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool IsFiltered(this IProperties properties, OldBindingPath propertyName) =>
+        private static bool IsFiltered(this IProperties properties, BindingPath propertyName) =>
             properties.RefreshType != RefreshType.None &&
             (!(properties.Filter?.Length > 0) || Array.IndexOf(properties.Filter, propertyName) >= 0);
     }

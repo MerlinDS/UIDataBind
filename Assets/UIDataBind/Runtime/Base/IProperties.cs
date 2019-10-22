@@ -2,8 +2,8 @@ namespace UIDataBind.Base
 {
     public interface IProperties: IEngineProvider
     {
-        OldBindingPath ModelPath { get; }
+        BindingPath ModelPath { get; }
         RefreshType RefreshType { get; set; }
-        OldBindingPath[] Filter { get; set; }
+        BindingPath[] Filter { get; set; }
     }
 }

@@ -1,8 +1,6 @@
 using UIDataBind.Base;
-using UIDataBind.Base.Extensions;
 using UIDataBind.Binders.Extensions;
 using UIDataBind.Runtime.Base.Extensions;
-using UIDataBind.Utils.Extensions;
 using UnityEngine;
 
 namespace UIDataBind.Binders
@@ -17,24 +15,25 @@ namespace UIDataBind.Binders
         private IEntityProvider _entity;
 
 
-        private OldBindingPath _fullPath;
-        private OldBindingPath _parentPath;
-        public OldBindingPath Path
+        private BindingPath _fullPath;
+        private BindingPath _parentPath;
+
+        public BindingPath Path
         {
             get
             {
-                if (_fullPath.IsEmpty)
-                    _fullPath = ParentPath.IsEmpty ? (OldBindingPath) _path : ParentPath.BuildPath(_path);
+                if (_fullPath == BindingPath.Empty)
+                    _fullPath = BindingPath.BuildFrom(ParentPath, _path);
                 return _fullPath;
             }
         }
 
-        public OldBindingPath ParentPath
+        public BindingPath ParentPath
         {
             get
             {
-                if (_parentPath.IsEmpty)
-                    _parentPath = this.GetParentView()?.Path??string.Empty;
+                if (_parentPath == BindingPath.Empty)
+                    _parentPath = this.GetParentView()?.Path ?? BindingPath.Empty;
                 return _parentPath;
             }
         }
@@ -50,7 +49,7 @@ namespace UIDataBind.Binders
         private void OnDisable()
         {
             _entity.Destroy();
-            _parentPath = _fullPath = string.Empty;
+            _parentPath = _fullPath = BindingPath.Empty;
             Unbind();
         }
 

@@ -11,9 +11,9 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
     public class SampleViewClickedSystem : ReactiveSystem<UiBindEntity>
     {
         private readonly UiBindContext _context;
-        private readonly OldBindingPath _modelPath;
+        private readonly BindingPath _modelPath;
 
-        public SampleViewClickedSystem(UiBindContext context, OldBindingPath modelPath) : base(context)
+        public SampleViewClickedSystem(UiBindContext context, BindingPath modelPath) : base(context)
         {
             _context = context;
             _modelPath = modelPath;

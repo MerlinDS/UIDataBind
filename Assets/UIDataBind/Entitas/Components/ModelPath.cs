@@ -1,15 +1,19 @@
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using UIDataBind.Base;
+using UIDataBind.Base.Components;
+using UIDataBind.Base.Extensions;
 
 namespace UIDataBind.Entitas.Components
 {
     [UiBind]
-    public struct ModelPath : IComponent
+    public struct ModelPath : IPathComponent, IComponent
     {
         [PrimaryEntityIndex]
-        public Base.OldBindingPath Value;
+        public BindingPath Value { get; set; }
 
-        public override string ToString() => Value;
+
+        public override string ToString() => this.ToHumanString();
+
     }
 }
