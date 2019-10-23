@@ -2,7 +2,7 @@ using UIDataBind.Base;
 
 namespace UIDataBind.Entitas
 {
-    public class EntitasProvider : IEntityProvider
+    internal class EntitasProvider : IEntityProvider
     {
         private readonly UiBindEntity _entity;
 

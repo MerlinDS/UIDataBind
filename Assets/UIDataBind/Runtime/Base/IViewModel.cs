@@ -5,6 +5,6 @@ namespace UIDataBind.Base
     /// </summary>
     public interface IViewModel
     {
-        void Refresh(ModelQuery query);
+        void Refresh(IProperties properties);
     }
 }

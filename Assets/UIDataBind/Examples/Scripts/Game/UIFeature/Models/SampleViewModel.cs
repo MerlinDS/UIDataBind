@@ -1,5 +1,4 @@
 using UIDataBind.Base;
-using UIDataBind.Entitas.Extensions;
 using UnityEngine;
 
 namespace UIDataBind.Examples.Game.UIFeature.Models
@@ -24,24 +23,24 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
         public string Label;
         public string HoveringAction;
 
-        public void Refresh(ModelQuery query)
+        public void Refresh(IProperties properties)
         {
-            query.Refresh(nameof(Clicked), ref Clicked);
-            query.Refresh(nameof(Hovered), ref Hovered);
-            query.Refresh(nameof(ColorClicked), ref ColorClicked);
+            properties.Refresh(nameof(Clicked), ref Clicked);
+            properties.Refresh(nameof(Hovered), ref Hovered);
+            properties.Refresh(nameof(ColorClicked), ref ColorClicked);
 
-            query.Refresh(nameof(ClickedCount), ref ClickedCount);
-            query.Refresh(nameof(HoveringAction), ref HoveringAction);
+            properties.Refresh(nameof(ClickedCount), ref ClickedCount);
+            properties.Refresh(nameof(HoveringAction), ref HoveringAction);
 
-            query.Refresh(nameof(Visible), ref Visible);
-            query.Refresh(nameof(Label), ref Label);
-            query.Refresh(nameof(Toggle), ref Toggle);
-            query.Refresh(nameof(ToggledCount), ref ToggledCount);
-            query.Refresh(nameof(Slider), ref Slider);
-            query.Refresh(nameof(Icon), ref Icon);
-            query.Refresh(nameof(Color), ref Color);
-            query.Refresh(nameof(Image), ref Image);
-
+            properties.Refresh(nameof(Visible), ref Visible);
+            properties.Refresh(nameof(Label), ref Label);
+            properties.Refresh(nameof(Toggle), ref Toggle);
+            properties.Refresh(nameof(ToggledCount), ref ToggledCount);
+            properties.Refresh(nameof(Slider), ref Slider);
+            properties.Refresh(nameof(Icon), ref Icon);
+            properties.Refresh(nameof(Color), ref Color);
+            properties.Refresh(nameof(Image), ref Image);
         }
+
     }
 }

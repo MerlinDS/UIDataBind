@@ -3,13 +3,13 @@ namespace UIDataBind.Base
     public struct ModelQuery : IEngineProvider
     {
         public readonly BindingPath Path;
-        public readonly QueryType QueryType;
+        public readonly QueryType Type;
         public readonly BindingPath[] Filter;
 
-        public ModelQuery(BindingPath modelPath, QueryType queryType, BindingPath[] filter = default)
+        public ModelQuery(BindingPath modelPath, QueryType type, BindingPath[] filter = default)
         {
             Path = modelPath;
-            QueryType = queryType;
+            Type = type;
             Filter = filter;
         }
     }

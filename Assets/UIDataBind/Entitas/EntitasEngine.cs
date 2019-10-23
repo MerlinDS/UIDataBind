@@ -13,16 +13,24 @@ using UIDataBind.Utils.Extensions;
 namespace UIDataBind.Entitas
 {
     [UsedImplicitly]
-    public sealed class EntitasEngine : IECSEngine
+    internal sealed class EntitasEngine : IECSEngine
     {
         private readonly UiBindContext _context;
-        private readonly Type[] _propertyTypes;
-        private readonly Type[] _componentTypes;
+        private readonly EntitasProperties _properties;
+
         private readonly int[] _propertyIndices;
+
+        public Type[] PropertyTypes { get; }
+
+        public Type[] ComponentTypes { get; }
+        public IConverters Converters { get; }
 
         public EntitasEngine()
         {
             _context = Contexts.sharedInstance.uiBind;
+            _properties = new EntitasProperties(this);
+            Converters = new Converters.Converters();
+
             var types = new List<Type>();
             var cTypes = new List<Type>();
             var indices = new List<int>();
@@ -40,21 +48,9 @@ namespace UIDataBind.Entitas
                 indices.Add(index);
             }
 
-            _propertyTypes = types.ToArray();
             _propertyIndices = indices.ToArray();
-            _componentTypes = cTypes.ToArray();
-            Converters = new Converters.Converters();
-        }
-
-        public IConverters Converters { get; }
-
-        public Type[] PropertyTypes => _propertyTypes;
-        public Type[] ComponentTypes => _componentTypes;
-
-        public int GetPropertyIndex<TValue>()
-        {
-            var index = GetPropertyTypeIndex<TValue>();
-            return index < 0 ? -1 : _propertyIndices[index];
+            PropertyTypes = types.ToArray();
+            ComponentTypes = cTypes.ToArray();
         }
 
         public IEntityProvider CreateBinderEntity(IBinder binder)
@@ -65,10 +61,12 @@ namespace UIDataBind.Entitas
             return new EntitasProvider(entity);
         }
 
-        public void CreateModelEntity(BindingPath bindingPath)
+        #region Properties
+
+        public int GetPropertyIndex<TValue>()
         {
-            if (_context.GetEntityWithModelPath(bindingPath) == null)
-                CreateEntity(bindingPath).isModel = true;
+            var index = GetPropertyTypeIndex<TValue>();
+            return index < 0 ? -1 : _propertyIndices[index];
         }
 
         public void CreateProperty(BindingPath propertyPath)
@@ -92,7 +90,7 @@ namespace UIDataBind.Entitas
 
             var index = _propertyIndices[typeIndex];
             var component = !entity.HasComponent(index)
-                ? entity.CreateComponent<TValue>(index, _componentTypes[typeIndex])
+                ? entity.CreateComponent<TValue>(index, ComponentTypes[typeIndex])
                 : entity.GetComponent<TValue>(index);
 
             component.Value = value;
@@ -108,11 +106,13 @@ namespace UIDataBind.Entitas
             return entity.HasComponent(index) ? entity.GetComponent<TValue>(index).Value : default;
         }
 
+        #endregion
+
         #region Helpers
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int GetPropertyTypeIndex<TValue>() =>
-            Array.IndexOf(_propertyTypes, typeof(TValue));
+            Array.IndexOf(PropertyTypes, typeof(TValue));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private UiBindEntity CreateEntity(BindingPath path)
@@ -132,6 +132,8 @@ namespace UIDataBind.Entitas
         }
 
         #endregion
+
+        #region Models Provider
 
         private static readonly Dictionary<BindingPath, IViewModel> ModelsCache =
             new Dictionary<BindingPath, IViewModel>();
@@ -157,15 +159,15 @@ namespace UIDataBind.Entitas
             return Apply((TViewModel)model, query);
         }
 
-        public TViewModel Apply<TViewModel>(TViewModel model, ModelQuery query) where TViewModel : struct, IViewModel
+        public TViewModel Apply<TViewModel>(TViewModel model, ModelQuery query)
+            where TViewModel : struct, IViewModel
         {
-            model.Refresh(query);
+            _properties.SetQuery(query);
+            model.Refresh(_properties);
             return model;
         }
+
+        #endregion
     }
 }
 
-public sealed partial class UiBindContext : IEngineProvider
-{
-
-}
