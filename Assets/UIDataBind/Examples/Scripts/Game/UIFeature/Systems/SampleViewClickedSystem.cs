@@ -28,14 +28,12 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
         protected override void Execute(List<UiBindEntity> entities)
         {
             //TODO: Add help
-            var properties = _context.GetProperties(_modelPath);
-            var viewModel = properties.GetModel<SampleViewModel>();
-
+            var viewModel = _context.GetModel<SampleViewModel>(_modelPath);
             viewModel.ClickedCount += viewModel.Clicked.IsInvoked() ? 1 : 0;
             if(viewModel.ColorClicked.IsInvoked())
                 viewModel.Color = viewModel.Color == Color.green ? Color.yellow : Color.green;
 
-            properties.Fetch(viewModel);
+            _context.Fetch(_modelPath, viewModel);
         }
 
     }

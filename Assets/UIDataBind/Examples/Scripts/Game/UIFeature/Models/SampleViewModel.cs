@@ -24,23 +24,23 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
         public string Label;
         public string HoveringAction;
 
-        public void Refresh(IProperties properties)
+        public void Refresh(ModelQuery query)
         {
-            properties.RefreshProperty(nameof(Clicked), ref Clicked);
-            properties.RefreshProperty(nameof(Hovered), ref Hovered);
-            properties.RefreshProperty(nameof(ColorClicked), ref ColorClicked);
+            query.Refresh(nameof(Clicked), ref Clicked);
+            query.Refresh(nameof(Hovered), ref Hovered);
+            query.Refresh(nameof(ColorClicked), ref ColorClicked);
 
-            properties.RefreshProperty(nameof(ClickedCount), ref ClickedCount);
-            properties.RefreshProperty(nameof(HoveringAction), ref HoveringAction);
+            query.Refresh(nameof(ClickedCount), ref ClickedCount);
+            query.Refresh(nameof(HoveringAction), ref HoveringAction);
 
-            properties.RefreshProperty(nameof(Visible), ref Visible);
-            properties.RefreshProperty(nameof(Label), ref Label);
-            properties.RefreshProperty(nameof(Toggle), ref Toggle);
-            properties.RefreshProperty(nameof(ToggledCount), ref ToggledCount);
-            properties.RefreshProperty(nameof(Slider), ref Slider);
-            properties.RefreshProperty(nameof(Icon), ref Icon);
-            properties.RefreshProperty(nameof(Color), ref Color);
-            properties.RefreshProperty(nameof(Image), ref Image);
+            query.Refresh(nameof(Visible), ref Visible);
+            query.Refresh(nameof(Label), ref Label);
+            query.Refresh(nameof(Toggle), ref Toggle);
+            query.Refresh(nameof(ToggledCount), ref ToggledCount);
+            query.Refresh(nameof(Slider), ref Slider);
+            query.Refresh(nameof(Icon), ref Icon);
+            query.Refresh(nameof(Color), ref Color);
+            query.Refresh(nameof(Image), ref Image);
 
         }
     }

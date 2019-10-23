@@ -8,6 +8,7 @@ using UIDataBind.Base;
 using UIDataBind.Base.Components;
 using UIDataBind.Converters;
 using UIDataBind.Entitas.Extensions;
+using UIDataBind.Utils.Extensions;
 
 namespace UIDataBind.Entitas
 {
@@ -131,9 +132,40 @@ namespace UIDataBind.Entitas
         }
 
         #endregion
+
+        private static readonly Dictionary<BindingPath, IViewModel> ModelsCache =
+            new Dictionary<BindingPath, IViewModel>();
+
+        public TViewModel Init<TViewModel>(TViewModel model, ModelQuery query) where TViewModel : struct, IViewModel
+        {
+            if (_context.GetEntityWithModelPath(query.Path) == null)
+                CreateEntity(query.Path).isModel = true;
+            ModelsCache.Replace(query.Path, model);
+            return Apply(model, query);
+        }
+
+        public TViewModel Get<TViewModel>(ModelQuery query) where TViewModel : struct, IViewModel
+        {
+            var path = query.Path;
+            if (!ModelsCache.ContainsKey(path))
+                ModelsCache.Add(path, Activator.CreateInstance<TViewModel>());
+
+            var model = ModelsCache[path];
+            if (!(model is TViewModel))
+                model = ModelsCache.Replace(path, Activator.CreateInstance<TViewModel>());
+
+            return Apply((TViewModel)model, query);
+        }
+
+        public TViewModel Apply<TViewModel>(TViewModel model, ModelQuery query) where TViewModel : struct, IViewModel
+        {
+            model.Refresh(query);
+            return model;
+        }
     }
 }
 
 public sealed partial class UiBindContext : IEngineProvider
 {
+
 }

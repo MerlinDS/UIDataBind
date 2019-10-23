@@ -8,10 +8,10 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
 {
     public class InitializeSampleViewSystem : IInitializeSystem
     {
-        private readonly IEngineProvider _context;
+        private readonly IContext<UiBindEntity> _context;
         private readonly BindingPath _path;
 
-        public InitializeSampleViewSystem(IEngineProvider context, BindingPath path)
+        public InitializeSampleViewSystem(IContext<UiBindEntity> context, BindingPath path)
         {
             _context = context;
             _path = path;

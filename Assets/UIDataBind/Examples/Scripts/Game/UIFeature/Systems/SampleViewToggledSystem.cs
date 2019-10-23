@@ -25,13 +25,10 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
 
         protected override void Execute(List<UiBindEntity> entities)
         {
-            //TODO: Add help 
-            var properties = _context.GetProperties(_modelPath);
-            var viewModel = properties.GetModel<SampleViewModel>(nameof(SampleViewModel.ToggledCount));
-
+            //TODO: Add help
+            var viewModel = _context.GetModel<SampleViewModel>(_modelPath, nameof(SampleViewModel.ToggledCount));
             viewModel.ToggledCount++;
-
-            properties.Fetch(viewModel, nameof(viewModel.ToggledCount));
+            _context.Fetch(_modelPath, viewModel, nameof(viewModel.ToggledCount));
         }
 
     }

@@ -1,6 +1,6 @@
 namespace UIDataBind.Base
 {
-    public enum RefreshType
+    public enum QueryType
     {
         None,
         Update,

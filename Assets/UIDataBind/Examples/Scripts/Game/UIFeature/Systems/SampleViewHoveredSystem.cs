@@ -27,13 +27,9 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
         protected override void Execute(List<UiBindEntity> entities)
         {
             //TODO: Add help
-            var properties = _context.GetProperties(_modelPath);
-            var viewModel = properties.GetModel<SampleViewModel>(nameof(SampleViewModel.Hovered));
-
+            var viewModel = _context.GetModel<SampleViewModel>(_modelPath, nameof(SampleViewModel.Hovered));
             viewModel.HoveringAction = $"{viewModel.Hovered}";
-
-            properties.Fetch(viewModel, nameof(SampleViewModel.HoveringAction));
+            _context.Fetch(_modelPath, viewModel, nameof(SampleViewModel.HoveringAction));
         }
-
     }
 }
