@@ -2,7 +2,6 @@ using System;
 using Entitas;
 using UIDataBind.Base;
 using UIDataBind.Base.Extensions;
-using UIDataBind.Runtime.Base.Extensions;
 
 namespace UIDataBind.Entitas.Features.Presentation
 {

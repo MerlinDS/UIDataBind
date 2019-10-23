@@ -1,5 +1,5 @@
 using UIDataBind.Base;
-using UIDataBind.Runtime.Base.Extensions;
+using UIDataBind.Base.Extensions;
 using UnityEngine;
 
 namespace UIDataBind.Entitas

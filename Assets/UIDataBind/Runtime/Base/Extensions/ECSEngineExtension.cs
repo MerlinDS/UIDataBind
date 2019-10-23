@@ -1,7 +1,6 @@
 using System;
-using UIDataBind.Base;
 
-namespace UIDataBind.Runtime.Base.Extensions
+namespace UIDataBind.Base.Extensions
 {
     public static class ECSEngineExtension
     {

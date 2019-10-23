@@ -1,7 +1,7 @@
 using System;
 using Entitas;
 using UIDataBind.Base;
-using UIDataBind.Runtime.Base.Extensions;
+using UIDataBind.Base.Extensions;
 
 namespace UIDataBind.Entitas.Extensions
 {
