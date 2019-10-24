@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UIDataBind.Base;
 using UIDataBind.Binders;
+using UIDataBind.Binders.Attributes;
 using UIDataBind.Binders.Extensions;
 using UIDataBind.Editor.Utils;
 using UnityEditor;
@@ -14,20 +15,23 @@ namespace UIDataBind.Editor
     {
         private SerializedProperty _type;
         private SerializedProperty _path;
-        private SerializedProperty _isAbsolute;
+        private SerializedProperty _bindingType;
 
         private bool _isView;
+        private bool _isChild;
         private Type _valueType;
+        protected BindingType BindingType => (BindingType) _bindingType.enumValueIndex;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             _type = serializedObject.FindProperty("_type");
             _path = serializedObject.FindProperty("_path");
-            _isAbsolute = serializedObject.FindProperty("_isAbsolute");
+            _bindingType = serializedObject.FindProperty("_bindingType");
 
             if (target is IValueBinder binder)
                 _valueType = binder.ValueType;
             _isView = target is IView;
+            _isChild = _isView && ((BaseBinder) target).GetParentView() != null;
         }
 
         public override void OnInspectorGUI()
@@ -35,42 +39,104 @@ namespace UIDataBind.Editor
             serializedObject.Update();
             if (_isView)
                 _type.stringValue = BinderGUILayout.Popup(_type.stringValue, EditorModelUtils.GetModelNames());
-            DrawPath(_isView);
+
+            DrawBindingType();
+
+            if (_isView || BindingType == BindingType.Absolute)
+                DrawPathAsText(_path, HelpBoxType.EmptyPathWarning);
+            else if (BindingType == BindingType.Context)
+                DrawPath();
+
 
             serializedObject.ApplyModifiedProperties();
-            serializedObject.DoDrawDefaultInspector(_path, _type, _isAbsolute);
+            serializedObject.DoDrawDefaultInspector();
         }
 
-        private void DrawPath(bool isView)
+        private void DrawBindingType()
         {
-            var noFieldsWarning = false;
-            var isAbsolute = _isAbsolute.boolValue;
+            if (_isView && !_isChild)
+            {
+                _bindingType.enumValueIndex = (int) BindingType.Context;
+                return;
+            }
+            var names = _bindingType.enumNames;
+            var currentName = names[_bindingType.enumValueIndex];
+            var displayOptions =
+                _isView
+                    ? names.Where(x => x != BindingType.Self.ToString()).ToArray()
+                    : names;
+
+            var selectedIndex = Array.IndexOf(displayOptions, currentName);
+            selectedIndex = EditorGUILayout.Popup(_type.displayName, selectedIndex, displayOptions);
+            var selectedOption = displayOptions[selectedIndex];
+            _bindingType.enumValueIndex = Array.IndexOf(names, selectedOption);
+        }
+
+        private void DrawPath()
+        {
+            if (string.IsNullOrEmpty(FullModelName))
+            {
+                DrawHelpBox(HelpBoxType.NoModelError);
+                return;
+            }
+
             var fieldInfos = EditorModelUtils.GetFields(FullModelName, _valueType);
-
-            if (!isView && fieldInfos.Length == 0)
-                noFieldsWarning = isAbsolute = true;
-
-            var displayName = _path.displayName;
-            if (isAbsolute)
-                displayName += "(absolute)";
-
-            if (noFieldsWarning)
-                EditorGUILayout.HelpBox(
-                    string.IsNullOrEmpty(FullModelName) ? "Has no model to bind" : "Model has no available properties",
-                    MessageType.Warning);
+            if (fieldInfos.Length == 0)
+            {
+                DrawHelpBox(HelpBoxType.NoPropertiesError);
+                DrawPathAsText(_path, HelpBoxType.AddPropertyInfo);
+                return;
+            }
 
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PrefixLabel(displayName);
-
-            if(!noFieldsWarning)
-                isAbsolute = EditorGUILayout.Toggle(isAbsolute, GUILayout.MaxWidth(20));
-            _path.stringValue = !isAbsolute && !isView
-                ? BinderGUILayout.Popup(_path.stringValue, fieldInfos.Select(x => x.Name))
-                : EditorGUILayout.TextField(_path.stringValue);
-
-            _isAbsolute.boolValue = isAbsolute;
-
+            _path.stringValue = BinderGUILayout.Popup(_path.displayName, _path.stringValue, fieldInfos.Select(x => x.Name));
             EditorGUILayout.EndHorizontal();
+        }
+
+        private void DrawPathAsText(SerializedProperty property, HelpBoxType helpBoxType)
+        {
+            EditorGUILayout.PropertyField(property);
+            if (string.IsNullOrEmpty(property.stringValue) && helpBoxType == HelpBoxType.EmptyPathWarning)
+                DrawHelpBox(HelpBoxType.EmptyPathWarning);
+            if (!string.IsNullOrEmpty(property.stringValue) && helpBoxType == HelpBoxType.AddPropertyInfo)
+                DrawHelpBox(HelpBoxType.AddPropertyInfo);
+        }
+
+        private enum HelpBoxType
+        {
+            NoModelError,
+            NoPropertiesError,
+            AddPropertyInfo,
+            EmptyPathWarning
+        }
+
+        private void DrawHelpBox(HelpBoxType type)
+        {
+            string message;
+            MessageType messageType;
+            switch (type)
+            {
+                case HelpBoxType.NoModelError:
+                    message = "Has no available model to bind!";
+                    messageType = MessageType.Error;
+                    break;
+                case HelpBoxType.NoPropertiesError:
+                    message = $"{FullModelName}\nHas no available properties for {target.GetType().Name}!";
+                    messageType = MessageType.Error;
+                    break;
+                case HelpBoxType.AddPropertyInfo:
+                    message = $"Add a \"{_path.stringValue}\" field with appropriate type to the model!";
+                    messageType = MessageType.Info;
+                    break;
+                case HelpBoxType.EmptyPathWarning:
+                    message = $"{_path.displayName} is empty!";
+                    messageType = MessageType.Warning;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+
+            EditorGUILayout.HelpBox(message, messageType);
         }
 
         private string FullModelName

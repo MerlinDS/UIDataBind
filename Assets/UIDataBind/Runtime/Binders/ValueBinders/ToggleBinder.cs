@@ -9,17 +9,17 @@ namespace UIDataBind.Binders.ValueBinders
     {
         protected override void Bind()
         {
-            base.Bind();
             Component.onValueChanged.AddListener(ComponentHandler);
         }
 
         protected override void Unbind()
         {
             Component.onValueChanged.RemoveAllListeners();
-            base.Unbind();
         }
 
-        protected override void UpdateValueHandler(bool value) =>
+        protected override void UpdateValueHandler(bool value)
+        {
             Component.SetIsOnWithoutNotify(value);
+        }
     }
 }

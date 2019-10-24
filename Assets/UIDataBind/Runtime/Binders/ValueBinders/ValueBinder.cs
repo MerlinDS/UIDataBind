@@ -7,6 +7,7 @@ namespace UIDataBind.Binders.ValueBinders
     public abstract class ValueBinder<T> : BaseBinder, IValueBinder<T>
     {
         [SerializeField]
+        [HideInInspector]
         private T _value;
 
 

@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using UIDataBind.Binders.Attributes;
 using UnityEditor;
 
 namespace UIDataBind.Editor.Utils
@@ -21,6 +23,14 @@ namespace UIDataBind.Editor.Utils
             }
             obj.ApplyModifiedProperties();
             return EditorGUI.EndChangeCheck();
+        }
+
+        public static ShowBinderValueAttribute GetShowBinderValueAttribute(this SerializedObject serializedObject)
+        {
+            var type = serializedObject.targetObject.GetType();
+            if(Attribute.IsDefined(type, typeof(ShowBinderValueAttribute)))
+                return (ShowBinderValueAttribute) Attribute.GetCustomAttribute(type, typeof(ShowBinderValueAttribute), true);
+            return null;
         }
     }
 }

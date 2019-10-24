@@ -1,4 +1,6 @@
 using System;
+using UIDataBind.Binders;
+using UIDataBind.Binders.Attributes;
 
 namespace UIDataBind.Base
 {
@@ -14,5 +16,6 @@ namespace UIDataBind.Base
     }
     public interface IBinder : IBindingPathProvider, IEngineProvider
     {
+        BindingType BindingType { get; }
     }
 }

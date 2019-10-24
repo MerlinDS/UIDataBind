@@ -6,6 +6,7 @@ namespace UIDataBind.Binders.ValueBinders
         where TComponent : Component
     {
         private TComponent _component;
+
         protected TComponent Component
         {
             get

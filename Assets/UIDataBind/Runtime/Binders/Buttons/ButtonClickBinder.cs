@@ -9,18 +9,19 @@ namespace UIDataBind.Binders.Buttons
     [RequireComponent(typeof(Button))]
     public class ButtonClickBinder : ValueToComponentBinder<Button, ControlEvent>
     {
-        protected override void Bind() =>
-            // ReSharper disable once Unity.NoNullPropagation
+        protected override void Bind()
+        {
             Component?.onClick.AddListener(InvokeAction);
+        }
 
 
-        protected override void Unbind() =>
-            // ReSharper disable once Unity.NoNullPropagation
+        protected override void Unbind()
+        {
             Component?.onClick.RemoveListener(InvokeAction);
+        }
 
         protected override void UpdateValueHandler(ControlEvent value)
         {
-
         }
 
         private void InvokeAction()
@@ -29,6 +30,4 @@ namespace UIDataBind.Binders.Buttons
             BroadcastEvent(ControlEvent.Click);
         }
     }
-
-
 }

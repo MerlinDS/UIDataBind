@@ -8,7 +8,10 @@ namespace UIDataBind.Editor.Utils
     {
         private const string EmptyOption = "None";
 
-        public static string Popup(string selected, IEnumerable<string> displayedOptions)
+        public static string Popup(string selected, IEnumerable<string> displayedOptions) =>
+            Popup(string.Empty, selected, displayedOptions);
+
+        public static string Popup(string label, string selected, IEnumerable<string> displayedOptions)
         {
             var s = selected;
             var options = displayedOptions.ToList();
@@ -21,12 +24,13 @@ namespace UIDataBind.Editor.Utils
                 selectedIndex = 0;
 
             EditorGUI.BeginChangeCheck();
-            var modelIndex = EditorGUILayout.Popup(selectedIndex, options.ToArray());
+            var modelIndex = EditorGUILayout.Popup(label, selectedIndex, options.ToArray());
             if (!EditorGUI.EndChangeCheck() || modelIndex < 0 || modelIndex >= options.Count)
                 return selected;
 
             selected = options[modelIndex];
             return selected == EmptyOption ? string.Empty : selected;
         }
+
     }
 }

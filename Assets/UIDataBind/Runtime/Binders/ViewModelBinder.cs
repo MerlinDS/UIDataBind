@@ -6,12 +6,10 @@ namespace UIDataBind.Binders
     {
         protected override void Bind()
         {
-
         }
 
         protected override void Unbind()
         {
-
         }
     }
 }

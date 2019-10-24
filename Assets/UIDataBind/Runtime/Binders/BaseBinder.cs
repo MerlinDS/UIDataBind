@@ -7,45 +7,80 @@ namespace UIDataBind.Binders
 {
     public abstract class BaseBinder : MonoBehaviour, IBinder
     {
-#pragma warning disable 649
-        [SerializeField, HideInInspector]
-        private string _type;
-        [SerializeField]
-        private string _path;
-        [SerializeField]
-        private bool _isAbsolute;
-#pragma warning restore 649
+        private IEntityProvider _entity;
 
         private BindingPath _fullPath;
-        private IEntityProvider _entity;
+
+        // ReSharper disable once ConvertToAutoProperty
+        public BindingType BindingType => _bindingType;
 
         public BindingPath Path
         {
             get
             {
+                if (BindingType == BindingType.Self && !(this is IView))
+                    return BindingPath.Empty;
+
                 if (_fullPath == BindingPath.Empty)
-                {
-                    _fullPath = !_isAbsolute
-                        ? BindingPath.BuildFrom((this.GetParentView()?.Path ?? BindingPath.Empty), _path)
-                        : BindingPath.BuildFrom(_path);
-                }
+                    _fullPath = BindingType == BindingType.Context ? GetContextPath() : GetAbsolutePath();
+
                 return _fullPath;
             }
         }
+
+        private BindingPath GetContextPath()
+        {
+            return BindingPath.BuildFrom(this.GetParentView()?.Path ?? BindingPath.Empty, _path);
+        }
+
+        private BindingPath GetAbsolutePath()
+        {
+            return string.IsNullOrEmpty(_path) ? BindingPath.Empty : BindingPath.BuildFrom(_path.Split('.'));
+        }
+
+        protected void SetDirty()
+        {
+            _entity?.SetDirty();
+        }
+
+        protected void BroadcastEvent(ControlEvent type)
+        {
+            _entity?.BroadcastEvent(type);
+        }
+
+        public override string ToString()
+        {
+            return $"{name} ({GetType().Name}";
+        }
+#pragma warning disable 649
+        [SerializeField]
+        [HideInInspector]
+        private BindingType _bindingType = BindingType.Context;
+
+        [SerializeField]
+        [HideInInspector]
+        // ReSharper disable once NotAccessedField.Local
+        private string _type;
+
+        [SerializeField]
+        [HideInInspector]
+        private string _path;
+#pragma warning restore 649
 
         #region Unity Events
 
         private void OnEnable()
         {
-            _entity = this.GetEngine().CreateBinderEntity(this);
+            if (BindingType != BindingType.Self)
+                _entity = this.GetEngine().CreateBinderEntity(this);
             Bind();
         }
 
         private void OnDisable()
         {
-            _entity.Destroy();
-            _fullPath = BindingPath.Empty;
             Unbind();
+            _entity?.Destroy();
+            _fullPath = BindingPath.Empty;
         }
 
         #endregion
@@ -56,14 +91,5 @@ namespace UIDataBind.Binders
         protected abstract void Unbind();
 
         #endregion
-
-        protected void SetDirty() =>
-            _entity.SetDirty();
-
-        protected void BroadcastEvent(ControlEvent type) =>
-            _entity.BroadcastEvent(type);
-
-        public override string ToString() =>
-            $"{name} ({GetType().Name}";
     }
 }

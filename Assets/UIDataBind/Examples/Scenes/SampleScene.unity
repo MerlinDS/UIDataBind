@@ -356,9 +356,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Label
-  _isAbsolute: 0
   _value: 
   _format: '{0}'
 --- !u!114 &170125553
@@ -578,9 +578,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de0901998174815af84df1c9e7adbc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Hovered
-  _isAbsolute: 0
   _value: 0
 --- !u!114 &424865504
 MonoBehaviour:
@@ -710,11 +710,116 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7886da558e6b441f81f5c1aee0c0bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Toggle
-  _isAbsolute: 0
   _value: 0
   _inverted: 0
+--- !u!1 &484504121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 484504122}
+  - component: {fileID: 484504125}
+  - component: {fileID: 484504124}
+  - component: {fileID: 484504123}
+  - component: {fileID: 484504126}
+  m_Layer: 5
+  m_Name: '[I]RawIcon'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &484504122
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484504121}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1533525353}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &484504123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484504121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba12d33fc434570be1b37a209bba337, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bindingType: 0
+  _type: 
+  _path: 
+  _value: {fileID: 0}
+  _texture: UIDataBind Raw Icon
+--- !u!114 &484504124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484504121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &484504125
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484504121}
+  m_CullTransparentMesh: 0
+--- !u!114 &484504126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484504121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dbdd32eec3f4085bb5957e4df2a8afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bindingType: 2
+  _type: 
+  _path: SampleView.Color
+  _value: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &539348067
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,9 +996,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e6b65da701c47c2ba0c946933de2913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Slider
-  _isAbsolute: 0
   _value: 0
   _broadcastChangeEvent: 0
 --- !u!1 &552209244
@@ -1021,8 +1126,10 @@ GameObject:
   - component: {fileID: 934562467}
   - component: {fileID: 934562466}
   - component: {fileID: 934562465}
+  - component: {fileID: 934562468}
+  - component: {fileID: 934562469}
   m_Layer: 5
-  m_Name: '[I]Backgorund'
+  m_Name: '[I]Icon'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1043,7 +1150,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1059,11 +1166,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3515144caa1a4d9b9c55587c961a451b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 0
   _type: 
-  _path: Icon
-  _isAbsolute: 1
+  _path: 
   _value: {fileID: 0}
-  _sprite: 
+  _sprite: UIDataBind Icon
 --- !u!114 &934562466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1078,13 +1185,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1100,6 +1207,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934562463}
   m_CullTransparentMesh: 0
+--- !u!114 &934562468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934562463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7886da558e6b441f81f5c1aee0c0bab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bindingType: 2
+  _type: 
+  _path: SampleView.Toggle
+  _value: 0
+  _inverted: 1
+--- !u!114 &934562469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934562463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dbdd32eec3f4085bb5957e4df2a8afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bindingType: 0
+  _type: 
+  _path: 
+  _value: {r: 0.047169805, g: 1, b: 0.98000723, a: 1}
 --- !u!1 &946720427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,9 +1338,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb16c6c4616c4ce6add0e0f5dd860870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Toggle
-  _isAbsolute: 0
   _value: 0
   _broadcastChangeEvent: 1
 --- !u!1 &949324297
@@ -1291,9 +1431,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728875a3573b45d58e6db1d55d70a21e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Slider
-  _isAbsolute: 0
   _value: 0
 --- !u!225 &949324302
 CanvasGroup:
@@ -1514,11 +1654,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba12d33fc434570be1b37a209bba337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Image
-  _isAbsolute: 0
   _value: {fileID: 0}
-  _sprite: 
+  _texture: 
 --- !u!222 &1000664587
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1564,9 +1704,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbdd32eec3f4085bb5957e4df2a8afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Color
-  _isAbsolute: 0
   _value: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1006167815
 GameObject:
@@ -1621,9 +1761,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d9e57fd1a34add97064700f295235b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: ColorClicked
-  _isAbsolute: 0
   _value: 0
 --- !u!114 &1006167818
 MonoBehaviour:
@@ -1716,10 +1856,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbdd32eec3f4085bb5957e4df2a8afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Color
-  _isAbsolute: 0
-  _value: {r: 1, g: 1, b: 1, a: 1}
+  _value: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1042646283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1888,9 +2028,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Toggle
-  _isAbsolute: 0
   _value: 
   _format: 'Icon visible: {0}'
 --- !u!1 &1092456565
@@ -2017,9 +2157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9245984aa7f642fc9d16e4fc6f834dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: UIDataBind.Examples.Game.UIFeature.Models.ControlsViewModel
+  _bindingType: 1
+  _type: UIDataBind.Examples.Game.UIFeature.Models.SampleViewModel
   _path: SampleView
-  _isAbsolute: 0
 --- !u!114 &1126274699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2032,9 +2172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7886da558e6b441f81f5c1aee0c0bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Visible
-  _isAbsolute: 0
   _value: 0
   _inverted: 0
 --- !u!1 &1209944926
@@ -2087,9 +2227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: ToggledCount
-  _isAbsolute: 0
   _value: 
   _format: Icon visibility changed {0} times
 --- !u!114 &1209944929
@@ -2260,9 +2400,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Slider
-  _isAbsolute: 0
   _value: 
   _format: 'Alpha: {0}'
 --- !u!114 &1378472891
@@ -2538,11 +2678,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1533525352}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 934562464}
+  - {fileID: 484504122}
   m_Father: {fileID: 552209245}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2563,9 +2704,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9245984aa7f642fc9d16e4fc6f834dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: UIDataBind.Examples.Game.UIFeature.Models.ControlsViewModel
   _path: ChildView
-  _isAbsolute: 0
 --- !u!114 &1533525355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2578,10 +2719,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7886da558e6b441f81f5c1aee0c0bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Visible
-  _isAbsolute: 1
-  _value: 0
+  _value: 1
   _inverted: 0
 --- !u!1 &1715047636
 GameObject:
@@ -2824,9 +2965,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3515144caa1a4d9b9c55587c961a451b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Icon
-  _isAbsolute: 0
   _value: {fileID: 0}
   _sprite: 
 --- !u!1 &2020042854
@@ -3061,9 +3202,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: HoveringAction
-  _isAbsolute: 0
   _value: 
   _format: 'Event: {0}'
 --- !u!1 &2080025755
@@ -3119,9 +3260,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d9e57fd1a34add97064700f295235b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: Clicked
-  _isAbsolute: 0
   _value: 0
 --- !u!114 &2080025758
 MonoBehaviour:
@@ -3351,9 +3492,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bindingType: 1
   _type: 
   _path: ClickedCount
-  _isAbsolute: 0
   _value: 
   _format: 'Clicked: {0}'
 --- !u!114 &2120626170

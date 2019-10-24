@@ -1,30 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using UIDataBind.Binders.Attributes;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UIDataBind.Binders.ValueBinders
 {
+    [ShowBinderValue(BindingType.Self)]
     [AddComponentMenu("UIDataBind/Visible", 0)]
     public class VisibleBinder : ValueBinder<bool>
     {
+        private readonly HashSet<VisibleBinder> _bindings = new HashSet<VisibleBinder>();
+        private readonly Queue<Transform> _transformsBuffer = new Queue<Transform>();
 #pragma warning disable 0649
-        [SerializeField, Tooltip("Invert visibility flag: if value == false then visible, if value == true then invisible")]
+        [SerializeField]
+        [Tooltip("Invert visibility flag: if value == false then visible, if value == true then invisible")]
         private bool _inverted;
 #pragma warning restore 0649
 
-        #region ComponentScope
-
-        private readonly HashSet<Graphic> _graphics = new HashSet<Graphic>();
-        private readonly HashSet<LayoutElement> _layouts = new HashSet<LayoutElement>();
-
-        #endregion
-
-        private readonly HashSet<VisibleBinder> _bindings = new HashSet<VisibleBinder>();
-        private readonly Queue<Transform> _transformsBuffer = new Queue<Transform>();
-
         private bool _isDirty = true;
+
+        protected override void Bind()
+        {
+            if (BindingType == BindingType.Self)
+                UpdateValueHandler(Value);
+        }
 
         protected override void UpdateValueHandler(bool value)
         {
@@ -43,7 +44,7 @@ namespace UIDataBind.Binders.ValueBinders
             foreach (var binding in _bindings)
             {
                 var inverted = binding._inverted;
-                if(!value) //Do not invert value in children if it FALSE
+                if (!value) //Do not invert value in children if it FALSE
                     binding._inverted = false;
                 binding.UpdateValueHandler(value && binding.Value);
                 binding._inverted = inverted;
@@ -59,10 +60,8 @@ namespace UIDataBind.Binders.ValueBinders
                 var component = _transformsBuffer.Dequeue();
                 AddChildren(component, _transformsBuffer);
                 if (component != transform)
-                {
-                    if(CollectComponents(component, _bindings, true))
+                    if (CollectComponents(component, _bindings, true))
                         continue;
-                }
 
                 CollectComponents(component, _graphics);
                 CollectComponents(component, _layouts);
@@ -78,16 +77,14 @@ namespace UIDataBind.Binders.ValueBinders
         private static bool CollectComponents<TComponent>(Component container, ICollection<TComponent> cacheBuffer,
             bool onlyEnabled = false) where TComponent : Behaviour
         {
-            if(container == null)
+            if (container == null)
                 return false;
 
             var components = container.GetComponents<TComponent>();
             var length = cacheBuffer.Count;
             foreach (var component in components)
-            {
-                if(!onlyEnabled || component.enabled)
+                if (!onlyEnabled || component.enabled)
                     cacheBuffer.Add(component);
-            }
 
             return cacheBuffer.Count != length;
         }
@@ -100,5 +97,12 @@ namespace UIDataBind.Binders.ValueBinders
             _layouts.Clear();
             _isDirty = true;
         }
+
+        #region ComponentScope
+
+        private readonly HashSet<Graphic> _graphics = new HashSet<Graphic>();
+        private readonly HashSet<LayoutElement> _layouts = new HashSet<LayoutElement>();
+
+        #endregion
     }
 }

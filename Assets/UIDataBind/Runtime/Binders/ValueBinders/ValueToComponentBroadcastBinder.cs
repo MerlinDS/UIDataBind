@@ -13,7 +13,7 @@ namespace UIDataBind.Binders.ValueBinders
         protected void ComponentHandler(TValue value)
         {
             Value = value;
-            if(_broadcastChangeEvent)
+            if (_broadcastChangeEvent)
                 BroadcastEvent(ControlEvent.Changed);
             SetDirty();
         }
