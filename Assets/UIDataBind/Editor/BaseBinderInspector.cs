@@ -43,15 +43,27 @@ namespace UIDataBind.Editor
 
         private void DrawPath(bool isView)
         {
+            var noFieldsWarning = false;
             var isAbsolute = _isAbsolute.boolValue;
             var fieldInfos = EditorModelUtils.GetFields(FullModelName, _valueType);
+
             if (!isView && fieldInfos.Length == 0)
-                isAbsolute = true;
+                noFieldsWarning = isAbsolute = true;
+
+            var displayName = _path.displayName;
+            if (isAbsolute)
+                displayName += "(absolute)";
+
+            if (noFieldsWarning)
+                EditorGUILayout.HelpBox(
+                    string.IsNullOrEmpty(FullModelName) ? "Has no model to bind" : "Model has no available properties",
+                    MessageType.Warning);
 
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PrefixLabel($"{_path.displayName} {(isAbsolute ? "(absolute)" : string.Empty)}");
+            EditorGUILayout.PrefixLabel(displayName);
 
-            isAbsolute = EditorGUILayout.Toggle(isAbsolute, GUILayout.MaxWidth(20));
+            if(!noFieldsWarning)
+                isAbsolute = EditorGUILayout.Toggle(isAbsolute, GUILayout.MaxWidth(20));
             _path.stringValue = !isAbsolute && !isView
                 ? BinderGUILayout.Popup(_path.stringValue, fieldInfos.Select(x => x.Name))
                 : EditorGUILayout.TextField(_path.stringValue);
