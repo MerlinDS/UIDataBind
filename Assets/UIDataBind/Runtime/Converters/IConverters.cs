@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace UIDataBind.Converters
 {
@@ -9,5 +10,6 @@ namespace UIDataBind.Converters
         object Convert<TSource>(Type targetType, TSource value);
 
         bool Has(Type a, Type b);
+        void Register(IEnumerable<Type> componentTypes);
     }
 }

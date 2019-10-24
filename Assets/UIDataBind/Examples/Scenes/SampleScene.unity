@@ -356,7 +356,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Label
+  _isAbsolute: 0
   _value: 
   _format: '{0}'
 --- !u!114 &170125553
@@ -425,6 +427,9 @@ GameObject:
   m_Component:
   - component: {fileID: 276309270}
   - component: {fileID: 276309271}
+  - component: {fileID: 276309272}
+  - component: {fileID: 276309274}
+  - component: {fileID: 276309273}
   m_Layer: 5
   m_Name: '[C]SubView (2)'
   m_TagString: Untagged
@@ -463,7 +468,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9245984aa7f642fc9d16e4fc6f834dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: UIDataBind.Examples.Game.UIFeature.Models.ControlsViewModel
   _path: ChildView2
+  _isAbsolute: 0
+--- !u!114 &276309272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276309269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7886da558e6b441f81f5c1aee0c0bab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 
+  _path: SampleView.Toggle
+  _isAbsolute: 1
+  _value: 0
+  _inverted: 0
+--- !u!114 &276309273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276309269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &276309274
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276309269}
+  m_CullTransparentMesh: 0
 --- !u!1 &306342625
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,7 +685,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de0901998174815af84df1c9e7adbc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Hovered
+  _isAbsolute: 0
   _value: 0
 --- !u!114 &424865504
 MonoBehaviour:
@@ -755,7 +817,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7886da558e6b441f81f5c1aee0c0bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Toggle
+  _isAbsolute: 0
   _value: 0
   _inverted: 0
 --- !u!1 &539348067
@@ -934,7 +998,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e6b65da701c47c2ba0c946933de2913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Slider
+  _isAbsolute: 0
   _value: 0
   _broadcastChangeEvent: 0
 --- !u!1 &552209244
@@ -1149,7 +1215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb16c6c4616c4ce6add0e0f5dd860870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Toggle
+  _isAbsolute: 0
   _value: 0
   _broadcastChangeEvent: 1
 --- !u!1 &949324297
@@ -1240,7 +1308,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728875a3573b45d58e6db1d55d70a21e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Slider
+  _isAbsolute: 0
   _value: 0
 --- !u!225 &949324302
 CanvasGroup:
@@ -1461,7 +1531,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba12d33fc434570be1b37a209bba337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Image
+  _isAbsolute: 0
   _value: {fileID: 0}
   _sprite: 
 --- !u!222 &1000664587
@@ -1509,7 +1581,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbdd32eec3f4085bb5957e4df2a8afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Color
+  _isAbsolute: 0
   _value: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1006167815
 GameObject:
@@ -1564,7 +1638,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d9e57fd1a34add97064700f295235b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: ColorClicked
+  _isAbsolute: 0
   _value: 0
 --- !u!114 &1006167818
 MonoBehaviour:
@@ -1657,7 +1733,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbdd32eec3f4085bb5957e4df2a8afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Color
+  _isAbsolute: 0
   _value: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1042646283
 GameObject:
@@ -1827,7 +1905,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Toggle
+  _isAbsolute: 0
   _value: 
   _format: 'Icon visible: {0}'
 --- !u!1 &1092456565
@@ -1954,7 +2034,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9245984aa7f642fc9d16e4fc6f834dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: UIDataBind.Examples.Game.UIFeature.Models.SampleViewModel
   _path: SampleView
+  _isAbsolute: 0
 --- !u!114 &1126274699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1962,12 +2044,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126274696}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7886da558e6b441f81f5c1aee0c0bab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Visible
+  _isAbsolute: 0
   _value: 0
   _inverted: 0
 --- !u!1 &1209944926
@@ -2020,7 +2104,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: ToggledCount
+  _isAbsolute: 0
   _value: 
   _format: Icon visibility changed {0} times
 --- !u!114 &1209944929
@@ -2189,7 +2275,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9245984aa7f642fc9d16e4fc6f834dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: ChildView1
+  _isAbsolute: 0
 --- !u!1 &1378472888
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,7 +2328,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Slider
+  _isAbsolute: 0
   _value: 
   _format: 'Alpha: {0}'
 --- !u!114 &1378472891
@@ -2540,7 +2630,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9245984aa7f642fc9d16e4fc6f834dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: UIDataBind.Examples.Game.UIFeature.Models.SampleViewModel
   _path: ChildView
+  _isAbsolute: 0
 --- !u!1 &1715047636
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,7 +2874,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3515144caa1a4d9b9c55587c961a451b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Icon
+  _isAbsolute: 0
   _value: {fileID: 0}
   _sprite: 
 --- !u!1 &2020042854
@@ -3017,7 +3111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: HoveringAction
+  _isAbsolute: 0
   _value: 
   _format: 'Event: {0}'
 --- !u!1 &2080025755
@@ -3073,7 +3169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d9e57fd1a34add97064700f295235b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: Clicked
+  _isAbsolute: 0
   _value: 0
 --- !u!114 &2080025758
 MonoBehaviour:
@@ -3303,7 +3401,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e419d32c47a342a884075821e5623f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 
   _path: ClickedCount
+  _isAbsolute: 0
   _value: 
   _format: 'Clicked: {0}'
 --- !u!114 &2120626170

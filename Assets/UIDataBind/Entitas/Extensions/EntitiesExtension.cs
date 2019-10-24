@@ -1,5 +1,4 @@
 using UIDataBind.Base;
-using UIDataBind.Utils.Extensions;
 
 namespace UIDataBind.Entitas.Extensions
 {

@@ -29,7 +29,7 @@ namespace UIDataBind.Entitas
         {
             _context = Contexts.sharedInstance.uiBind;
             _properties = new EntitasProperties(this);
-            Converters = new Converters.Converters();
+            Converters = new Converters.TypeConverters();
 
             var types = new List<Type>();
             var cTypes = new List<Type>();

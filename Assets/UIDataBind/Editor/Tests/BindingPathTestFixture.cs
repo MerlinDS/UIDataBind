@@ -11,13 +11,14 @@ namespace UIDataBind.Editor.Tests
         [Test]
         public void EqualsTest()
         {
-            
+#pragma warning disable 1718
             // ReSharper disable EqualExpressionComparison
             Assert.That(BindingPath.Empty == BindingPath.Empty, Is.True);
             Assert.That(BindingPath.Empty != BindingPath.Empty, Is.False);
             Assert.That(BindingPath.BuildFrom("Test") == BindingPath.BuildFrom("Test"), Is.True);
             Assert.That(BindingPath.BuildFrom("Test") != BindingPath.BuildFrom("Other"), Is.True);
             // ReSharper restore EqualExpressionComparison
+#pragma warning restore 1718
             Assert.That(BindingPath.BuildFrom("Test"), Is.EqualTo(BindingPath.BuildFrom("Test")));
             Assert.That(BindingPath.BuildFrom("Test"), Is.Not.EqualTo(BindingPath.BuildFrom("Other")));
 

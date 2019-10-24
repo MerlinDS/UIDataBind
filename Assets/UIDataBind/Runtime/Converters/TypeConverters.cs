@@ -1,19 +1,33 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UIDataBind.Base.Components;
 
 namespace UIDataBind.Converters
 {
-    public sealed class Converters : IConverters
+    public sealed class TypeConverters : IConverters
     {
         private readonly Dictionary<int, Delegate> _content;
 
-        public Converters() =>
+        public TypeConverters() =>
             _content = new Dictionary<int, Delegate>();
 
         public bool Has(Type a, Type b) =>
             _content.ContainsKey(GetPairHashcode(a, b));
 
+        public void Register(IEnumerable<Type> componentTypes)
+        {
+            var attributeType = typeof(ConversionRegistratorAttribute);
+            foreach (var componentType in componentTypes)
+            {
+                if(!Attribute.IsDefined(componentType, attributeType))
+                    continue;
+
+                var attribute = (ConversionRegistratorAttribute)Attribute.GetCustomAttribute(componentType, attributeType);
+                var registrator = (IConversionRegistrator)Activator.CreateInstance(attribute.RegistratorType);
+                registrator.Register(this);
+            }
+        }
         public void Register<TSource, TValue>(Func<TSource, TValue> method)
         {
             var key = GetPairHashcode(typeof(TSource), typeof(TValue));
