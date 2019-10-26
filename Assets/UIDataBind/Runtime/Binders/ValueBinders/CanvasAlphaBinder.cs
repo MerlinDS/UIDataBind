@@ -1,13 +1,12 @@
 using UIDataBind.Binders.Attributes;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UIDataBind.Binders.ValueBinders
 {
     [ShowBinderValue(BindingType.Self)]
-    [AddComponentMenu("UIDataBind/Alpha - Graphic", 1)]
-    [RequireComponent(typeof(Graphic))]
-    public sealed class AlphaBinder : ValueToComponentBinder<Graphic, float>
+    [AddComponentMenu("UIDataBind/Alpha - Canvas", 1)]
+    [RequireComponent(typeof(CanvasGroup))]
+    public sealed class CanvasAlphaBinder : ValueToComponentBinder<CanvasGroup, float>
     {
         protected override void Bind()
         {
@@ -17,9 +16,7 @@ namespace UIDataBind.Binders.ValueBinders
 
         protected override void UpdateValueHandler(float value)
         {
-            var color = Component.color;
-            color.a = value;
-            Component.color = color;
+            Component.alpha = value;
         }
     }
 }
