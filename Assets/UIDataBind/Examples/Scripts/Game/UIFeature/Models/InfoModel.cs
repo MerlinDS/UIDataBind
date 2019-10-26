@@ -6,8 +6,6 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
     [ViewModel]
     public struct InfoModel: IViewModel
     {
-        public static readonly BindingPath Path = BindingPath.BuildFrom(nameof(InfoModel));
-
         public bool Visible;
         public string Info;
 

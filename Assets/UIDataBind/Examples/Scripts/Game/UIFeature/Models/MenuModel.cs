@@ -7,8 +7,6 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
     [ViewModel]
     public struct MenuModel: IViewModel
     {
-        public static readonly BindingPath Path = BindingPath.BuildFrom(nameof(MenuModel));
-
         public ControlEvent BaseControls;
         public ControlEvent Collections;
         public ControlEvent Info;
@@ -17,6 +15,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
         public Color CollectionsColor;
         public Color InfoColor;
 
+        public string Tab;
         public string InfoLabel;
 
         public void Refresh(IProperties properties)
@@ -29,6 +28,7 @@ namespace UIDataBind.Examples.Game.UIFeature.Models
             properties.Refresh(nameof(CollectionsColor), ref CollectionsColor);
             properties.Refresh(nameof(InfoColor), ref InfoColor);
 
+            properties.Refresh(nameof(Tab), ref Tab);
             properties.Refresh(nameof(InfoLabel), ref InfoLabel);
         }
     }
