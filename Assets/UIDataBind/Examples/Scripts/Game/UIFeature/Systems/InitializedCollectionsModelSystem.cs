@@ -1,30 +1,15 @@
-using System.Collections.Generic;
-using Entitas;
-using UIDataBind.Entitas.Extensions;
+using UIDataBind.Entitas.Helpers;
 using UIDataBind.Examples.Game.UIFeature.Models;
 using UnityEngine;
 
 namespace UIDataBind.Examples.Game.UIFeature.Systems
 {
-    public sealed class InitializedCollectionsModelSystem : ReactiveSystem<UiBindEntity>
+    public sealed class InitializedCollectionsModelSystem : InitModelSystem<CollectionsModel>
     {
-        private readonly UiBindContext _uiBind;
-
-        public InitializedCollectionsModelSystem(UiBindContext uiBind) : base(uiBind) =>
-            _uiBind = uiBind;
-
-        protected override ICollector<UiBindEntity> GetTrigger(IContext<UiBindEntity> context) =>
-            context.CreateCollector(UiBindMatcher.AllOf(UiBindMatcher.Model, UiBindMatcher.Initialized));
-
-        protected override bool Filter(UiBindEntity entity) =>
-            entity.IsModel<CollectionsModel>();
-
-        protected override void Execute(List<UiBindEntity> entities)
+        public InitializedCollectionsModelSystem(UiBindContext uiBind) : base(uiBind){}
+        protected override void Execute(ref CollectionsModel model)
         {
-            var model = _uiBind.GetModel<CollectionsModel>();
-            model.Info = "This is a demo of Collections & Hierarchy bindings .";
-            _uiBind.Fetch(model);
-
+            model.Info = "This is a demo of Collections & Hierarchy bindings.";
             Debug.Log($"Fetch data to {nameof(CollectionsModel)} on init");
         }
     }
