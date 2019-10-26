@@ -4,9 +4,13 @@ namespace UIDataBind.Entitas.Extensions
 {
     public static class EntitiesExtension
     {
+        public static bool IsEventOf<TModel>(this UiBindEntity entity, ControlEvent type)
+            where TModel : struct, IViewModel => entity.IsEventOf(typeof(TModel).Name, type);
         public static bool IsEventOf(this UiBindEntity entity, BindingPath model, ControlEvent type) =>
             entity.IsChildOf(model) && entity.hasEvent && (entity.@event.Value & type) != 0x0;
 
+        public static bool IsEventOf<TModel>(this UiBindEntity entity, BindingPath property, ControlEvent type)
+            where TModel : struct, IViewModel => entity.IsEventOf(typeof(TModel).Name, property, type);
         public static bool IsEventOf(this UiBindEntity entity, BindingPath model, BindingPath property,
             ControlEvent type) =>
             entity.hasBinderPath && entity.binderPath.Value == BindingPath.BuildFrom(model, property)
