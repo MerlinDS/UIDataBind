@@ -12,26 +12,28 @@ public static class UiBindComponentsLookup {
     public const int BinderPath = 1;
     public const int Dirty = 2;
     public const int Event = 3;
-    public const int Model = 4;
-    public const int ModelPath = 5;
-    public const int BooleanProperty = 6;
-    public const int ColorProperty = 7;
-    public const int ControlEventProperty = 8;
-    public const int FloatProperty = 9;
-    public const int IntProperty = 10;
-    public const int Property = 11;
-    public const int SpriteProperty = 12;
-    public const int StringProperty = 13;
-    public const int TextureProperty = 14;
-    public const int View = 15;
+    public const int Initialized = 4;
+    public const int Model = 5;
+    public const int ModelPath = 6;
+    public const int BooleanProperty = 7;
+    public const int ColorProperty = 8;
+    public const int ControlEventProperty = 9;
+    public const int FloatProperty = 10;
+    public const int IntProperty = 11;
+    public const int Property = 12;
+    public const int SpriteProperty = 13;
+    public const int StringProperty = 14;
+    public const int TextureProperty = 15;
+    public const int View = 16;
 
-    public const int TotalComponents = 16;
+    public const int TotalComponents = 17;
 
     public static readonly string[] componentNames = {
         "Binder",
         "BinderPath",
         "Dirty",
         "Event",
+        "Initialized",
         "Model",
         "ModelPath",
         "BooleanProperty",
@@ -51,6 +53,7 @@ public static class UiBindComponentsLookup {
         typeof(UIDataBind.Entitas.Components.BinderPath),
         typeof(UIDataBind.Entitas.Components.Dirty),
         typeof(UIDataBind.Entitas.Components.Event),
+        typeof(UIDataBind.Entitas.Components.Initialized),
         typeof(UIDataBind.Entitas.Components.Model),
         typeof(UIDataBind.Entitas.Components.ModelPath),
         typeof(UIDataBind.Entitas.Components.Properties.BooleanProperty),

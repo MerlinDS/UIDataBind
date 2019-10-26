@@ -30,6 +30,12 @@ namespace UIDataBind.Examples.Game.UIFeature.Systems
                 Slider = 1F
             };
             _context.InitModel(_path, model);
+            var child = new ControlsViewModel
+            {
+                Visible = true,
+                Index =  10
+            };
+            _context.InitModel(BindingPath.BuildFrom(_path, ControlsViewModel.Path), child);
         }
     }
 }

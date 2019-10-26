@@ -141,7 +141,11 @@ namespace UIDataBind.Entitas
         public TViewModel Init<TViewModel>(TViewModel model, ModelQuery query) where TViewModel : struct, IViewModel
         {
             if (_context.GetEntityWithModelPath(query.Path) == null)
-                CreateEntity(query.Path).isModel = true;
+            {
+                var entity = CreateEntity(query.Path);
+                entity.isInitialized = true;
+                entity.isModel = true;
+            }
             ModelsCache.Replace(query.Path, model);
             return Apply(model, query);
         }

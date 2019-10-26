@@ -5,6 +5,6 @@ namespace UIDataBind.Entitas.Components
     [UiBind]
     public class View : IComponent
     {
-        public override string ToString() => "View";
+        public override string ToString() => nameof(View);
     }
 }

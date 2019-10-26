@@ -1,16 +1,20 @@
-using UIDataBind.Base;
-
 namespace UIDataBind.Examples.Game.UIFeature.Systems
 {
     public sealed class UIFeature : Feature
     {
         public UIFeature(Contexts contexts)
         {
-            BindingPath path = "SampleView";
-            Add(new InitializeSampleViewSystem(contexts.uiBind, path));
-            Add(new SampleViewClickedSystem(contexts.uiBind, path));
-            Add(new SampleViewHoveredSystem(contexts.uiBind, path));
-            Add(new SampleViewToggledSystem(contexts.uiBind, path));
+            ModelsInitialization(contexts);
+
+            Add(new ChangeDemoViewSystem(contexts.uiBind));
+        }
+
+        private void ModelsInitialization(Contexts contexts)
+        {
+            Add(new InitializeViewModelsSystem(contexts.uiBind));
+            Add(new InitializedBaseControlsModelSystem(contexts.uiBind));
+            Add(new InitializedCollectionsModelSystem(contexts.uiBind));
+            Add(new InitializedInfoModelSystem(contexts.uiBind));
         }
     }
 }

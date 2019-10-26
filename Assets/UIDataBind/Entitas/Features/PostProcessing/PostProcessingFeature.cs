@@ -6,7 +6,7 @@ namespace UIDataBind.Entitas.Features.PostProcessing
     {
         public PostProcessingFeature(UiBindContext context)
         {
-            Add(new CleanupDirtyEntitiesSystems(context));
+            Add(new CleanupEntitiesSystems(context));
             Add(new EventEntitiesCleanupSystem(context, context.GetEngine()));
         }
     }

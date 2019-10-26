@@ -8,6 +8,6 @@ namespace UIDataBind.Entitas.Components
     [UiBind]
     public struct Dirty : IComponent
     {
-        public override string ToString() => "Dirty";
+        public override string ToString() => nameof(Dirty);
     }
 }
